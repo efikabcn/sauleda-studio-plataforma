@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sauleda Studio</title>
+<link rel="icon" href="assets/logo-s.png">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/tejidos.css">
+<link rel="stylesheet" href="css/solar.css">
+<link rel="stylesheet" href="css/velas.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<header class="shell">
+  <a class="brand" href="#/tejidos">
+    <img src="assets/logo-sauleda.png" alt="Sauleda">
+    <span class="sep"></span>
+    <span class="app"><b>Studio <em class="badge" data-i18n="badge">prototipo</em></b><span data-i18n="tagline"></span></span>
+  </a>
+  <nav class="modnav">
+    <a href="#/tejidos" data-route="tejidos" data-i18n="nav.tejidos">Tejidos</a>
+    <a href="#/solar" data-route="solar" data-i18n="nav.solar">Solar</a>
+    <a href="#/velas" data-route="velas" data-i18n="nav.velas">Velas</a>
+  </nav>
+  <div class="projbar">
+    <input id="proj-name" data-i18n-ph="ph.project">
+    <input id="proj-client" data-i18n-ph="ph.client">
+    <select id="proj-city" data-i18n-title="title.city"></select>
+    <select id="lang" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select>
+  </div>
+</header>
+<div id="est-banner" class="banner" hidden><b data-i18n="banner.title"></b> <span data-i18n="banner.text"></span></div>
+
+<div class="views">
+<section class="view v-tejidos" data-view="tejidos">
+  <aside class="side">
+    <section>
+      <input id="c-search" type="search" data-i18n-ph="c.search">
+      <div class="row" id="c-uses">
+        <button class="chip on" data-use="" data-i18n="c.all"></button>
+        <button class="chip" data-use="toldo" data-i18n="c.use.toldo"></button>
+        <button class="chip" data-use="screen" data-i18n="c.use.screen"></button>
+        <button class="chip" data-use="velas" data-i18n="c.use.velas"></button>
+      </div>
+    </section>
+    <nav id="c-families" class="famlist"></nav>
+  </aside>
+  <section class="c-main">
+    <div id="c-ficha"></div>
+    <div class="panel" id="c-compare"></div>
+  </section>
+</section>
+
+<section class="view v-solar" data-view="solar">
+  <aside class="side">
+    <section>
+      <h3 data-i18n="s.sec1">1 · Orientación</h3>
+      <p class="hint" id="s-city"></p>
+      <div class="grid2">
+        <label><span data-i18n="s.orient">Orientación de la ventana</span><select id="orient"></select></label>
+        <label><span data-i18n="s.az">Acimut (°, N = 0)</span><input id="wallAz" type="number" min="0" max="359" step="1"></label>
+      </div>
+    </section>
+    <section>
+      <h3 data-i18n="s.sec2">2 · Ventana y vidrio</h3>
+      <div class="grid3">
+        <label><span data-i18n="s.winW">Ancho (m)</span><input id="winW" type="number" step="0.1" min="0.3" value="3"></label>
+        <label><span data-i18n="s.winH">Alto (m)</span><input id="winH" type="number" step="0.1" min="0.3" value="2.2"></label>
+        <label><span data-i18n="s.frame">Marco (%)</span><input id="frame" type="number" step="1" min="0" max="60" value="15"></label>
+      </div>
+      <label><span data-i18n="s.glass">Vidrio</span><select id="glass"></select></label>
+      <div class="grid3">
+        <label>g<input id="g" type="number" step="0.01" min="0.1" max="0.9"></label>
+        <label>U (W/m²K)<input id="U" type="number" step="0.1" min="0.5" max="6"></label>
+        <label>Tv<input id="TvG" type="number" step="0.01" min="0" max="1"></label>
+      </div>
+    </section>
+    <section>
+      <h3 data-i18n="s.sec3">3 · Sala</h3>
+      <div class="grid2">
+        <label><span data-i18n="s.use">Uso</span><select id="use"></select></label>
+        <label><span data-i18n="s.inertia">Inercia</span><select id="inertia"></select></label>
+        <label><span data-i18n="s.Af">Superficie (m²)</span><input id="Af" type="number" step="1" min="4" value="25"></label>
+        <label><span data-i18n="s.height">Altura libre (m)</span><input id="height" type="number" step="0.1" min="2" value="2.8"></label>
+        <label><span data-i18n="s.facadeW">Ancho de fachada (m)</span><input id="facadeW" type="number" step="0.1" min="1" value="5"></label>
+        <label><span data-i18n="s.Uwall">U muro (W/m²K)</span><input id="Uwall" type="number" step="0.05" min="0.1" value="0.5"></label>
+        <label><span data-i18n="s.ach">Ventilación (ren/h)</span><input id="ach" type="number" step="0.1" min="0.1" value="0.6"></label>
+      </div>
+      <p class="hint" data-i18n="s.roomNote"></p>
+    </section>
+    <section>
+      <h3 data-i18n="s.sec4">4 · Protección solar</h3>
+      <label><span data-i18n="s.type">Tipo</span><select id="type"></select></label>
+      <div id="awning" class="grid3">
+        <label><span data-i18n="s.L">Salida (m)</span><input id="L" type="number" step="0.1" min="0.3" value="1.5"></label>
+        <label><span data-i18n="s.beta">Inclinación (°)</span><input id="beta" type="number" step="1" min="0" max="85" value="25"></label>
+        <label data-i18n-title="s.aTitle"><span data-i18n="s.a">Enganche (m)</span><input id="a" type="number" step="0.05" min="0" value="0.2"></label>
+      </div>
+      <div class="grid2">
+        <label><span data-i18n="s.control">Maniobra</span>
+          <select id="control">
+            <option value="auto" data-i18n="s.ctl.auto"></option>
+            <option value="verano" data-i18n="s.ctl.verano"></option>
+            <option value="siempre" data-i18n="s.ctl.siempre"></option>
+          </select>
+        </label>
+        <label id="thr-wrap"><span data-i18n="s.thr">Umbral sensor (W/m²)</span><input id="threshold" type="number" step="10" min="0" value="150"></label>
+      </div>
+    </section>
+    <section>
+      <h3 data-i18n="s.sec5">5 · Tejidos a comparar</h3>
+      <div class="fab" data-opt="A">
+        <div class="fab-head"><span class="sw" id="swA"></span><b data-i18n="s.optA">Opción A</b><span class="est" id="estA" data-i18n="est" hidden></span></div>
+        <select id="fabA"></select>
+        <div class="grid3">
+          <label>Ts<input id="TsA" type="number" step="0.01" min="0" max="1"></label>
+          <label>Rs<input id="RsA" type="number" step="0.01" min="0" max="1"></label>
+          <label>Tv<input id="TvA" type="number" step="0.01" min="0" max="1"></label>
+        </div>
+      </div>
+      <div class="fab" data-opt="B">
+        <div class="fab-head"><span class="sw" id="swB"></span><b data-i18n="s.optB">Opción B</b><span class="est" id="estB" data-i18n="est" hidden></span></div>
+        <select id="fabB"></select>
+        <div class="grid3">
+          <label>Ts<input id="TsB" type="number" step="0.01" min="0" max="1"></label>
+          <label>Rs<input id="RsB" type="number" step="0.01" min="0" max="1"></label>
+          <label>Tv<input id="TvB" type="number" step="0.01" min="0" max="1"></label>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h3 data-i18n="s.sec6">6 · Energía</h3>
+      <div class="grid3">
+        <label><span data-i18n="s.price">€/kWh</span><input id="price" type="number" step="0.01" min="0" value="0.20"></label>
+        <label><span data-i18n="s.seer">SEER frío</span><input id="seer" type="number" step="0.1" min="1" value="3.5"></label>
+        <label><span data-i18n="s.cop">COP calor</span><input id="cop" type="number" step="0.1" min="0.8" value="3.0"></label>
+      </div>
+    </section>
+  </aside>
+
+  <section class="results">
+    <div class="print-head">
+      <img src="assets/logo-sauleda.png" alt="Sauleda">
+      <div><b id="ph-name"></b><span id="ph-meta"></span></div>
+    </div>
+    <div class="res-top">
+      <div id="status" class="status"></div>
+      <button id="btn-print" class="primary" data-i18n="s.print">Informe PDF</button>
+    </div>
+    <p id="headline" class="headline"></p>
+    <div id="cards" class="cards"></div>
+    <div class="panel">
+      <h4><span data-i18n="s.monthTitle"></span> <small data-i18n="s.monthUnit"></small></h4>
+      <div id="chart-month" class="chart"></div>
+    </div>
+    <div class="panel">
+      <h4><span data-i18n="s.dayTitle"></span> <small id="hotday-label"></small></h4>
+      <div id="chart-day" class="chart"></div>
+    </div>
+    <div class="panel method">
+      <h4 data-i18n="s.method"></h4>
+      <ul>
+        <li data-i18n="s.m1"></li><li data-i18n="s.m2"></li><li data-i18n="s.m3"></li><li data-i18n="s.m4"></li>
+      </ul>
+      <p class="hint" data-i18n="s.disclaimer"></p>
+    </div>
+  </section>
+</section>
+
+<section class="view v-velas" data-view="velas">
+  <!-- ============ PANEL DE ENTRADA ============ -->
+  <aside class="side left">
+    <section class="vtools">
+      <button id="btn-calc" class="primary">Calcular vela</button>
+      <button id="btn-save">Guardar</button>
+      <label class="file">Abrir<input id="file-open" type="file" accept=".json" hidden></label>
+    </section>
+    <section>
+      <h3>1 · Obra</h3>
+      <div class="grid2">
+        <label>Puntos de anclaje
+          <select id="npoints">
+            <option>3</option><option selected>4</option><option>5</option>
+            <option>6</option><option>7</option><option>8</option>
+          </select>
+        </label>
+        <label>Unidades
+          <select id="units"><option value="mm" selected>mm</option><option value="cm">cm</option><option value="in">pulgadas</option></select>
+        </label>
+      </div>
+      <label>Las medidas tomadas son
+        <select id="mode">
+          <option value="plan">proyección en planta (suelo)</option>
+          <option value="slope" selected>distancia real entre anclajes (3D)</option>
+        </select>
+      </label>
+      <div id="dims" class="dims"></div>
+      <p class="hint" id="dims-hint"></p>
+    </section>
+
+    <section>
+      <h3>2 · Alturas y forma</h3>
+      <div id="heights" class="dims"></div>
+      <div class="row">
+        <button id="wiz-hypar" class="chip">Torsión hypar</button>
+        <button id="wiz-slope" class="chip">Pendiente 20 %</button>
+        <button id="wiz-flat" class="chip">Igualar</button>
+      </div>
+    </section>
+
+    <section>
+      <h3>3 · Tejido</h3>
+      <label>Material <select id="fabric"></select></label>
+      <div class="grid2">
+        <label>Ancho de rollo (mm) <input id="rollw" type="number" step="10"></label>
+        <label>Pretensión
+          <select id="pretension"><option value="low">baja</option><option value="std" selected>estándar</option><option value="high">alta</option></select>
+        </label>
+      </div>
+      <p class="hint" id="fabric-hint"></p>
+    </section>
+
+    <section>
+      <h3>4 · Confección</h3>
+      <div class="grid2">
+        <label>Dobladillo perimetral (mm) <input id="hem" type="number" value="50" step="5"></label>
+        <label>Margen de costura (mm) <input id="seam" type="number" value="20" step="5"></label>
+      </div>
+      <div class="grid2">
+        <label>Compensación urdimbre (%) <input id="warp-pct" type="number" step="0.05"></label>
+        <label>Compensación trama (%) <input id="weft-pct" type="number" step="0.05"></label>
+      </div>
+      <p class="hint" id="comp-hint"></p>
+      <label>Estrategia de costuras
+        <select id="layout">
+          <option value="optimo" selected>Óptima (mínimo consumo)</option>
+          <option value="auto">Perpendicular al lado mayor</option>
+          <option value="cross">Paralela al lado AB (corte transversal)</option>
+          <option value="longest">Perpendicular al lado más largo</option>
+          <option value="hypar">Siguiendo la torsión hypar</option>
+          <option value="manual">Ángulo manual…</option>
+        </select>
+      </label>
+      <label id="angle-wrap" hidden>Ángulo de costura (°) <input id="seam-angle" type="number" value="0" step="5"></label>
+      <label>Curvatura de borde (%) <input id="curve" type="number" value="8" step="0.5" min="0" max="25"></label>
+      <div id="curves" class="dims small"></div>
+      <label>Deducción de herrajes en esquina (mm) <input id="hardware" type="number" value="250" step="10"></label>
+      <div id="hardwares" class="dims small"></div>
+    </section>
+
+    <section>
+      <h3>5 · Viento (orientativo)</h3>
+      <div class="grid2">
+        <label>Velocidad <input id="wind-v" type="number" value="100" step="5"></label>
+        <label>Unidad <select id="wind-u"><option value="kmh" selected>km/h</option><option value="ms">m/s</option><option value="mph">mph</option></select></label>
+      </div>
+      <label>Altura media de instalación (m) <input id="wind-h" type="number" value="2.5" step="0.1"></label>
+    </section>
+  </aside>
+
+  <!-- ============ ZONA CENTRAL ============ -->
+  <section class="stage">
+    <nav class="tabs">
+      <button data-tab="v3d" class="active">Vista 3D</button>
+      <button data-tab="plan">Planta</button>
+      <button data-tab="cut">Plano de corte</button>
+      <button data-tab="report">Informe</button>
+    </nav>
+
+    <div class="panes">
+      <div class="pane active" id="pane-v3d">
+        <div id="viewer"></div>
+        <div class="overlay-controls">
+          <label class="ov">Color <span id="color-dot" class="swatch"></span><select id="sail-color"></select></label>
+          <label class="ov">Postes <select id="pole-color">
+            <option value="#8d949c">galvanizado</option><option value="#1b1d20">negro</option>
+            <option value="#e8e8e8">blanco</option><option value="#5a5f66">antracita</option></select></label>
+          <label class="ov">Costuras <input id="show-seams" type="checkbox" checked></label>
+          <label class="ov">Sombra <input id="show-shadow" type="checkbox" checked></label>
+          <span class="sep"></span>
+          <label class="ov file" style="padding:4px 9px">📷 Foto del cliente<input id="bg-photo" type="file" accept="image/*" hidden></label>
+          <button id="clear-photo" class="ov" style="padding:4px 9px">Quitar</button>
+          <label class="ov" id="fov-wrap">Perspectiva <input id="fov" type="range" min="18" max="75" value="40"><span id="fov-lbl">40°</span></label>
+          <button id="snap" class="ov" style="padding:4px 9px">⤓ Guardar montaje</button>
+        </div>
+        <div id="photo-tip" class="photo-tip" hidden>
+          <span><b>Encaja la vela en la foto:</b> arrastra para girar · botón derecho para desplazar ·
+          rueda para acercar · mueve <i>Perspectiva</i> hasta que los postes se apoyen en el suelo de la imagen.</span>
+          <button id="photo-tip-close">Entendido</button>
+        </div>
+        <div class="sun-bar">
+          <label>Lat <input id="lat" type="number" value="41.39" step="0.01"></label>
+          <label>Lon <input id="lon" type="number" value="2.16" step="0.01"></label>
+          <label>Fecha <input id="sun-date" type="date"></label>
+          <label>Hora <input id="sun-time" type="range" min="0" max="1439" value="780"><span id="sun-time-lbl">13:00</span></label>
+          <label>Norte <input id="north" type="range" min="0" max="359" value="0"><span id="north-lbl">0°</span></label>
+          <button id="sun-play" class="chip">▶ Día</button>
+          <span id="sun-info" class="hint"></span>
+        </div>
+      </div>
+      <div class="pane" id="pane-plan"><canvas id="c-plan"></canvas></div>
+      <div class="pane" id="pane-cut">
+        <canvas id="c-cut"></canvas>
+        <div class="overlay-controls"><span id="cut-info" class="hint"></span></div>
+      </div>
+      <div class="pane" id="pane-report"><div id="report" class="report"></div></div>
+    </div>
+  </section>
+
+  <!-- ============ RESULTADOS ============ -->
+  <aside class="side right">
+    <section>
+      <h3>Resultados</h3>
+      <div id="kpis" class="kpis"></div>
+      <div id="alerts"></div>
+    </section>
+    <section>
+      <h3>Bordes de tela</h3>
+      <div id="edges-table"></div>
+    </section>
+    <section>
+      <h3>Paños</h3>
+      <div id="panels-table"></div>
+    </section>
+    <section>
+      <h3>Exportar</h3>
+      <div class="exports">
+        <button id="x-dxf-cut">DXF plano de corte</button>
+        <button id="x-dxf-plan">DXF planta técnica</button>
+        <button id="x-csv">CSV de fabricación</button>
+        <button id="x-print">Propuesta imprimible</button>
+      </div>
+      <p class="hint">Los DXF salen en milímetros, por capas (CORTE, COSTURA, MARCAS, ROLLO).</p>
+    </section>
+  </aside>
+  <div id="busy" class="busy" hidden><div class="spin"></div><span>Calculando membrana y patrones…</span></div>
+</section>
+</div>
+
+<div id="boot" class="boot">Sauleda Studio…</div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

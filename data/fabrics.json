@@ -1,0 +1,893 @@
+{
+ "version": "2026-10-29",
+ "note": "Datos solares ESTIMADOS (por luminancia del color o valores típicos de mercado). Sustituir por ensayos EN 14500 / EN 410 con tools/import_lab.py.",
+ "families": [
+  {
+   "id": "comercial95",
+   "name": "Commercial 95",
+   "range": "Solar Pro Mediterráneo",
+   "uses": [
+    "velas"
+   ],
+   "material": "Tejido de punto HDPE resistente a UV",
+   "construction": "Monofilamento / cinta",
+   "gsm": 340,
+   "thickness_mm": 1.6,
+   "roll_mm": 3000,
+   "rollLength_m": 40,
+   "warranty_y": 15,
+   "fire": "AS 1530.2 · índice 0-100 12",
+   "certs": [
+    "Greenguard",
+    "Oeko-Tex",
+    "Libre de plomo y ftalatos",
+    "HDPE reciclable"
+   ],
+   "tempRange": "-30 °C a +70 °C",
+   "mech": {
+    "tensile": {
+     "warp": 670,
+     "weft": 2400
+    },
+    "tear": {
+     "warp": 184,
+     "weft": 347
+    },
+    "burst": {
+     "warp": 990,
+     "weft": 2000
+    },
+    "burstPressure": 1937
+   },
+   "patterning": {
+    "warp": 2.5,
+    "weft": 0.7,
+    "estimated": true
+   },
+   "bicolor": false,
+   "colors": [
+    {
+     "ref": "7168",
+     "name": "White",
+     "hex": "#E2E2E2",
+     "solar": {
+      "Ts": 0.24,
+      "Rs": 0.47,
+      "Tv": 0.22,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7916",
+     "name": "Natural",
+     "hex": "#E0DAC8",
+     "solar": {
+      "Ts": 0.23,
+      "Rs": 0.44,
+      "Tv": 0.2,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7901",
+     "name": "Sand",
+     "hex": "#C1A072",
+     "solar": {
+      "Ts": 0.15,
+      "Rs": 0.26,
+      "Tv": 0.13,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7907",
+     "name": "Yellow",
+     "hex": "#E0B50F",
+     "solar": {
+      "Ts": 0.18,
+      "Rs": 0.32,
+      "Tv": 0.16,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7906",
+     "name": "Ochre",
+     "hex": "#5A2121",
+     "solar": {
+      "Ts": 0.07,
+      "Rs": 0.07,
+      "Tv": 0.06,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7836",
+     "name": "Bright Green",
+     "hex": "#329616",
+     "solar": {
+      "Ts": 0.11,
+      "Rs": 0.17,
+      "Tv": 0.1,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "77107",
+     "name": "Bluebird",
+     "hex": "#01BEF8",
+     "nuevo": true,
+     "solar": {
+      "Ts": 0.16,
+      "Rs": 0.29,
+      "Tv": 0.15,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "77223",
+     "name": "Aquamarine",
+     "hex": "#17CCE3",
+     "nuevo": true,
+     "solar": {
+      "Ts": 0.18,
+      "Rs": 0.32,
+      "Tv": 0.16,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7904",
+     "name": "Sky",
+     "hex": "#4B7792",
+     "solar": {
+      "Ts": 0.1,
+      "Rs": 0.14,
+      "Tv": 0.09,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7897",
+     "name": "Royal Purple",
+     "hex": "#3D225E",
+     "solar": {
+      "Ts": 0.07,
+      "Rs": 0.07,
+      "Tv": 0.06,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7910",
+     "name": "Aquatic",
+     "hex": "#0A336E",
+     "solar": {
+      "Ts": 0.07,
+      "Rs": 0.07,
+      "Tv": 0.06,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7905",
+     "name": "Navy",
+     "hex": "#101829",
+     "solar": {
+      "Ts": 0.06,
+      "Rs": 0.06,
+      "Tv": 0.05,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7900",
+     "name": "Orange",
+     "hex": "#F86506",
+     "solar": {
+      "Ts": 0.13,
+      "Rs": 0.21,
+      "Tv": 0.11,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7914",
+     "name": "Cayenne",
+     "hex": "#A03D33",
+     "solar": {
+      "Ts": 0.09,
+      "Rs": 0.11,
+      "Tv": 0.07,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7903",
+     "name": "Red",
+     "hex": "#BB1420",
+     "solar": {
+      "Ts": 0.09,
+      "Rs": 0.11,
+      "Tv": 0.07,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7912",
+     "name": "Turquoise",
+     "hex": "#063A58",
+     "solar": {
+      "Ts": 0.07,
+      "Rs": 0.07,
+      "Tv": 0.06,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7902",
+     "name": "Rivergum",
+     "hex": "#96A281",
+     "solar": {
+      "Ts": 0.14,
+      "Rs": 0.24,
+      "Tv": 0.12,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7908",
+     "name": "Green",
+     "hex": "#1A2723",
+     "solar": {
+      "Ts": 0.06,
+      "Rs": 0.06,
+      "Tv": 0.05,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "77224",
+     "name": "Driftwood",
+     "hex": "#B4B0AB",
+     "nuevo": true,
+     "solar": {
+      "Ts": 0.16,
+      "Rs": 0.29,
+      "Tv": 0.15,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "77516",
+     "name": "Stone",
+     "hex": "#ACA9A6",
+     "nuevo": true,
+     "solar": {
+      "Ts": 0.16,
+      "Rs": 0.27,
+      "Tv": 0.14,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7909",
+     "name": "Steel",
+     "hex": "#858482",
+     "solar": {
+      "Ts": 0.12,
+      "Rs": 0.18,
+      "Tv": 0.1,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7913",
+     "name": "Metal",
+     "hex": "#565859",
+     "solar": {
+      "Ts": 0.08,
+      "Rs": 0.1,
+      "Tv": 0.07,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7915",
+     "name": "Charcoal",
+     "hex": "#34312D",
+     "solar": {
+      "Ts": 0.07,
+      "Rs": 0.07,
+      "Tv": 0.06,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7911",
+     "name": "Black",
+     "hex": "#151312",
+     "solar": {
+      "Ts": 0.06,
+      "Rs": 0.05,
+      "Tv": 0.05,
+      "source": "estimado"
+     }
+    }
+   ]
+  },
+  {
+   "id": "comercial95fr",
+   "name": "Commercial 95 FR (ignífugo)",
+   "range": "Solar Pro Mediterráneo",
+   "uses": [
+    "velas"
+   ],
+   "material": "Tejido de punto HDPE resistente a UV",
+   "construction": "Monofilamento / cinta",
+   "gsm": 340,
+   "thickness_mm": 1.6,
+   "roll_mm": 3000,
+   "rollLength_m": 40,
+   "warranty_y": 12,
+   "fire": "Ignífugo · NFPA 701.1/2 y CSFM 1237.1",
+   "certs": [
+    "Greenguard",
+    "Oeko-Tex",
+    "Libre de plomo y ftalatos",
+    "HDPE reciclable"
+   ],
+   "tempRange": "-30 °C a +70 °C",
+   "mech": {
+    "tensile": {
+     "warp": 580,
+     "weft": 2000
+    },
+    "tear": {
+     "warp": 194,
+     "weft": 282
+    },
+    "burst": {
+     "warp": 930,
+     "weft": 2000
+    },
+    "burstPressure": 1944
+   },
+   "patterning": {
+    "warp": 2.89,
+    "weft": 0.84,
+    "estimated": true
+   },
+   "bicolor": false,
+   "colors": [
+    {
+     "ref": "FR7168",
+     "name": "White",
+     "hex": "#E2E2E2",
+     "solar": {
+      "Ts": 0.24,
+      "Rs": 0.47,
+      "Tv": 0.22,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "FR7916",
+     "name": "Natural",
+     "hex": "#E0DAC8",
+     "solar": {
+      "Ts": 0.23,
+      "Rs": 0.44,
+      "Tv": 0.2,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "FR7901",
+     "name": "Sand",
+     "hex": "#C1A072",
+     "solar": {
+      "Ts": 0.15,
+      "Rs": 0.26,
+      "Tv": 0.13,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "FR7907",
+     "name": "Yellow",
+     "hex": "#E0B50F",
+     "solar": {
+      "Ts": 0.18,
+      "Rs": 0.32,
+      "Tv": 0.16,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "FR7906",
+     "name": "Ochre",
+     "hex": "#5A2121",
+     "solar": {
+      "Ts": 0.07,
+      "Rs": 0.07,
+      "Tv": 0.06,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "FR7904",
+     "name": "Sky",
+     "hex": "#4B7792",
+     "solar": {
+      "Ts": 0.1,
+      "Rs": 0.14,
+      "Tv": 0.09,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "FR7910",
+     "name": "Aquatic",
+     "hex": "#0A336E",
+     "solar": {
+      "Ts": 0.07,
+      "Rs": 0.07,
+      "Tv": 0.06,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "FR7914",
+     "name": "Cayenne",
+     "hex": "#A03D33",
+     "solar": {
+      "Ts": 0.09,
+      "Rs": 0.11,
+      "Tv": 0.07,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "FR7903",
+     "name": "Red",
+     "hex": "#BB1420",
+     "solar": {
+      "Ts": 0.09,
+      "Rs": 0.11,
+      "Tv": 0.07,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "FR7902",
+     "name": "Rivergum",
+     "hex": "#96A281",
+     "solar": {
+      "Ts": 0.14,
+      "Rs": 0.24,
+      "Tv": 0.12,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "FR7909",
+     "name": "Steel",
+     "hex": "#858482",
+     "solar": {
+      "Ts": 0.12,
+      "Rs": 0.18,
+      "Tv": 0.1,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "FR7913",
+     "name": "Metal",
+     "hex": "#565859",
+     "solar": {
+      "Ts": 0.08,
+      "Rs": 0.1,
+      "Tv": 0.07,
+      "source": "estimado"
+     }
+    }
+   ]
+  },
+  {
+   "id": "heavy430",
+   "name": "Commercial Heavy 430",
+   "range": "Solar Pro Mediterráneo",
+   "uses": [
+    "velas"
+   ],
+   "material": "Tejido de punto HDPE resistente a UV",
+   "construction": "100 % monofilamento",
+   "gsm": 430,
+   "thickness_mm": 1.6,
+   "roll_mm": 3000,
+   "rollLength_m": 40,
+   "warranty_y": 15,
+   "fire": "AS 1530.2 · índice 0-100 21",
+   "certs": [
+    "Greenguard",
+    "Oeko-Tex",
+    "Libre de plomo y ftalatos",
+    "HDPE reciclable"
+   ],
+   "tempRange": "-30 °C a +70 °C",
+   "mech": {
+    "tensile": {
+     "warp": 1600,
+     "weft": 1400
+    },
+    "tear": {
+     "warp": 503,
+     "weft": 255
+    },
+    "burst": {
+     "warp": 1800,
+     "weft": 1600
+    },
+    "burstPressure": 2349
+   },
+   "patterning": {
+    "warp": 1.05,
+    "weft": 1.2,
+    "estimated": true
+   },
+   "bicolor": false,
+   "colors": [
+    {
+     "ref": "7932",
+     "name": "White",
+     "hex": "#DAD7D0",
+     "solar": {
+      "Ts": 0.22,
+      "Rs": 0.42,
+      "Tv": 0.2,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7933",
+     "name": "Natural",
+     "hex": "#D9CBA8",
+     "solar": {
+      "Ts": 0.2,
+      "Rs": 0.38,
+      "Tv": 0.18,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7931",
+     "name": "Desert Sand",
+     "hex": "#C6A470",
+     "solar": {
+      "Ts": 0.16,
+      "Rs": 0.27,
+      "Tv": 0.14,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7934",
+     "name": "Steel Grey",
+     "hex": "#545455",
+     "solar": {
+      "Ts": 0.08,
+      "Rs": 0.1,
+      "Tv": 0.07,
+      "source": "estimado"
+     }
+    }
+   ]
+  },
+  {
+   "id": "dualshade350",
+   "name": "Commercial DualShade 350",
+   "range": "Solar Pro Mediterráneo",
+   "uses": [
+    "velas"
+   ],
+   "material": "Tejido de punto HDPE resistente a UV",
+   "construction": "Monofilamento / cinta · bicolor",
+   "gsm": 350,
+   "thickness_mm": 1.8,
+   "roll_mm": 3000,
+   "rollLength_m": 40,
+   "warranty_y": 15,
+   "fire": "AS 1530.2 · índice 0-100 38",
+   "certs": [
+    "Greenguard",
+    "Oeko-Tex",
+    "Libre de plomo y ftalatos",
+    "HDPE reciclable"
+   ],
+   "tempRange": "-30 °C a +70 °C",
+   "mech": {
+    "tensile": {
+     "warp": 960,
+     "weft": 1100
+    },
+    "tear": {
+     "warp": 327,
+     "weft": 245
+    },
+    "burst": {
+     "warp": 1500,
+     "weft": 1300
+    },
+    "burstPressure": 1959
+   },
+   "patterning": {
+    "warp": 1.74,
+    "weft": 1.52,
+    "estimated": true
+   },
+   "bicolor": true,
+   "colors": [
+    {
+     "ref": "7683",
+     "name": "Citrus",
+     "hex": "#AF613A",
+     "hex2": "#608B3F",
+     "solar": {
+      "Ts": 0.1,
+      "Rs": 0.15,
+      "Tv": 0.09,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7688",
+     "name": "Sunburst",
+     "hex": "#DF4F31",
+     "hex2": "#EF972A",
+     "solar": {
+      "Ts": 0.11,
+      "Rs": 0.17,
+      "Tv": 0.1,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7684",
+     "name": "Macaw",
+     "hex": "#506B63",
+     "hex2": "#CFA13B",
+     "solar": {
+      "Ts": 0.09,
+      "Rs": 0.12,
+      "Tv": 0.08,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7680",
+     "name": "Chamaleon",
+     "hex": "#575362",
+     "hex2": "#368B4B",
+     "solar": {
+      "Ts": 0.08,
+      "Rs": 0.1,
+      "Tv": 0.07,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7690",
+     "name": "Topaz",
+     "hex": "#1E716A",
+     "hex2": "#278F55",
+     "solar": {
+      "Ts": 0.09,
+      "Rs": 0.12,
+      "Tv": 0.08,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7681",
+     "name": "Amazonia",
+     "hex": "#36553D",
+     "hex2": "#2B8C44",
+     "solar": {
+      "Ts": 0.08,
+      "Rs": 0.09,
+      "Tv": 0.07,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7691",
+     "name": "Savanna",
+     "hex": "#D89A74",
+     "hex2": "#E5D6C7",
+     "solar": {
+      "Ts": 0.15,
+      "Rs": 0.26,
+      "Tv": 0.14,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7686",
+     "name": "Cobblestone",
+     "hex": "#7B756F",
+     "hex2": "#A39488",
+     "solar": {
+      "Ts": 0.1,
+      "Rs": 0.15,
+      "Tv": 0.09,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7685",
+     "name": "Gold Rush",
+     "hex": "#7F614E",
+     "hex2": "#BA9672",
+     "solar": {
+      "Ts": 0.09,
+      "Rs": 0.12,
+      "Tv": 0.08,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7687",
+     "name": "Capri",
+     "hex": "#8C9FA5",
+     "hex2": "#D0D3CF",
+     "solar": {
+      "Ts": 0.14,
+      "Rs": 0.23,
+      "Tv": 0.12,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7689",
+     "name": "Santorini",
+     "hex": "#4D91B9",
+     "hex2": "#CFD7D9",
+     "solar": {
+      "Ts": 0.12,
+      "Rs": 0.19,
+      "Tv": 0.11,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "7682",
+     "name": "Maldives",
+     "hex": "#2A827C",
+     "hex2": "#556966",
+     "solar": {
+      "Ts": 0.1,
+      "Rs": 0.15,
+      "Tv": 0.09,
+      "source": "estimado"
+     }
+    }
+   ]
+  },
+  {
+   "id": "gen-acrilico",
+   "name": "Acrílico para toldo (genérico)",
+   "name_en": "Awning acrylic (generic)",
+   "range": "Genérico de referencia",
+   "uses": [
+    "toldo"
+   ],
+   "material": "Acrílico teñido en masa",
+   "generic": true,
+   "colors": [
+    {
+     "ref": "GEN-ACR-01",
+     "name": "Blanco",
+     "hex": "#F1F0EB",
+     "solar": {
+      "Ts": 0.22,
+      "Rs": 0.66,
+      "Tv": 0.2,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "GEN-ACR-02",
+     "name": "Crudo / arena",
+     "hex": "#D9CDB0",
+     "solar": {
+      "Ts": 0.14,
+      "Rs": 0.55,
+      "Tv": 0.12,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "GEN-ACR-03",
+     "name": "Gris medio",
+     "hex": "#8D8F91",
+     "solar": {
+      "Ts": 0.05,
+      "Rs": 0.2,
+      "Tv": 0.04,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "GEN-ACR-04",
+     "name": "Azul marino",
+     "hex": "#1F2F4D",
+     "solar": {
+      "Ts": 0.02,
+      "Rs": 0.07,
+      "Tv": 0.02,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "GEN-ACR-05",
+     "name": "Antracita",
+     "hex": "#2E2F31",
+     "solar": {
+      "Ts": 0.01,
+      "Rs": 0.05,
+      "Tv": 0.01,
+      "source": "estimado"
+     }
+    }
+   ]
+  },
+  {
+   "id": "gen-screen",
+   "name": "Screen (genérico)",
+   "name_en": "Solar screen (generic)",
+   "range": "Genérico de referencia",
+   "uses": [
+    "toldo",
+    "screen"
+   ],
+   "material": "Poliéster recubierto de PVC",
+   "generic": true,
+   "colors": [
+    {
+     "ref": "GEN-SCR-01",
+     "name": "Blanco · apertura 5 %",
+     "hex": "#ECECEA",
+     "solar": {
+      "Ts": 0.26,
+      "Rs": 0.62,
+      "Tv": 0.22,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "GEN-SCR-02",
+     "name": "Gris perla · apertura 3 %",
+     "hex": "#B9B8B3",
+     "solar": {
+      "Ts": 0.12,
+      "Rs": 0.35,
+      "Tv": 0.1,
+      "source": "estimado"
+     }
+    },
+    {
+     "ref": "GEN-SCR-03",
+     "name": "Carbón · apertura 3 %",
+     "hex": "#3A3B3D",
+     "solar": {
+      "Ts": 0.05,
+      "Rs": 0.05,
+      "Tv": 0.05,
+      "source": "estimado"
+     }
+    }
+   ]
+  }
+ ]
+}

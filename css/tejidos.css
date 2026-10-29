@@ -1,0 +1,62 @@
+/* tejidos.css — módulo Tejidos: catálogo, ficha y comparador (todo bajo .v-tejidos). */
+.v-tejidos.active{display:grid; grid-template-columns:300px minmax(0,1fr)}
+.v-tejidos .famlist a{display:block; padding:11px 15px; border-bottom:1px solid var(--line2); cursor:pointer; color:inherit; text-decoration:none; border-left:3px solid transparent}
+.v-tejidos .famlist a:hover{background:#FAFAFA}
+.v-tejidos .famlist a.on{border-left-color:var(--red); background:#FAFAFA}
+.v-tejidos .famlist b{display:block}
+.v-tejidos .famlist span{color:var(--muted); font-size:11px}
+.v-tejidos .strip{display:flex; gap:2px; margin-top:6px}
+.v-tejidos .strip em{width:14px; height:10px; border-radius:2px; border:1px solid rgba(0,0,0,.1)}
+
+.v-tejidos .c-main{padding:18px 22px 40px; overflow-y:auto; min-width:0}
+.v-tejidos .fhead .range{color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.08em}
+.v-tejidos .fhead h2{margin:2px 0 10px; font:700 24px/1.2 var(--font)}
+.v-tejidos .swatches{display:grid; grid-template-columns:repeat(auto-fill,minmax(92px,1fr)); gap:8px; margin-bottom:16px}
+.v-tejidos .swatches button{padding:6px; text-align:left; display:flex; flex-direction:column; gap:3px; white-space:normal}
+.v-tejidos .swatches button.on{border-color:var(--red); box-shadow:0 0 0 2px rgba(225,31,28,.2)}
+.v-tejidos .swatches i{display:block; height:38px; border-radius:5px; border:1px solid rgba(0,0,0,.1)}
+.v-tejidos .swatches span{font-size:11.5px; font-weight:600; line-height:1.2}
+.v-tejidos .swatches small{color:var(--muted); font-size:10.5px}
+
+.v-tejidos .fgrid{display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:14px; align-items:start}
+.v-tejidos .chead{display:flex; gap:14px; align-items:center; margin-bottom:14px}
+.v-tejidos .chead i.big{width:64px; height:64px; border-radius:8px; border:1px solid rgba(0,0,0,.12); flex:none}
+.v-tejidos .chead h3{margin:0 0 3px; font:700 18px/1.2 var(--font); letter-spacing:0; text-transform:none; color:var(--ink)}
+.v-tejidos .chead span{color:var(--muted); font-size:12px}
+.v-tejidos .solar4{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:16px}
+.v-tejidos .solar4 div{background:#FAFAFA; border:1px solid var(--line); border-radius:8px; padding:9px 10px}
+.v-tejidos .solar4 b{display:block; font-size:22px; font-variant-numeric:tabular-nums}
+.v-tejidos .solar4 span{color:var(--muted); font-size:10.5px}
+.v-tejidos table{width:100%; border-collapse:collapse; font-size:12px}
+.v-tejidos td,.v-tejidos th{padding:5px 6px; border-bottom:1px solid var(--line2); text-align:right; font-variant-numeric:tabular-nums}
+.v-tejidos td:first-child,.v-tejidos th:first-child{text-align:left}
+.v-tejidos th{font-size:11px; color:var(--muted); font-weight:600}
+.v-tejidos td small{color:var(--muted); margin-left:6px}
+.v-tejidos table.kv td:last-child{font-weight:600}
+.v-tejidos .cl{display:inline-block; min-width:20px; text-align:center; border-radius:9px; font-size:11px; font-weight:700; padding:1px 6px; background:var(--bg)}
+.v-tejidos .cl.c3,.v-tejidos .cl.c4{background:#E8F3E8; color:var(--ok)}
+.v-tejidos .cl.c2{background:#F2F6E6; color:#5B7A1E}
+.v-tejidos .actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px}
+
+.v-tejidos .cmp-head{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px}
+.v-tejidos .cmp-head h4{margin:0}
+.v-tejidos .cmp-head div{display:flex; gap:6px}
+.v-tejidos .cmp-scroll{overflow-x:auto}
+.v-tejidos table.cmp th{text-align:right; color:var(--ink); font-size:12px; white-space:nowrap}
+.v-tejidos table.cmp th i{display:inline-block; width:12px; height:12px; border-radius:3px; border:1px solid rgba(0,0,0,.15); margin-right:6px; vertical-align:-1px}
+.v-tejidos table.cmp .x{padding:0 6px; margin-left:4px; font-size:12px; line-height:18px}
+
+@media (max-width:1080px){
+  .v-tejidos.active{display:block}
+  .v-tejidos .side{border-right:0; border-bottom:1px solid var(--line); max-height:none}
+  .v-tejidos .famlist{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+  .v-tejidos .c-main{padding:16px; overflow:visible}
+  .v-tejidos .fgrid{grid-template-columns:1fr}
+}
+@media (max-width:560px){ .v-tejidos .solar4{grid-template-columns:repeat(2,1fr)} }
+@media print{
+  .v-tejidos.active{display:block}
+  .v-tejidos .c-main{padding:0}
+  .v-tejidos .actions,.v-tejidos .cmp-head button,.v-tejidos .x{display:none}
+  .v-tejidos .panel{break-inside:avoid}
+}

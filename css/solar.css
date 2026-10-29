@@ -1,0 +1,55 @@
+/* solar.css — módulo Solar (todo bajo .v-solar). */
+.v-solar.active{display:grid; grid-template-columns:330px minmax(0,1fr)}
+.v-solar .results{padding:18px 22px 40px; min-width:0; overflow-y:auto}
+.v-solar .fab{border:1px solid var(--line2); border-radius:8px; padding:9px 10px 0; margin-bottom:9px}
+.v-solar .fab > select{margin:0 0 8px}
+.v-solar .fab-head{display:flex; align-items:center; gap:8px; margin-bottom:6px}
+.v-solar .fab-head .est{margin-left:auto}
+.v-solar .sw{width:16px; height:16px; border-radius:4px; border:1px solid rgba(0,0,0,.15); flex:none; display:inline-block}
+.v-solar .fab[data-opt=A] .fab-head b{color:var(--red)}
+.v-solar .fab[data-opt=B] .fab-head b{color:var(--navy)}
+
+.v-solar .res-top{display:flex; align-items:center; gap:12px; margin-bottom:6px}
+.v-solar .status{color:var(--muted); font-size:12px; flex:1}
+.v-solar .status.err{color:var(--red)}
+.v-solar .headline{font-size:17px; line-height:1.45; margin:0 0 16px; max-width:900px}
+.v-solar .headline b{color:var(--red)}
+.v-solar .cards{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-bottom:14px}
+.v-solar .card{background:#fff; border:1px solid var(--line); border-radius:var(--r); padding:14px 15px; border-top:4px solid var(--base)}
+.v-solar .card.A{border-top-color:var(--red)} .v-solar .card.B{border-top-color:var(--navy)}
+.v-solar .card .ttl{display:flex; align-items:center; gap:8px; font-weight:600; margin-bottom:2px}
+.v-solar .card .sub{color:var(--muted); font-size:11px; margin-bottom:10px; min-height:16px}
+.v-solar .card .big{display:flex; gap:16px; margin-bottom:10px}
+.v-solar .card .big div{line-height:1.1}
+.v-solar .card .big b{display:block; font-size:24px; font-weight:700}
+.v-solar .card .big span{color:var(--muted); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em}
+.v-solar .card table{width:100%; border-collapse:collapse; font-size:12px}
+.v-solar .card td{padding:4px 0; border-top:1px solid var(--line2)}
+.v-solar .card td:last-child{text-align:right; font-variant-numeric:tabular-nums; font-weight:600}
+.v-solar .card .save{color:var(--ok); font-weight:600}
+.v-solar .card .warn{color:var(--warn); font-size:11px; margin-top:8px}
+.v-solar .cls{display:inline-block; padding:2px 7px; border-radius:10px; background:var(--bg); font-size:11px; margin-bottom:8px}
+.v-solar .chart svg{width:100%; height:auto; display:block}
+.v-solar .chart text{font:11px var(--font); fill:var(--muted)}
+.v-solar .legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px; color:var(--muted); margin-top:6px}
+.v-solar .legend i{display:inline-block; width:12px; height:3px; vertical-align:middle; margin-right:5px}
+.v-solar .method ul{margin:0; padding-left:18px} .v-solar .method li{margin-bottom:4px}
+.v-solar .print-head{display:none}
+
+@media (max-width:1300px){ .v-solar .cards{grid-template-columns:1fr} }
+@media (max-width:1080px){
+  .v-solar.active{display:block}
+  .v-solar .side{border-right:0; border-bottom:1px solid var(--line)}
+  .v-solar .results{padding:16px; overflow:visible}
+}
+@media print{
+  .v-solar.active{display:block}
+  .v-solar #btn-print,.v-solar .status{display:none}
+  .v-solar .results{padding:0}
+  .v-solar .print-head{display:flex; align-items:center; gap:14px; border-bottom:2px solid var(--red); padding-bottom:8px; margin-bottom:14px}
+  .v-solar .print-head img{height:28px}
+  .v-solar .print-head b{display:block; font-size:15px}
+  .v-solar .print-head span{color:var(--muted); font-size:11px}
+  .v-solar .cards{grid-template-columns:repeat(3,1fr)}
+  .v-solar .card,.v-solar .panel{break-inside:avoid}
+}

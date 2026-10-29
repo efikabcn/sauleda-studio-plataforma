@@ -1,0 +1,110 @@
+[
+ {
+  "id": "barcelona",
+  "name": "Barcelona",
+  "lat": 41.39,
+  "lon": 2.17
+ },
+ {
+  "id": "madrid",
+  "name": "Madrid",
+  "lat": 40.42,
+  "lon": -3.7
+ },
+ {
+  "id": "valencia",
+  "name": "Valencia",
+  "lat": 39.47,
+  "lon": -0.38
+ },
+ {
+  "id": "sevilla",
+  "name": "Sevilla",
+  "lat": 37.39,
+  "lon": -5.98
+ },
+ {
+  "id": "malaga",
+  "name": "Málaga",
+  "lat": 36.72,
+  "lon": -4.42
+ },
+ {
+  "id": "murcia",
+  "name": "Murcia",
+  "lat": 37.98,
+  "lon": -1.13
+ },
+ {
+  "id": "palma",
+  "name": "Palma",
+  "lat": 39.57,
+  "lon": 2.65
+ },
+ {
+  "id": "zaragoza",
+  "name": "Zaragoza",
+  "lat": 41.65,
+  "lon": -0.88
+ },
+ {
+  "id": "bilbao",
+  "name": "Bilbao",
+  "lat": 43.26,
+  "lon": -2.93
+ },
+ {
+  "id": "coruna",
+  "name": "A Coruña",
+  "lat": 43.36,
+  "lon": -8.41
+ },
+ {
+  "id": "valladolid",
+  "name": "Valladolid",
+  "lat": 41.65,
+  "lon": -4.72
+ },
+ {
+  "id": "laspalmas",
+  "name": "Las Palmas de G.C.",
+  "lat": 28.12,
+  "lon": -15.43
+ },
+ {
+  "id": "lisboa",
+  "name": "Lisboa",
+  "lat": 38.72,
+  "lon": -9.14
+ },
+ {
+  "id": "paris",
+  "name": "París",
+  "lat": 48.86,
+  "lon": 2.35
+ },
+ {
+  "id": "milan",
+  "name": "Milán",
+  "lat": 45.46,
+  "lon": 9.19
+ },
+ {
+  "id": "munich",
+  "name": "Múnich",
+  "lat": 48.14,
+  "lon": 11.58
+ },
+ {
+  "id": "atenas",
+  "name": "Atenas",
+  "lat": 37.98,
+  "lon": 23.73
+ },
+ {
+  "id": "miami",
+  "name": "Miami",
+  "lat": 25.76,
+  "lon": -80.19
+ }
+]
