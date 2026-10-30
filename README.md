@@ -78,7 +78,7 @@ generar la primera versión a partir de Shade Studio.
 ## Enviar como un solo fichero
 
 ```bash
-python3 tools/build_single.py   # → dist/Sauleda-Studio.html (~2 MB)
+python3 tools/build_single.py   # → dist/Sauleda-Studio.html (~3,5 MB)
 ```
 
 ## Pendiente
