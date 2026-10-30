@@ -7,6 +7,8 @@ import { cutPlanDXF, planDXF, csvReport } from './dxf.js';
 import { sunPosition, sunVector, dayLength, projectShadow } from '../core/sun.js';
 import { findColor, isEstimated } from '../core/catalog.js';
 import { project } from '../core/project.js';
+import { t, getLang, locale } from '../core/i18n.js';
+import { imperial } from '../core/market.js';
 
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => [...document.querySelectorAll(s)];
@@ -67,8 +69,8 @@ function buildInputs() {
       `<label class="diag">A${LET[k + 2]} <input data-k="diagonals" data-i="${k}" type="number" step="10" value="${fmt(state.diagonals[k], state.unit === 'in' ? 2 : 0)}"></label>`);
   }
   $('#dims-hint').textContent = n === 3
-    ? 'Tres lados: la forma queda definida sin diagonales.'
-    : `Mide los ${n} lados y las ${n - 3} diagonales desde el punto A. Son las que fijan la forma del polígono.`;
+    ? t('vj.dims3')
+    : t('vj.dimsN', { n, d: n - 3 });
 
   const hs = $('#heights'); hs.innerHTML = '';
   for (let i = 0; i < n; i++) {
@@ -140,14 +142,14 @@ function render() {
   const m = r.metrics;
 
   $('#kpis').innerHTML = [
-    ['Superficie de vela', `${m.areaSurface_m2.toFixed(2)} m²`],
-    ['Paños', `${m.panels}`],
-    ['Consumo de rollo', `${(m.rollLength_mm / 1000).toFixed(2)} m`],
-    ['Tela necesaria', `${m.fabricArea_m2.toFixed(1)} m²`],
-    ['Merma', `${m.waste_pct.toFixed(0)} %`],
-    ['Peso', `${m.weight_kg.toFixed(1)} kg`],
-    ['Costura a', `${m.seamAngleDeg.toFixed(0)}°`],
-    ['Distorsión máx.', `${m.maxDistortion_pct.toFixed(2)} %`],
+    [t('vj.kArea'), `${m.areaSurface_m2.toFixed(2)} m²`],
+    [t('vj.kPanels'), `${m.panels}`],
+    [t('vj.kRoll'), `${(m.rollLength_mm / 1000).toFixed(2)} m`],
+    [t('vj.kFabric'), `${m.fabricArea_m2.toFixed(1)} m²`],
+    [t('vj.kWaste'), `${m.waste_pct.toFixed(0)} %`],
+    [t('vj.kWeight'), `${m.weight_kg.toFixed(1)} kg`],
+    [t('vj.kSeam'), `${m.seamAngleDeg.toFixed(0)}°`],
+    [t('vj.kDist'), `${m.maxDistortion_pct.toFixed(2)} %`],
     ...solarKpi(),
   ].map(([k, v]) => `<div class="kpi"><b>${v}</b><span>${k}</span></div>`).join('');
 
@@ -162,15 +164,15 @@ function render() {
 
   const alerts = r.notes.map((t) => `<div class="alert warn">${t}</div>`).join('');
   $('#alerts').innerHTML =
-    `<div class="alert ok">Viento ${wv} ${u}: presión ${wind.q_kPa.toFixed(2)} kPa · reacción total ≈ ${wind.total_kN.toFixed(1)} kN · por esquina ≈ ${wind.corner_kN.toFixed(1)} kN.
-     <br><small>Estimación orientativa para dimensionar herrajes y anclajes; no sustituye a un cálculo estructural firmado.</small></div>` + alerts;
+    `<div class="alert ok">${t('vj.wind', { v: wv, u, q: wind.q_kPa.toFixed(2), F: wind.total_kN.toFixed(1), c: wind.corner_kN.toFixed(1) })}
+     <br><small>${t('vj.windNote')}</small></div>` + alerts;
 
   $('#edges-table').innerHTML = table(
-    ['Lado', 'Planta', 'Real', 'Borde tela'],
+    [t('vj.side'), t('vj.plan'), t('vj.real'), t('vj.edge')],
     m.edgeLengths.map((L, i) => [`${LET[i]}${LET[(i + 1) % m.edgeLengths.length]}`, Math.round(m.fixingSpansPlan[i]), Math.round(m.fixingSpans[i]), Math.round(L)])
   );
   $('#panels-table').innerHTML = table(
-    ['Paño', 'Ancho', 'Largo', 'm²'],
+    [t('vj.panel'), t('vj.width'), t('vj.length'), 'm²'],
     r.panels.map((p) => [p.label, Math.round(p.netWidth), Math.round(p.netLength), p.area_m2.toFixed(2)])
   );
 
@@ -198,7 +200,7 @@ function drawAll() {
   drawPlan($('#c-plan'), r, { north: state.north, color: state.color, shadow });
   drawCutPlan($('#c-cut'), r);
   $('#cut-info').textContent =
-    `${r.metrics.panels} paños · rollo ${r.metrics.rollWidth} mm · ${(r.metrics.rollLength_mm / 1000).toFixed(2)} m lineales · línea roja = corte, verde discontinua = costura`;
+    t('vj.cutInfo', { n: r.metrics.panels, w: r.metrics.rollWidth, m: (r.metrics.rollLength_mm / 1000).toFixed(2) });
 }
 
 /* ----------------------------------- sol ----------------------------------- */
@@ -225,13 +227,13 @@ function updateSun() {
   $('#north-lbl').textContent = `${state.north}°`;
   const { rise, set } = dayLength(d, lat, lon);
   const hm = (x) => x == null ? '—' : `${String(Math.floor(x / 60)).padStart(2, '0')}:${String(x % 60).padStart(2, '0')}`;
-  $('#sun-info').textContent = `azimut ${azimuth.toFixed(0)}° · altura ${altitude.toFixed(0)}° · orto ${hm(rise)} ocaso ${hm(set)}`;
+  $('#sun-info').textContent = t('vj.sunInfo', { az: azimuth.toFixed(0), alt: altitude.toFixed(0), rise: hm(rise), set: hm(set) });
 }
 
 let playing = null;
 function togglePlay() {
-  if (playing) { clearInterval(playing); playing = null; $('#sun-play').textContent = '▶ Día'; return; }
-  $('#sun-play').textContent = '⏸ Pausa';
+  if (playing) { clearInterval(playing); playing = null; $('#sun-play').textContent = t('v.play'); return; }
+  $('#sun-play').textContent = t('vj.pause');
   playing = setInterval(() => {
     const el = $('#sun-time');
     el.value = (+el.value + 10) % 1440;
@@ -253,72 +255,71 @@ function buildReport() {
     <div class="rep-head">
       <img src="${BRAND.logo}" alt="${BRAND.name}">
       <div class="meta">
-        ${new Date().toLocaleDateString('es-ES')}<br>
+        ${new Date().toLocaleDateString(locale())}<br>
         ${r.fabric.name}<br>${state.colorName} · ref. ${state.colorRef}<br>
-        Vela de ${state.n} puntos
+        ${t('vj.rSail', { n: state.n })}
       </div>
     </div>
     <h1>${$('#proj-name').value}</h1>
-    ${cliente ? `<p class="hint">Cliente: ${cliente}</p>` : ''}
+    ${cliente ? `<p class="hint">${t('vj.rClient')}: ${cliente}</p>` : ''}
     <img class="plate" src="${img3d}">
 
-    <h2>La vela</h2>
-    ${table(['Concepto', 'Valor'], [
-      ['Tejido', `${r.fabric.name} · ${r.fabric.gsm} g/m² · ${r.fabric.construction}`],
-      ['Color', `${state.colorName} · referencia ${state.colorRef}${state.color2 ? ' (bicolor)' : ''}`],
-      ['Garantía del tejido', `${r.fabric.warranty_y} años`],
-      ['Superficie de vela', `${m.areaSurface_m2.toFixed(2)} m²`],
-      ['Perímetro de borde', `${(m.perimeter_mm / 1000).toFixed(2)} m`],
-      ['Peso de la vela', `${m.weight_kg.toFixed(1)} kg`],
-      ['Curvatura de borde', `${(r.spec.curves.reduce((a, b) => a + b, 0) / r.spec.curves.length * 100).toFixed(1)} %`],
-      ['Dobladillo / costura', `${r.spec.hem} mm / ${r.spec.seam} mm`],
+    <h2>${t('vj.rH1')}</h2>
+    ${table([t('vj.rItem'), t('vj.rValue')], [
+      [t('vj.rFabric'), `${r.fabric.name} · ${r.fabric.gsm} g/m² · ${r.fabric.construction}`],
+      ['Color', `${state.colorName} · ${t('vj.rRef')} ${state.colorRef}${state.color2 ? ` (${t('vj.rBicolor')})` : ''}`],
+      [t('vj.rWarranty'), t('c.years', { n: r.fabric.warranty_y })],
+      [t('vj.kArea'), `${m.areaSurface_m2.toFixed(2)} m²`],
+      [t('vj.rPerimeter'), `${(m.perimeter_mm / 1000).toFixed(2)} m`],
+      [t('vj.rWeight'), `${m.weight_kg.toFixed(1)} kg`],
+      [t('v.curve'), `${(r.spec.curves.reduce((a, b) => a + b, 0) / r.spec.curves.length * 100).toFixed(1)} %`],
+      [t('vj.rHemSeam'), `${r.spec.hem} mm / ${r.spec.seam} mm`],
     ])}
 
-    <h2>Medidas de obra</h2>
-    ${table(['Lado', 'Anclajes en planta (mm)', 'Distancia real (mm)', 'Cuerda de tela (mm)', 'Borde curvo (mm)'],
+    <h2>${t('vj.rH2')}</h2>
+    ${table([t('vj.side'), t('vj.rPlanMm'), t('vj.rRealMm'), t('vj.rChordMm'), t('vj.rEdgeMm')],
       m.edgeLengths.map((L, i) => [`${LET[i]}${LET[(i + 1) % m.edgeLengths.length]}`, Math.round(m.fixingSpansPlan[i]), Math.round(m.fixingSpans[i]), Math.round(m.edgeChords[i]), Math.round(L)]))}
-    ${table(['Anclaje', 'Altura (mm)', 'Deducción de herraje (mm)'],
+    ${table([t('vj.rAnchor'), t('vj.rHeightMm'), t('vj.rHwMm')],
       r.fixings.map((p, i) => [LET[i], Math.round(p[2]), Math.round(r.spec.hardware[i])]))}
     <img class="plate" src="${plan}">
 
-    <h2>Fabricación</h2>
-    ${table(['Concepto', 'Valor'], [
-      ['Paños', m.panels],
-      ['Ancho de rollo', `${m.rollWidth} mm`],
-      ['Consumo de rollo', `${(m.rollLength_mm / 1000).toFixed(2)} m lineales (${m.fabricArea_m2.toFixed(1)} m²)`],
-      ['Aprovechamiento', `${(100 - m.waste_pct).toFixed(0)} %`],
-      ['Compensación urdimbre / trama', `${m.warpPct.toFixed(2)} % / ${m.weftPct.toFixed(2)} %`],
-      ['Dirección de costura', `${m.seamAngleDeg.toFixed(0)}°`],
-      ['Distorsión máxima del patrón', `${m.maxDistortion_pct.toFixed(2)} %`],
+    <h2>${t('vj.rH3')}</h2>
+    ${table([t('vj.rItem'), t('vj.rValue')], [
+      [t('vj.kPanels'), m.panels],
+      [t('vj.rRollW'), `${m.rollWidth} mm`],
+      [t('vj.kRoll'), t('vj.rRollUse', { m: (m.rollLength_mm / 1000).toFixed(2), a: m.fabricArea_m2.toFixed(1) })],
+      [t('vj.rYield'), `${(100 - m.waste_pct).toFixed(0)} %`],
+      [t('vj.rComp'), `${m.warpPct.toFixed(2)} % / ${m.weftPct.toFixed(2)} %`],
+      [t('vj.rSeamDir'), `${m.seamAngleDeg.toFixed(0)}°`],
+      [t('vj.rMaxDist'), `${m.maxDistortion_pct.toFixed(2)} %`],
     ])}
     <img class="plate" src="${cut}">
-    ${table(['Paño', 'Ancho acabado', 'Largo acabado', 'Ancho de corte', 'Largo de corte', 'm²'],
+    ${table([t('vj.panel'), t('vj.rFinW'), t('vj.rFinL'), t('vj.rCutW'), t('vj.rCutL'), 'm²'],
       r.panels.map((p) => [p.label, Math.round(p.netWidth), Math.round(p.netLength), Math.round(p.cutWidth), Math.round(p.cutLength), p.area_m2.toFixed(2)]))}
 
-    <h2>Ficha técnica del tejido</h2>
-    ${table(['Característica', 'Valor'], [
-      ['Hilos', COMMON.yarns],
-      ['Construcción', r.fabric.construction],
-      ['Masa nominal', `${r.fabric.gsm} g/m² ± 20`],
-      ['Espesor', `${r.fabric.thickness_mm} mm`],
-      ['Resistencia a tracción (urdimbre / trama)', `${r.fabric.tensile.warp} / ${r.fabric.tensile.weft} N/5 cm`],
-      ['Resistencia al desgarro (urdimbre / trama)', `${r.fabric.tear.warp} / ${r.fabric.tear.weft} N`],
-      ['Fuerza de rotura (urdimbre / trama)', `${r.fabric.burst.warp} / ${r.fabric.burst.weft} N`],
-      ['Presión de rotura', `${r.fabric.burstPressure} N`],
-      ['Índice de inflamabilidad', r.fabric.flammability],
-      ['Rango de temperatura', COMMON.tempRange],
-      ['Ancho / longitud de pieza', `${COMMON.width_mm / 1000} m / ${COMMON.rollLength_m} m`],
-      ['Certificaciones', COMMON.certs.join(' · ')],
+    <h2>${t('vj.rH4')}</h2>
+    ${table([t('vj.rFeature'), t('vj.rValue')], [
+      [t('vj.rYarns'), COMMON.yarns],
+      [t('c.construction'), r.fabric.construction],
+      [t('vj.rMass'), `${r.fabric.gsm} g/m² ± 20`],
+      [t('c.thickness'), `${r.fabric.thickness_mm} mm`],
+      [t('c.tensile'), `${r.fabric.tensile.warp} / ${r.fabric.tensile.weft} N/5 cm`],
+      [t('c.tear'), `${r.fabric.tear.warp} / ${r.fabric.tear.weft} N`],
+      [t('c.burst'), `${r.fabric.burst.warp} / ${r.fabric.burst.weft} N`],
+      [t('vj.rBurstP'), `${r.fabric.burstPressure} N`],
+      [t('c.fire'), r.fabric.flammability],
+      [t('c.temp'), COMMON.tempRange],
+      [t('c.roll'), `${COMMON.width_mm / 1000} m / ${COMMON.rollLength_m} m`],
+      [t('c.certs'), COMMON.certs.join(' · ')],
     ])}
 
-    <h2>Observaciones</h2>
-    <ul>${r.notes.map((t) => `<li>${t}</li>`).join('') || '<li>Sin incidencias.</li>'}</ul>
+    <h2>${t('vj.rH5')}</h2>
+    <ul>${r.notes.map((n) => `<li>${n}</li>`).join('') || `<li>${t('vj.rNone')}</li>`}</ul>
 
     <div class="rep-foot">
-      <b>${BRAND.claim}</b> · ${BRAND.name} desde ${BRAND.since} · ${BRAND.address} · ${BRAND.phone} · ${BRAND.site}<br>
-      Documento generado con ${BRAND.appName}.<br>
-      Las estimaciones de carga de viento son orientativas y no sustituyen a un cálculo estructural
-      firmado por técnico competente. Las medidas de fabricación deben verificarse en obra antes del corte.
+      <b>${BRAND.claim}</b> · ${t('vj.rSince', { b: BRAND.name, y: BRAND.since })} · ${BRAND.address} · ${BRAND.phone} · ${BRAND.site}<br>
+      ${t('vj.rMade', { app: BRAND.appName })}<br>
+      ${t('vj.rFoot')}
     </div>
   </div>`;
 }
@@ -336,12 +337,20 @@ const slug = () => ($('#proj-name').value || 'vela').replace(/[^\w\-]+/g, '_');
 
 /* ---------------------------------- init ----------------------------------- */
 
+function fabricHint() {
+  const f = FABRICS.find((x) => x.id === $('#fabric').value);
+  $('#fabric-hint').innerHTML = t('vj.fabHint', {
+    gsm: f.gsm, c: f.construction, th: f.thickness_mm, L: COMMON.rollLength_m,
+    tw: f.tensile.warp, tf: f.tensile.weft, fire: f.flammability, y: f.warranty_y,
+  });
+}
+
 function initFabrics() {
   $('#fabric').innerHTML = FABRICS.map((f) => `<option value="${f.id}">${f.name}</option>`).join('');
   const syncColors = () => {
     const list = colorsFor($('#fabric').value);
     $('#sail-color').innerHTML = list.map((c) =>
-      `<option value="${c.hex}" data-name="${c.name}" data-ref="${c.ref}" data-hex2="${c.hex2 || ''}">${c.name} · ${c.ref}${c.nuevo ? ' (nuevo)' : ''}</option>`).join('');
+      `<option value="${c.hex}" data-name="${c.name}" data-ref="${c.ref}" data-hex2="${c.hex2 || ''}">${c.name} · ${c.ref}${c.nuevo ? ` (${t('vj.new')})` : ''}</option>`).join('');
     const keep = list.find((c) => c.ref === state.colorRef) || list.find((c) => c.name === state.colorName) || list[0];
     state.color = keep.hex; state.colorName = keep.name; state.colorRef = keep.ref; state.color2 = keep.hex2 || null;
     $('#sail-color').value = state.color;
@@ -350,9 +359,7 @@ function initFabrics() {
   const syncFabric = () => {
     const f = FABRICS.find((x) => x.id === $('#fabric').value);
     $('#rollw').value = f.roll;
-    $('#fabric-hint').innerHTML =
-      `${f.gsm} g/m² · ${f.construction} · espesor ${f.thickness_mm} mm · piezas de ${COMMON.rollLength_m} m<br>` +
-      `tracción ${f.tensile.warp}/${f.tensile.weft} N/5 cm (urdimbre/trama) · ${f.flammability} · garantía ${f.warranty_y} años`;
+    fabricHint();
     syncCompensation();
     syncColors();
   };
@@ -362,7 +369,7 @@ function initFabrics() {
     $('#warp-pct').value = (f.warp * pre).toFixed(2);
     $('#weft-pct').value = (f.weft * pre).toFixed(2);
     $('#comp-hint').className = 'hint prov';
-    $('#comp-hint').textContent = 'Estimadas a partir de la resistencia a tracción de la ficha técnica: la urdimbre, más débil, alarga más. Calíbralas midiendo una vela real.';
+    $('#comp-hint').textContent = t('vj.compHint');
   };
   $('#fabric').addEventListener('change', syncFabric);
   $('#pretension').addEventListener('change', syncCompensation);
@@ -488,7 +495,7 @@ function solarKpi() {
   const hit = findColor(state.colorRef);
   if (!hit?.color.solar) return [];
   const s = hit.color.solar, mark = isEstimated(hit.color) ? ' *' : '';
-  return [['Radiación bloqueada' + mark, `${Math.round((1 - s.Ts) * 100)} %`], ['Luz que pasa' + mark, `${Math.round(s.Tv * 100)} %`]];
+  return [[t('vj.kBlocked') + mark, `${Math.round((1 - s.Ts) * 100)} %`], [t('vj.kLight') + mark, `${Math.round(s.Tv * 100)} %`]];
 }
 
 /** ?tejido=REF: selecciona la calidad que tiene ese color y el color. */
@@ -507,9 +514,26 @@ function applyParams(params = {}) {
   return true;
 }
 
+/** Unidades de obra y de viento según el sistema de la cabecera (in/mph o mm/km/h). */
+function syncUnitSystem() {
+  state.unit = imperial() ? 'in' : 'mm';
+  $('#units').value = state.unit;
+  $('#wind-u').value = imperial() ? 'mph' : 'kmh';
+  $('#wind-v').value = imperial() ? 60 : 100;
+  buildInputs();
+}
+
 export function mount(params) {
   init();
+  syncUnitSystem();
   applyParams(params);
+  window.addEventListener('unitschange', () => { syncUnitSystem(); if (state.result) render(); });
+  window.addEventListener('langchange', () => {
+    buildInputs(); fabricHint();
+    if ($('#comp-hint').textContent) $('#comp-hint').textContent = t('vj.compHint');
+    updateSun();
+    if (state.result) calculate();   // los avisos se generan en el idioma activo
+  });
 }
 
 export function show(params) {

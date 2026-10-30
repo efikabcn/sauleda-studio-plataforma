@@ -1,5 +1,6 @@
 // pattern.js — despiece en paños, desarrollo 3D->2D, compensaciones y anidado.
 import { V } from './geom.js';
+import { t } from '../core/i18n.js';
 
 /* ---------------- recorte de la malla por planos verticales ---------------- */
 
@@ -312,7 +313,7 @@ export function nest(panels, rollWidth, gap = 30, { col = 20, xstep = 40, allowF
       const pts = flip ? p.cut.map((q) => [-q[0], -q[1]]) : p.cut;
       const bb = bbox(pts);
       if (bb.w + 2 * gap > rollWidth) {
-        if (!flip) warnings.push(`El paño ${p.label} mide ${Math.round(bb.w)} mm de ancho y no cabe en un rollo de ${rollWidth} mm.`);
+        if (!flip) warnings.push(t('vj.panelWide', { p: p.label, w: Math.round(bb.w), r: rollWidth }));
         continue;
       }
       const { lower, upper, nc } = profiles(pts, bb, col);

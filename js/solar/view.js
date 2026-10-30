@@ -7,16 +7,26 @@ import { barChart, lineChart } from './charts.js';
 import { families, findColor, familyName, colorLabel, isEstimated } from '../core/catalog.js';
 import { project, cityById } from '../core/project.js';
 import { t, tx, fmt, getLang, locale } from '../core/i18n.js';
+import { marketCfg, currencySymbol } from '../core/market.js';
+import { unit, toDisplay, toSI, applyUnits } from '../core/units.js';
 
 const $ = (id) => document.getElementById(id);
 const root = () => document.querySelector('.v-solar');
-const STORE = 'sauleda-studio-solar';
+const STORE = 'sauleda-studio-solar-si';   // guardado siempre en SI
 const COLORS = { base: '#9AA0A6', A: '#E11F1C', B: '#1F3A5F' };
 
 const DEFAULTS = {
   orient: '225', wallAz: 225, glass: 'B', use: 'oficina', inertia: 'media', type: 'brazos',
   fabA: '7168', fabB: '7915',
 };
+/** Campos con magnitud física: se muestran en la unidad elegida y se guardan en SI. */
+const FIELD_UNITS = {
+  winW: 'len', winH: 'len', Af: 'area', height: 'len', facadeW: 'len', Uwall: 'U', U: 'U',
+  L: 'len', a: 'len', threshold: 'irr', seer: 'seer', cop: 'hspf',
+};
+const DECIMALS = { len: 2, area: 1, U: 3, irr: 0, seer: 1, hspf: 1 };
+const COMFORT_C = 26;
+
 const FIELDS = ['orient', 'wallAz', 'winW', 'winH', 'frame', 'glass', 'g', 'U', 'TvG', 'use', 'inertia', 'Af', 'height',
   'facadeW', 'Uwall', 'ach', 'type', 'L', 'beta', 'a', 'control', 'threshold',
   'fabA', 'TsA', 'RsA', 'TvA', 'fabB', 'TsB', 'RsB', 'TvB', 'price', 'seer', 'cop'];
@@ -52,7 +62,9 @@ function fillSelects() {
 export async function mount(params = {}) {
   fillSelects();
   const saved = load();
-  for (const [k, v] of Object.entries({ ...DEFAULTS, ...saved })) if ($(k)) $(k).value = v;
+  // Los value="" del HTML son los valores por defecto, en SI.
+  const htmlDefaults = Object.fromEntries(FIELDS.filter((f) => $(f).value !== '').map((f) => [f, $(f).value]));
+  setFields({ ...htmlDefaults, ...DEFAULTS, price: marketCfg().price, ...saved });
   if (!saved.g) applyGlass();
   if (!saved.TsA) applyFabric('A');
   if (!saved.TsB) applyFabric('B');
@@ -76,6 +88,9 @@ export async function mount(params = {}) {
   side.addEventListener('change', schedule);
   window.addEventListener('projectchange', (e) => { if ('city' in e.detail || 'name' in e.detail || 'client' in e.detail) schedule(); });
   window.addEventListener('langchange', () => { fillSelects(); run(); });
+  // Al cambiar de unidades se vuelve a pintar desde lo guardado en SI.
+  window.addEventListener('unitschange', () => { setFields(load()); applyUnits(root()); run(); });
+  save();   // deja guardado en SI el estado inicial (lo necesita el cambio de unidades)
   show(params);
 }
 
@@ -93,7 +108,7 @@ export function show(params = {}) {
 function applyGlass() {
   const gl = GLAZINGS.find((g) => g.id === $('glass').value);
   if (!gl) return;
-  $('g').value = gl.g; $('U').value = gl.U; $('TvG').value = gl.Tv;
+  $('g').value = gl.g; $('U').value = disp('U', gl.U); $('TvG').value = gl.Tv;
 }
 function applyFabric(o) {
   const hit = findColor($('fab' + o).value);
@@ -114,11 +129,25 @@ function syncUi() {
 
 /* ---------------------------------- estado ---------------------------------- */
 
+/** Valor SI → texto para el campo, en la unidad actual. */
+function disp(kind, si) {
+  return String(Math.round(toDisplay(kind, Number(si)) * 10 ** DECIMALS[kind]) / 10 ** DECIMALS[kind]);
+}
+function setFields(si) {
+  for (const [k, v] of Object.entries(si)) {
+    if (!$(k)) continue;
+    $(k).value = FIELD_UNITS[k] && v !== '' ? disp(FIELD_UNITS[k], v) : v;
+  }
+}
+/** Lee un campo y lo devuelve en SI. */
+const siOf = (id) => (FIELD_UNITS[id] ? toSI(FIELD_UNITS[id], Number($(id).value)) : Number($(id).value));
+
 function load() {
   try { return JSON.parse(localStorage.getItem(STORE)) || {}; } catch { return {}; }
 }
 function save() {
-  try { localStorage.setItem(STORE, JSON.stringify(Object.fromEntries(FIELDS.map((f) => [f, $(f).value])))); } catch { /* sin almacenamiento */ }
+  const si = Object.fromEntries(FIELDS.map((f) => [f, FIELD_UNITS[f] ? siOf(f) : $(f).value]));
+  try { localStorage.setItem(STORE, JSON.stringify(si)); } catch { /* sin almacenamiento */ }
 }
 
 let timer = null;
@@ -128,7 +157,7 @@ function schedule() {
   timer = setTimeout(run, 250);
 }
 
-const num = (id) => Number($(id).value);
+const num = siOf;
 
 function readInputs() {
   const cfg = {
@@ -203,7 +232,11 @@ async function run() {
 
 /* --------------------------------- pintado ---------------------------------- */
 
+const temp = (c, d = 1) => `${fmt(toDisplay('temp', c), d)} ${unit('temp')}`;
+const money = (v) => (currencySymbol() === '$' ? `$${fmt(v)}` : `${fmt(v)} €`);
+
 function render(clim, cfg, shade, all) {
+  const lim = temp(COMFORT_C, 0);
   const [base, A, B] = all;
   const best = A.eur <= B.eur ? A : B;
   const dE = base.elec - best.elec, dEur = base.eur - best.eur;
@@ -214,7 +247,7 @@ function render(clim, cfg, shade, all) {
   $('headline').innerHTML = dE > 0
     ? t('s.headline', {
       city: clim.name, orient, type: tx(SHADE_TYPES.find((s) => s.id === shade.type).short), fabric: best.name,
-      kwh: fmt(dE), eur: fmt(dEur), h0: fmt(h0), h1: fmt(h1), pct: fmt(h0 ? (1 - h1 / h0) * 100 : 0),
+      kwh: fmt(dE), money: money(dEur), lim, h0: fmt(h0), h1: fmt(h1), pct: fmt(h0 ? (1 - h1 / h0) * 100 : 0),
     })
     : t('s.headlineNo', { city: clim.name, orient });
 
@@ -235,11 +268,11 @@ function render(clim, cfg, shade, all) {
       <table>
         <tr><td>${t('s.r.cool')}</td><td>${fmt(o.hv.cool)}${isBase ? '' : pct(o.hv.cool, base.hv.cool)}</td></tr>
         <tr><td>${t('s.r.heat')}</td><td>${fmt(o.hv.heat)}</td></tr>
-        <tr><td>${t('s.r.peak')}</td><td>${fmt(o.hv.peakCool / 1000, 1)} kW</td></tr>
+        <tr><td>${t('s.r.peak')}</td><td>${fmt(toDisplay('power', o.hv.peakCool / 1000), 1)} ${unit('power')}</td></tr>
         <tr><td>${t('s.r.elec')}</td><td>${fmt(o.elec)}</td></tr>
-        <tr><td>${t('s.r.cost')}</td><td>${fmt(o.eur)} €${isBase ? '' : ` <span class="save">${o.eur <= base.eur ? '−' : '+'}${fmt(Math.abs(base.eur - o.eur))} €</span>`}</td></tr>
-        <tr><td>${t('s.r.h26')}</td><td>${fmt(o.fr.h26)}</td></tr>
-        <tr><td>${t('s.r.max')}</td><td>${fmt(o.fr.maxOp, 1)} °C</td></tr>
+        <tr><td>${t('s.r.cost')}</td><td>${money(o.eur)}${isBase ? '' : ` <span class="save">${o.eur <= base.eur ? '−' : '+'}${money(Math.abs(base.eur - o.eur))}</span>`}</td></tr>
+        <tr><td>${t('s.r.h26', { lim })}</td><td>${fmt(o.fr.h26)}</td></tr>
+        <tr><td>${t('s.r.max')}</td><td>${temp(o.fr.maxOp)}</td></tr>
       </table>
       ${o.warnings.length ? `<div class="warn">${t('s.warnRange', { list: o.warnings.map((w) => t(w)).join('; ') })}</div>` : ''}
     </div>`;
@@ -252,10 +285,11 @@ function render(clim, cfg, shade, all) {
   const d = new Date(Date.UTC(2025, 0, 1 + clim.hotDay));
   $('hotday-label').textContent = t('s.hotday', { d: `${d.getUTCDate()} ${t('monthsLong').split(',')[d.getUTCMonth()]}` });
   lineChart($('chart-day'), [...Array(24).keys()].map((h) => `${h}h`),
-    [...series.map((s, i) => ({ ...s, values: Array.from(all[i].fr.hotDay) })),
-      { name: t('s.exterior'), color: '#E67E22', dash: true, values: Array.from(base.fr.hotDayTe) }], '°', t('s.comfort'));
+    [...series.map((s, i) => ({ ...s, values: Array.from(all[i].fr.hotDay, (c) => toDisplay('temp', c)) })),
+      { name: t('s.exterior'), color: '#E67E22', dash: true, values: Array.from(base.fr.hotDayTe, (c) => toDisplay('temp', c)) }],
+    '°', t('s.comfort', { lim }), toDisplay('temp', COMFORT_C));
 
   $('ph-name').textContent = project.name || 'Sauleda Studio';
   $('ph-meta').textContent = [project.client, clim.name, t('s.meta.orient', { o: orient }),
-    t('s.meta.window', { w: fmt(cfg.winW, 1), h: fmt(cfg.winH, 1) }), new Date().toLocaleDateString(locale())].filter(Boolean).join(' · ');
+    t('s.meta.window', { w: fmt(toDisplay('len', cfg.winW), 1), h: fmt(toDisplay('len', cfg.winH), 1), u: unit('len') }), new Date().toLocaleDateString(locale())].filter(Boolean).join(' · ');
 }

@@ -1,4 +1,5 @@
 // dxf.js — escritor DXF R12 ASCII (compatible con mesas de corte y AutoCAD/Rhino).
+import { t } from '../core/i18n.js';
 
 const LAYERS = {
   CORTE: 1,      // rojo — línea de corte
@@ -66,7 +67,7 @@ export function cutPlanDXF(result, meta = {}) {
   const { nested, metrics, panels } = result;
   const W = metrics.rollWidth, L = metrics.rollLength_mm;
   d.polyline('ROLLO', [[0, 0], [W, 0], [W, L], [0, L]], true);
-  d.text('TEXTO', [0, L + 120], 90, `${meta.project || 'Vela de sombra'} · rollo ${W} mm x ${(L / 1000).toFixed(2)} m · ${result.fabric.name}`);
+  d.text('TEXTO', [0, L + 120], 90, `${meta.project || t('vx.sail')} · ${t('vx.roll')} ${W} mm x ${(L / 1000).toFixed(2)} m · ${result.fabric.name}`);
   for (const p of nested.placed) {
     d.polyline('CORTE', p.nestCut, true);
     d.polyline('COSTURA', p.nestNet, true);
@@ -110,9 +111,9 @@ export function planDXF(result, meta = {}) {
   });
   boundary.cornerIdx.forEach((idx, i) => {
     const p = boundary.loop[idx];
-    d.text('TEXTO', [p[0], p[1] - 220], 120, `borde ${LET[i]}${LET[(i + 1) % fixings.length]} tela = ${Math.round(metrics.edgeLengths[i])}`);
+    d.text('TEXTO', [p[0], p[1] - 220], 120, `${t('vx.edge')} ${LET[i]}${LET[(i + 1) % fixings.length]} = ${Math.round(metrics.edgeLengths[i])}`);
   });
-  d.text('TEXTO', [0, -900], 160, `${meta.project || 'Vela de sombra'} · sup. ${metrics.areaSurface_m2.toFixed(2)} m2 · ${metrics.panels} paños`);
+  d.text('TEXTO', [0, -900], 160, `${meta.project || t('vx.sail')} · ${t('vx.area')} ${metrics.areaSurface_m2.toFixed(2)} m2 · ${metrics.panels} ${t('vx.panels')}`);
   return d.toString();
 }
 
@@ -121,23 +122,23 @@ export function csvReport(result, meta = {}) {
   const { metrics: m, panels, fabric } = result;
   const LET = 'ABCDEFGH';
   const rows = [
-    ['Proyecto', meta.project || ''],
-    ['Fecha', new Date().toISOString().slice(0, 10)],
-    ['Tejido', fabric.name],
-    ['Ancho de rollo (mm)', m.rollWidth],
-    ['Consumo de rollo (m)', (m.rollLength_mm / 1000).toFixed(2)],
-    ['Superficie de vela (m2)', m.areaSurface_m2.toFixed(2)],
-    ['Superficie de tela cortada (m2)', m.netArea_m2.toFixed(2)],
-    ['Merma (%)', m.waste_pct.toFixed(1)],
-    ['Peso estimado (kg)', m.weight_kg.toFixed(2)],
-    ['Compensación urdimbre (%)', m.warpPct.toFixed(2)],
-    ['Compensación trama (%)', m.weftPct.toFixed(2)],
-    ['Dirección de costura (°)', m.seamAngleDeg.toFixed(1)],
+    [t('vx.cProject'), meta.project || ''],
+    [t('vx.cDate'), new Date().toISOString().slice(0, 10)],
+    [t('vx.cFabric'), fabric.name],
+    [t('vx.cRollW'), m.rollWidth],
+    [t('vx.cRollL'), (m.rollLength_mm / 1000).toFixed(2)],
+    [t('vx.cArea'), m.areaSurface_m2.toFixed(2)],
+    [t('vx.cNet'), m.netArea_m2.toFixed(2)],
+    [t('vx.cWaste'), m.waste_pct.toFixed(1)],
+    [t('vx.cWeight'), m.weight_kg.toFixed(2)],
+    [t('vx.cWarp'), m.warpPct.toFixed(2)],
+    [t('vx.cWeft'), m.weftPct.toFixed(2)],
+    [t('vx.cSeam'), m.seamAngleDeg.toFixed(1)],
     [],
-    ['Lado', 'Anclajes en planta (mm)', 'Anclajes distancia real (mm)', 'Cuerda tela (mm)', 'Borde curvo tela (mm)'],
+    [t('vj.side'), t('vj.rPlanMm'), t('vj.rRealMm'), t('vj.rChordMm'), t('vj.rEdgeMm')],
   ];
   m.edgeLengths.forEach((L, i) => rows.push([`${LET[i]}${LET[(i + 1) % m.edgeLengths.length]}`, Math.round(m.fixingSpansPlan[i]), Math.round(m.fixingSpans[i]), Math.round(m.edgeChords[i]), Math.round(L)]));
-  rows.push([], ['Paño', 'Ancho acabado (mm)', 'Largo acabado (mm)', 'Ancho corte (mm)', 'Largo corte (mm)', 'Superficie (m2)', 'Distorsión máx (%)']);
+  rows.push([], [t('vj.panel'), t('vx.cFinW'), t('vx.cFinL'), t('vx.cCutW'), t('vx.cCutL'), t('vx.cPArea'), t('vx.cDist')]);
   panels.forEach((p) => rows.push([p.label, Math.round(p.netWidth), Math.round(p.netLength), Math.round(p.cutWidth), Math.round(p.cutLength), p.area_m2.toFixed(2), (p.maxErr * 100).toFixed(2)]));
   return rows.map((r) => r.join(';')).join('\n');
 }

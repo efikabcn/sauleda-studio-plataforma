@@ -28,6 +28,23 @@ de un CDN; Tejidos y Solar funcionan sin conexión.
 Estos enlaces son los que pondrán las fichas de producto de sauleda.com y de Sauleda USA
 (botón «Calcular con este tejido»).
 
+## Mercados, idiomas y unidades
+
+Todo está en español e inglés. El **mercado** se elige en la URL, para que cada web
+incruste su versión:
+
+- `?market=us`: inglés, unidades imperiales (ft, °F, Btu, SEER2/HSPF2, oz/yd², lbf), dólares,
+  ciudades de EE. UU. primero y Miami por defecto.
+- `?market=es`: español, métrico, euros y Barcelona.
+
+El visitante puede cambiar idioma y unidades en la cabecera. Internamente todo se calcula
+en SI (`js/core/units.js` convierte solo lo que se muestra). Hay **30 ciudades** con clima
+horario PVGIS: 17 europeas y 13 de EE. UU.
+
+Para incrustarlo en las webs están `INTEGRACION-WEB.md` (iframe, botones por referencia,
+instrucciones para el equipo web) y `embed-demo.html` (página de prueba).
+Mientras quede algún dato estimado, **no se pone en páginas públicas**.
+
 Lo **común** a los tres módulos está en `js/core/`:
 - `catalog.js` y `data/fabrics.json`: catálogo único de tejidos.
 - `project.js`: proyecto compartido (nombre, cliente y ubicación); la ubicación fija el
@@ -67,10 +84,10 @@ python3 tools/build_single.py   # → dist/Sauleda-Studio.html (~2 MB)
 ## Pendiente
 
 - **Datos reales de laboratorio**. Hasta entonces no se publica ninguna cifra.
-- **Unidades imperiales y dólares** para Sauleda USA. Hoy el inglés usa sistema métrico y €.
-- **Velas en inglés**: el módulo sigue solo en español.
-- **Clima de cualquier ubicación**: hoy solo hay 18 ciudades. Hace falta un pequeño
-  servicio que consulte PVGIS/NSRDB.
+- **Velas en unidades imperiales completas**: la entrada de medidas ya va en pulgadas y el
+  viento en mph, pero el informe, las tablas y el CSV/DXF siguen en milímetros.
+- **Clima de cualquier ubicación**: hoy hay 30 ciudades. Hace falta un pequeño servicio
+  que consulte PVGIS/NSRDB.
 - **Exportaciones para arquitectos**: memoria justificativa, formato CTE (g_gl;sh;wi),
   propiedades BIM y textos de pliego.
 - **Publicación** en un subdominio (por ejemplo studio.sauleda.com) e integración en las webs.

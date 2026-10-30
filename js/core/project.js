@@ -7,9 +7,19 @@ const STORE = 'sauleda-studio-project';
 export const project = { name: '', client: '', city: 'barcelona', lat: 41.39, lon: 2.17 };
 let cities = [];
 
-export async function loadProject() {
+/**
+ * @param defaultCity  ciudad del mercado (Barcelona en España, Miami en EE. UU.)
+ * @param forceCountry si llega el mercado por URL y la ciudad guardada es de otro país,
+ *                     se usa la del mercado (la web de EE. UU. no abre en Barcelona).
+ */
+export async function loadProject(defaultCity, forceCountry = null) {
   cities = await getJSON('data/clima/index.json');
+  project.city = defaultCity;
   try { Object.assign(project, JSON.parse(localStorage.getItem(STORE)) || {}); } catch { /* sin almacenamiento */ }
+  const c = cityById(project.city);
+  if (!c || (forceCountry && (c.country === 'US') !== (forceCountry === 'US'))) project.city = defaultCity;
+  const d = cityById(project.city);
+  if (d) { project.lat = d.lat; project.lon = d.lon; }
   return project;
 }
 export const cityList = () => cities;

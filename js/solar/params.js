@@ -38,7 +38,11 @@ export const INERTIA = {
 
 /** Huso horario estándar (h respecto a UTC) y si aplica horario de verano europeo/EE. UU. */
 export const CITY_TZ = {
-  laspalmas: [0, 'eu'], lisboa: [0, 'eu'], atenas: [2, 'eu'], miami: [-5, 'us'],
+  laspalmas: [0, 'eu'], lisboa: [0, 'eu'], atenas: [2, 'eu'],
+  miami: [-5, 'us'], orlando: [-5, 'us'], tampa: [-5, 'us'], atlanta: [-5, 'us'], newyork: [-5, 'us'], washington: [-5, 'us'],
+  chicago: [-6, 'us'], houston: [-6, 'us'], dallas: [-6, 'us'],
+  phoenix: [-7, 'none'],   // Arizona no cambia de hora
+  lasvegas: [-8, 'us'], losangeles: [-8, 'us'], sandiego: [-8, 'us'],
 };
 export const DEFAULT_TZ = [1, 'eu'];
 

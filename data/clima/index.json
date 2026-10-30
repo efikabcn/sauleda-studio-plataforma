@@ -3,108 +3,210 @@
   "id": "barcelona",
   "name": "Barcelona",
   "lat": 41.39,
-  "lon": 2.17
+  "lon": 2.17,
+  "country": "ES"
  },
  {
   "id": "madrid",
   "name": "Madrid",
   "lat": 40.42,
-  "lon": -3.7
+  "lon": -3.7,
+  "country": "ES"
  },
  {
   "id": "valencia",
   "name": "Valencia",
   "lat": 39.47,
-  "lon": -0.38
+  "lon": -0.38,
+  "country": "ES"
  },
  {
   "id": "sevilla",
   "name": "Sevilla",
   "lat": 37.39,
-  "lon": -5.98
+  "lon": -5.98,
+  "country": "ES"
  },
  {
   "id": "malaga",
   "name": "Málaga",
   "lat": 36.72,
-  "lon": -4.42
+  "lon": -4.42,
+  "country": "ES"
  },
  {
   "id": "murcia",
   "name": "Murcia",
   "lat": 37.98,
-  "lon": -1.13
+  "lon": -1.13,
+  "country": "ES"
  },
  {
   "id": "palma",
   "name": "Palma",
   "lat": 39.57,
-  "lon": 2.65
+  "lon": 2.65,
+  "country": "ES"
  },
  {
   "id": "zaragoza",
   "name": "Zaragoza",
   "lat": 41.65,
-  "lon": -0.88
+  "lon": -0.88,
+  "country": "ES"
  },
  {
   "id": "bilbao",
   "name": "Bilbao",
   "lat": 43.26,
-  "lon": -2.93
+  "lon": -2.93,
+  "country": "ES"
  },
  {
   "id": "coruna",
   "name": "A Coruña",
   "lat": 43.36,
-  "lon": -8.41
+  "lon": -8.41,
+  "country": "ES"
  },
  {
   "id": "valladolid",
   "name": "Valladolid",
   "lat": 41.65,
-  "lon": -4.72
+  "lon": -4.72,
+  "country": "ES"
  },
  {
   "id": "laspalmas",
   "name": "Las Palmas de G.C.",
   "lat": 28.12,
-  "lon": -15.43
+  "lon": -15.43,
+  "country": "ES"
  },
  {
   "id": "lisboa",
   "name": "Lisboa",
   "lat": 38.72,
-  "lon": -9.14
+  "lon": -9.14,
+  "country": "PT"
  },
  {
   "id": "paris",
   "name": "París",
   "lat": 48.86,
-  "lon": 2.35
+  "lon": 2.35,
+  "country": "FR"
  },
  {
   "id": "milan",
   "name": "Milán",
   "lat": 45.46,
-  "lon": 9.19
+  "lon": 9.19,
+  "country": "IT"
  },
  {
   "id": "munich",
   "name": "Múnich",
   "lat": 48.14,
-  "lon": 11.58
+  "lon": 11.58,
+  "country": "DE"
  },
  {
   "id": "atenas",
   "name": "Atenas",
   "lat": 37.98,
-  "lon": 23.73
+  "lon": 23.73,
+  "country": "GR"
  },
  {
   "id": "miami",
-  "name": "Miami",
+  "name": "Miami, FL",
   "lat": 25.76,
-  "lon": -80.19
+  "lon": -80.19,
+  "country": "US"
+ },
+ {
+  "id": "orlando",
+  "name": "Orlando, FL",
+  "lat": 28.54,
+  "lon": -81.38,
+  "country": "US"
+ },
+ {
+  "id": "tampa",
+  "name": "Tampa, FL",
+  "lat": 27.95,
+  "lon": -82.46,
+  "country": "US"
+ },
+ {
+  "id": "atlanta",
+  "name": "Atlanta, GA",
+  "lat": 33.75,
+  "lon": -84.39,
+  "country": "US"
+ },
+ {
+  "id": "newyork",
+  "name": "New York, NY",
+  "lat": 40.71,
+  "lon": -74.01,
+  "country": "US"
+ },
+ {
+  "id": "washington",
+  "name": "Washington, DC",
+  "lat": 38.91,
+  "lon": -77.04,
+  "country": "US"
+ },
+ {
+  "id": "chicago",
+  "name": "Chicago, IL",
+  "lat": 41.88,
+  "lon": -87.63,
+  "country": "US"
+ },
+ {
+  "id": "houston",
+  "name": "Houston, TX",
+  "lat": 29.76,
+  "lon": -95.37,
+  "country": "US"
+ },
+ {
+  "id": "dallas",
+  "name": "Dallas, TX",
+  "lat": 32.78,
+  "lon": -96.8,
+  "country": "US"
+ },
+ {
+  "id": "phoenix",
+  "name": "Phoenix, AZ",
+  "lat": 33.45,
+  "lon": -112.07,
+  "country": "US"
+ },
+ {
+  "id": "lasvegas",
+  "name": "Las Vegas, NV",
+  "lat": 36.17,
+  "lon": -115.14,
+  "country": "US"
+ },
+ {
+  "id": "losangeles",
+  "name": "Los Angeles, CA",
+  "lat": 34.05,
+  "lon": -118.24,
+  "country": "US"
+ },
+ {
+  "id": "sandiego",
+  "name": "San Diego, CA",
+  "lat": 32.72,
+  "lon": -117.16,
+  "country": "US"
  }
 ]

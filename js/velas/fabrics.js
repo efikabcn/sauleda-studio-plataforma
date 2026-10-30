@@ -2,27 +2,29 @@
 // catálogo único (data/fabrics.json) con la misma forma que tenía en Shade Studio.
 // El catálogo ya está cargado cuando se importa este módulo (app.js lo carga al arrancar).
 
-import { families } from '../core/catalog.js';
+import { families, familyText } from '../core/catalog.js';
+import { getLang } from '../core/i18n.js';
 
 const fams = families().filter((f) => f.uses.includes('velas'));
 const first = fams[0];
 
 /** Común a las calidades de velas, según ficha técnica. */
+// Los textos son getters para que salgan en el idioma activo en cada momento.
 export const COMMON = {
-  yarns: first.material,
-  tempRange: first.tempRange,
+  get yarns() { return familyText(first, 'material', getLang()); },
+  get tempRange() { return familyText(first, 'tempRange', getLang()); },
   rollLength_m: first.rollLength_m,
   width_mm: first.roll_mm,
-  certs: first.certs,
+  get certs() { return familyText(first, 'certs', getLang()); },
 };
 
 /** warp/weft = compensaciones de patronaje (%), estimadas hasta calibrar con una vela real. */
 export const FABRICS = fams.map((f) => ({
   id: f.id, name: f.name, family: f.range,
   gsm: f.gsm, roll: f.roll_mm, thickness_mm: f.thickness_mm, warranty_y: f.warranty_y,
-  construction: f.construction,
+  get construction() { return familyText(f, 'construction', getLang()); },
   tensile: f.mech.tensile, tear: f.mech.tear, burst: f.mech.burst, burstPressure: f.mech.burstPressure,
-  flammability: f.fire,
+  get flammability() { return familyText(f, 'fire', getLang()); },
   warp: f.patterning.warp, weft: f.patterning.weft, warpEstimated: f.patterning.estimated,
   dual: f.bicolor,
 }));

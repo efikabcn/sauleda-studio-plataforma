@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sauleda Studio · embed test</title>
+<style>
+  body{margin:0; font:15px/1.5 "Helvetica Neue",Arial,sans-serif; color:#2C2C2C; background:#fff}
+  .site-head{padding:18px 24px; border-bottom:1px solid #ddd; display:flex; justify-content:space-between; align-items:center}
+  .site-head b{font-size:18px}
+  main{max-width:1280px; margin:0 auto; padding:24px 16px}
+  h1{font-size:28px; margin:0 0 6px}
+  p{color:#666; margin:0 0 18px}
+  .studio-embed{width:100%; height:860px; border:1px solid #e2e2e2; border-radius:10px; display:block}
+  .btn{display:inline-block; background:#E11F1C; color:#fff; padding:10px 16px; border-radius:7px; text-decoration:none; font-weight:600}
+  .product{display:flex; gap:16px; align-items:center; border:1px solid #eee; border-radius:10px; padding:16px; margin:24px 0}
+  .product i{width:64px; height:64px; border-radius:8px; background:#34312D; flex:none}
+</style>
+</head>
+<body>
+<!-- Página de prueba: simula una página de la web de Sauleda USA con Studio incrustado. -->
+<header class="site-head"><b>Sauleda USA</b><span>Test page — not the real website</span></header>
+<main>
+  <h1>Tools for architects</h1>
+  <p>Compare Sauleda fabrics and estimate solar performance and energy savings for your project.</p>
+
+  <iframe class="studio-embed" src="./?market=us#/tejidos" title="Sauleda Studio" loading="lazy" allow="fullscreen"></iframe>
+
+  <div class="product">
+    <i></i>
+    <div>
+      <b>Commercial 95 · Charcoal (7915)</b><br>
+      <span>Example of a product page button that opens Studio with this fabric selected.</span><br><br>
+      <a class="btn" href="./?market=us#/solar?tejido=7915" target="_blank" rel="noopener">Calculate with this fabric</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>

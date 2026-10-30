@@ -2,10 +2,12 @@
 //   #/tejidos?ref=7168        abre la ficha de ese color
 //   #/tejidos?familia=heavy430
 
-import { families, family, findColor, familyName, isEstimated } from '../core/catalog.js';
+import { families, family, findColor, familyName, familyText, isEstimated } from '../core/catalog.js';
 import { GLAZINGS } from '../solar/params.js';
 import { gtot, thermalClass } from '../solar/en52022.js';
 import { t, tx, fmt, getLang } from '../core/i18n.js';
+import { imperial } from '../core/market.js';
+import { unit, toDisplay } from '../core/units.js';
 
 const $ = (id) => document.getElementById(id);
 const STORE = 'sauleda-studio-compare';
@@ -32,6 +34,7 @@ export function mount(params = {}) {
   });
   document.querySelector('.v-tejidos .c-main').addEventListener('click', onAction);
   window.addEventListener('langchange', renderAll);
+  window.addEventListener('unitschange', renderFicha);
   show(params);
 }
 
@@ -93,16 +96,23 @@ function renderList() {
 
 function renderFicha() {
   const f = family(state.fam), lang = getLang();
+  // Valor de ficha (métrico) en la unidad actual: q('n5', 670) → "77 lbf/in" en imperial.
+  const q = (kind, v, d = 0) => `${fmt(toDisplay(kind, v), d)} ${unit(kind)}`;
+  const pair = (kind, o) => `${fmt(toDisplay(kind, o.warp))} / ${q(kind, o.weft)}`;
+  const roll = (f) => (imperial()
+    ? `${fmt(f.roll_mm / 25.4)} in / ${fmt(f.rollLength_m / 0.9144, 1)} yd`
+    : `${fmt(f.roll_mm / 1000, 1)} m / ${f.rollLength_m} m`);
   const tech = [
-    ['c.material', f.material], ['c.construction', f.construction],
-    ['c.gsm', f.gsm && `${f.gsm} g/m²`], ['c.thickness', f.thickness_mm && `${fmt(f.thickness_mm, 1)} mm`],
-    ['c.roll', f.roll_mm && `${fmt(f.roll_mm / 1000, 1)} m / ${f.rollLength_m} m`],
-    ['c.tensile', f.mech && `${f.mech.tensile.warp} / ${f.mech.tensile.weft} N/5 cm`],
-    ['c.tear', f.mech && `${f.mech.tear.warp} / ${f.mech.tear.weft} N`],
-    ['c.burst', f.mech && `${f.mech.burst.warp} / ${f.mech.burst.weft} N`],
-    ['c.fire', f.fire], ['c.temp', f.tempRange],
+    ['c.material', familyText(f, 'material', lang)], ['c.construction', familyText(f, 'construction', lang)],
+    ['c.gsm', f.gsm && q('gsm', f.gsm, imperial() ? 1 : 0)],
+    ['c.thickness', f.thickness_mm && q('mm', f.thickness_mm, imperial() ? 3 : 1)],
+    ['c.roll', f.roll_mm && roll(f)],
+    ['c.tensile', f.mech && pair('n5', f.mech.tensile)],
+    ['c.tear', f.mech && pair('newton', f.mech.tear)],
+    ['c.burst', f.mech && pair('newton', f.mech.burst)],
+    ['c.fire', familyText(f, 'fire', lang)], ['c.temp', familyText(f, 'tempRange', lang)],
     ['c.warranty', f.warranty_y && t('c.years', { n: f.warranty_y })],
-    ['c.certs', f.certs?.join(' · ')],
+    ['c.certs', familyText(f, 'certs', lang)?.join(' · ')],
   ].filter(([, v]) => v);
 
   const sel = f.colors.find((c) => c.ref === state.ref);

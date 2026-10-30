@@ -54,14 +54,14 @@ export function barChart(host, labels, series, fmtNum = (v) => Math.round(v).toL
 }
 
 /** series: [{name, color, values[], dash?}] sobre un eje x de 0..n-1. */
-export function lineChart(host, labels, series, unit, refLabel = '') {
+export function lineChart(host, labels, series, unit, refLabel = '', refValue = 26) {
   const all = series.flatMap((s) => s.values);
   const lo = Math.floor(Math.min(...all) / 5) * 5, hi = Math.ceil(Math.max(...all) / 5) * 5;
   const { svg, y } = frame(host, lo, hi === lo ? lo + 5 : hi, 4, (v) => `${Math.round(v)}${unit}`);
   const n = labels.length, x = (i) => PAD.l + (W - PAD.l - PAD.r) * i / (n - 1);
-  if (lo < 26 && hi > 26) {
-    el('line', { x1: PAD.l, x2: W - PAD.r, y1: y(26), y2: y(26), stroke: '#E67E22', 'stroke-width': 1, 'stroke-dasharray': '2 3' }, svg);
-    el('text', { x: W - PAD.r, y: y(26) - 4, 'text-anchor': 'end', style: 'fill:#E67E22' }, svg).textContent = refLabel;
+  if (refLabel && lo < refValue && hi > refValue) {
+    el('line', { x1: PAD.l, x2: W - PAD.r, y1: y(refValue), y2: y(refValue), stroke: '#E67E22', 'stroke-width': 1, 'stroke-dasharray': '2 3' }, svg);
+    el('text', { x: W - PAD.r, y: y(refValue) - 4, 'text-anchor': 'end', style: 'fill:#E67E22' }, svg).textContent = refLabel;
   }
   labels.forEach((lab, i) => {
     if (i % 3 === 0) el('text', { x: x(i), y: H - 8, 'text-anchor': 'middle' }, svg).textContent = lab;

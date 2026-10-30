@@ -31,6 +31,7 @@ function nthSunday(y, m, n) {
 }
 /** ¿Horario de verano en este instante UTC? (aproximado a la hora). */
 function isDst(ms, rule) {
+  if (rule === 'none') return false;
   const y = 2025;
   if (rule === 'us') {
     const a = Date.UTC(y, 2, nthSunday(y, 2, 2), 7), b = Date.UTC(y, 10, nthSunday(y, 10, 1), 6);

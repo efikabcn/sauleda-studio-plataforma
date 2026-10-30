@@ -1,5 +1,6 @@
 // geom.js — vectores, triangulación del sitio y curvas catenarias de borde.
 // Todas las longitudes en milímetros internamente.
+import { t } from '../core/i18n.js';
 
 export const V = {
   add: (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]],
@@ -45,7 +46,7 @@ export function solveSite({ n, edges, diagonals, heights, mode = 'plan' }) {
   const flat = (L, i, j) => {
     if (mode !== 'slope') return L;
     const d = dz(i, j);
-    if (Math.abs(d) >= L) throw new Error(`La medida ${LETTERS[i]}${LETTERS[j]} (${L}) es menor que el desnivel entre anclajes (${Math.abs(d)}).`);
+    if (Math.abs(d) >= L) throw new Error(t('vj.errDrop', { e: `${LETTERS[i]}${LETTERS[j]}`, L, d: Math.abs(d) }));
     return Math.sqrt(L * L - d * d);
   };
 
@@ -60,10 +61,10 @@ export function solveSite({ n, edges, diagonals, heights, mode = 'plan' }) {
     if (k === n - 1) {
       // el último punto se cierra contra A con la arista de cierre
       sol = circleIntersect(P[k - 1], E[k - 1], P[0], E[n - 1]);
-      if (!sol) throw new Error(`Las medidas no cierran en el punto ${LETTERS[k]}: revisa ${LETTERS[k - 1]}${LETTERS[k]} y ${LETTERS[k]}A.`);
+      if (!sol) throw new Error(t('vj.errClose', { p: LETTERS[k], a: `${LETTERS[k - 1]}${LETTERS[k]}`, b: `${LETTERS[k]}A` }));
     } else {
       sol = circleIntersect(P[k - 1], E[k - 1], P[0], D[k - 2]);
-      if (!sol) throw new Error(`Las medidas no son coherentes en ${LETTERS[k]}: la diagonal A${LETTERS[k]} y el lado ${LETTERS[k - 1]}${LETTERS[k]} no se cruzan.`);
+      if (!sol) throw new Error(t('vj.errCross', { p: LETTERS[k], a: `${LETTERS[k - 1]}${LETTERS[k]}` }));
     }
     // se toma la solución que mantiene el polígono en sentido antihorario
     // (con y>0 hay empate en polígonos simétricos y salía el vértice reflejado)
@@ -77,9 +78,9 @@ export function solveSite({ n, edges, diagonals, heights, mode = 'plan' }) {
   for (let i = 0; i < n; i++) {
     const a = pts[(i - 1 + n) % n], b = pts[i], c = pts[(i + 1) % n];
     const u = [b[0] - a[0], b[1] - a[1]], v = [c[0] - b[0], c[1] - b[1]];
-    if (u[0] * v[1] - u[1] * v[0] < 0) warnings.push(`El vértice ${LETTERS[i]} queda cóncavo (entrante). Comprueba las medidas o reordena los puntos.`);
+    if (u[0] * v[1] - u[1] * v[0] < 0) warnings.push(t('vj.concave', { p: LETTERS[i] }));
     const ang = Math.abs(Math.atan2(u[0] * v[1] - u[1] * v[0], u[0] * v[0] + u[1] * v[1]));
-    if (Math.PI - ang < 0.17) warnings.push(`El vértice ${LETTERS[i]} es casi una línea recta (< 10°): la vela quedará sin tensión en esa esquina.`);
+    if (Math.PI - ang < 0.17) warnings.push(t('vj.flatVertex', { p: LETTERS[i] }));
   }
   return { points: pts, planEdges: E, planDiagonals: D, warnings };
 }

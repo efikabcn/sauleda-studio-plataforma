@@ -22,6 +22,11 @@ export const findColor = (ref) => byRef.get(ref);
 export const isEstimated = (color) => !color.solar || color.solar.source !== 'ensayo';
 export const hasEstimates = () => [...byRef.values()].some(({ color }) => isEstimated(color));
 
+/** Campo de texto de una familia en el idioma pedido (bloque "en" del catálogo, si existe). */
+export function familyText(f, field, lang) {
+  return (lang === 'en' && f.en?.[field]) || f[field];
+}
+
 export function familyName(f, lang) {
   return (lang === 'en' && f.name_en) || f.name;
 }

@@ -3,6 +3,7 @@ import { V, solveSite, centroid, planArea, LETTERS } from './geom.js';
 import { FABRICS, COMMON } from './fabrics.js';
 import { fabricCorners, buildBoundary, relaxSurface, surfaceArea } from './membrane.js';
 import { sliceIntoPanels, weld, flattenPatch, panelAxes, offsetPolygon, nest, bbox, polyArea } from './pattern.js';
+import { t } from '../core/i18n.js';
 
 export { FABRICS };
 
@@ -58,7 +59,7 @@ export function computeSail(spec) {
   const warpPct = spec.warpPct != null ? spec.warpPct : fabric.warp * pre;
   const weftPct = spec.weftPct != null ? spec.weftPct : fabric.weft * pre;
   const usable = rollWidth - 2 * spec.seam;
-  if (usable <= 200) throw new Error('El margen de costura deja el ancho útil del rollo por debajo de 200 mm.');
+  if (usable <= 200) throw new Error(t('vj.errUsable'));
   const curveFactor = Math.sqrt(areaSurf / Math.max(areaPlan, 1));
   const tolDist = spec.maxDistortion ?? 0.015;   // 1,5 % de error de desarrollo admisible
   // escala característica = separación entre puntos del contorno (la parte más fina
@@ -102,12 +103,12 @@ export function computeSail(spec) {
         cands.push({ deg, cost: cand.nested.rollLength, worst });
       } catch (e) { /* dirección inviable */ }
     }
-    if (!cands.length) throw new Error('No se ha encontrado ninguna dirección de costura viable con este ancho de rollo.');
+    if (!cands.length) throw new Error(t('vj.errNoDir'));
     const ok = cands.filter((c) => c.worst <= tolDist * 2);
     let pool = ok;
     if (!pool.length) {           // ninguna dirección da un patrón plano: se avisa y se usa la mejor
       pool = cands.slice().sort((a, b) => a.worst - b.worst).slice(0, 3);
-      notes.push('Ninguna dirección de costura consigue un patrón plano dentro de tolerancia: la vela tiene demasiada torsión o curvatura para este ancho de rollo. Se usa el despiece menos distorsionado; revisa el patrón antes de cortar.');
+      notes.push(t('vj.noFlat'));
     }
     pool.sort((a, b) => a.cost - b.cost);
     cands.length = 0; cands.push(...pool);
@@ -123,9 +124,9 @@ export function computeSail(spec) {
         } catch (e) { /* nada */ }
       }
     }
-    if (!best) throw new Error('No se ha encontrado ninguna dirección de costura viable con este ancho de rollo.');
+    if (!best) throw new Error(t('vj.errNoDir'));
     layout = best;
-    notes.push(`Dirección de costura optimizada a ${(((layout.th * 180) / Math.PI + 360) % 180).toFixed(0)}°: consumo mínimo de tela (${(layout.nested.rollLength / 1000).toFixed(2)} m de rollo).`);
+    notes.push(t('vj.optDir', { a: (((layout.th * 180) / Math.PI + 360) % 180).toFixed(0), m: (layout.nested.rollLength / 1000).toFixed(2) }));
   } else {
     layout = layoutFor(spec.seamAngle != null ? spec.seamAngle : seamAngle(spec.panelLayout, corners));
   }
@@ -169,7 +170,7 @@ function buildPanels(mesh, ax, cuts, spec, { warpPct, weftPct, h }) {
     const sub = weld(band.tris, h * 0.3, h * h * 0.02);
     const flat = flattenPatch(sub, { iters: spec.quality === 'fast' ? 250 : 700 });
     const loop = flat.loop;
-    if (loop.length < 3) throw new Error(`No se ha podido cerrar el contorno del paño ${i + 1}. Reduce la curvatura de borde o cambia la dirección de costura.`);
+    if (loop.length < 3) throw new Error(t('vj.errLoop', { n: i + 1 }));
     const raw = loop.map((v) => flat.pos[v]);
     const pts3 = loop.map((v) => sub.verts[v]);
 
@@ -229,17 +230,17 @@ function advisories(fixings, corners, m, spec, fabric) {
   const drop = Math.max(...zs) - Math.min(...zs);
   const span = Math.max(...m.edgeChords);
   const slope = (drop / span) * 100;
-  if (slope < 15) out.push(`Pendiente máxima ${slope.toFixed(0)} %: por debajo del 20 % recomendado, riesgo de embolsamiento de agua. Sube un anclaje o baja el opuesto.`);
-  if (n === 4 && drop < 1) out.push('Los cuatro anclajes están a la misma altura: la vela quedará plana y tenderá a flamear. Aplica torsión hypar.');
+  if (slope < 15) out.push(t('vj.lowSlope', { s: slope.toFixed(0) }));
+  if (n === 4 && drop < 1) out.push(t('vj.levelAnchors'));
   const minCurve = Math.min(...(spec.curves || [0.08]));
-  if (minCurve < 0.06) out.push(`Curvatura de borde del ${(minCurve * 100).toFixed(0)} %: por debajo del 6 % el borde tiende a arrugarse y a marcar "orejas" en las esquinas.`);
-  if (m.maxDistortion_pct > 1.5) out.push(`Distorsión residual del desarrollo ${m.maxDistortion_pct.toFixed(1)} %: la superficie no es desarrollable con este despiece. Prueba con más paños o cambia la dirección de costura.`);
+  if (minCurve < 0.06) out.push(t('vj.lowCurve', { c: (minCurve * 100).toFixed(0) }));
+  if (m.maxDistortion_pct > 1.5) out.push(t('vj.distortion', { d: m.maxDistortion_pct.toFixed(1) }));
   const piece = (COMMON.rollLength_m || 40) * 1000;
   if (m.rollLength_mm > piece) {
     const piezas = Math.ceil(m.rollLength_mm / piece);
-    out.push(`El despiece necesita ${(m.rollLength_mm / 1000).toFixed(1)} m de rollo y las piezas son de ${COMMON.rollLength_m} m: harán falta ${piezas} piezas y hay que casar el color de partida entre ellas.`);
+    out.push(t('vj.pieces', { m: (m.rollLength_mm / 1000).toFixed(1), L: COMMON.rollLength_m, n: piezas }));
   }
-  if (m.waste_pct > 48) out.push(`Desperdicio de tela del ${m.waste_pct.toFixed(0)} %: revisa el anidado o la dirección de costura.`);
+  if (m.waste_pct > 48) out.push(t('vj.waste', { w: m.waste_pct.toFixed(0) }));
   return out;
 }
 

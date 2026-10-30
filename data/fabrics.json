@@ -314,7 +314,19 @@
       "source": "estimado"
      }
     }
-   ]
+   ],
+   "en": {
+    "material": "UV-stabilized knitted HDPE",
+    "construction": "Monofilament / tape",
+    "fire": "AS 1530.2 · index 0-100 12",
+    "tempRange": "-22 °F to +158 °F (-30 °C to +70 °C)",
+    "certs": [
+     "Greenguard",
+     "Oeko-Tex",
+     "Lead and phthalate free",
+     "Recyclable HDPE"
+    ]
+   }
   },
   {
    "id": "comercial95fr",
@@ -492,7 +504,19 @@
       "source": "estimado"
      }
     }
-   ]
+   ],
+   "en": {
+    "material": "UV-stabilized knitted HDPE",
+    "construction": "Monofilament / tape",
+    "fire": "Flame retardant · NFPA 701.1/2 and CSFM 1237.1",
+    "tempRange": "-22 °F to +158 °F (-30 °C to +70 °C)",
+    "certs": [
+     "Greenguard",
+     "Oeko-Tex",
+     "Lead and phthalate free",
+     "Recyclable HDPE"
+    ]
+   }
   },
   {
    "id": "heavy430",
@@ -582,7 +606,19 @@
       "source": "estimado"
      }
     }
-   ]
+   ],
+   "en": {
+    "material": "UV-stabilized knitted HDPE",
+    "construction": "100 % monofilament",
+    "fire": "AS 1530.2 · index 0-100 21",
+    "tempRange": "-22 °F to +158 °F (-30 °C to +70 °C)",
+    "certs": [
+     "Greenguard",
+     "Oeko-Tex",
+     "Lead and phthalate free",
+     "Recyclable HDPE"
+    ]
+   }
   },
   {
    "id": "dualshade350",
@@ -772,7 +808,19 @@
       "source": "estimado"
      }
     }
-   ]
+   ],
+   "en": {
+    "material": "UV-stabilized knitted HDPE",
+    "construction": "Monofilament / tape · two-tone",
+    "fire": "AS 1530.2 · index 0-100 38",
+    "tempRange": "-22 °F to +158 °F (-30 °C to +70 °C)",
+    "certs": [
+     "Greenguard",
+     "Oeko-Tex",
+     "Lead and phthalate free",
+     "Recyclable HDPE"
+    ]
+   }
   },
   {
    "id": "gen-acrilico",
@@ -840,7 +888,10 @@
       "source": "estimado"
      }
     }
-   ]
+   ],
+   "en": {
+    "material": "Solution-dyed acrylic"
+   }
   },
   {
    "id": "gen-screen",
@@ -887,7 +938,10 @@
       "source": "estimado"
      }
     }
-   ]
+   ],
+   "en": {
+    "material": "PVC-coated polyester"
+   }
   }
  ]
 }
