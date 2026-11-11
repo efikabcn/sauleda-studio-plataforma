@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sauleda Shade Studio</title>
+<link rel="icon" href="../assets/logo-s.png">
+<script>
+  // Dirección propia de la app de velas: abre Studio en modo «solo velas» conservando
+  // los parámetros (?market=us…) y el enlace directo (#/velas?tejido=7915).
+  const q = location.search.replace(/^\?/, '');
+  location.replace('../?app=velas' + (q ? '&' + q : '') + (location.hash || '#/velas'));
+</script>
+</head>
+<body></body>
+</html>

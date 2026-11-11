@@ -3,6 +3,8 @@
 // que se abre y expone mount(params) y, opcionalmente, show(params).
 //   #/solar?tejido=7168   abre Solar con ese color como opción A
 //   #/velas?tejido=7915   abre Velas con ese tejido y color
+// Con ?app=velas (o velas/index.html) funciona como la app de velas independiente,
+// sin los módulos Tejidos y Solar: es la que se regala a los confeccionadores.
 
 import { loadCatalog, hasEstimates } from './core/catalog.js';
 import { loadProject, project, cityList, updateProject } from './core/project.js';
@@ -16,11 +18,15 @@ const VIEWS = {
   velas: () => import('./velas/app.js'),
 };
 const mounted = {};
+/** App independiente: 'velas' o null (plataforma completa). El fichero único la fija en __APP. */
+const APP = globalThis.__APP || (new URLSearchParams(location.search).get('app') === 'velas' ? 'velas' : null);
 const $ = (id) => document.getElementById(id);
 
 function parseHash() {
   const [route, qs] = location.hash.replace(/^#\/?/, '').split('?');
-  return { route: VIEWS[route] ? route : 'tejidos', params: Object.fromEntries(new URLSearchParams(qs || '')) };
+  const params = Object.fromEntries(new URLSearchParams(qs || ''));
+  if (APP) return { route: APP, params };
+  return { route: VIEWS[route] ? route : 'tejidos', params };
 }
 
 async function navigate() {
@@ -69,7 +75,18 @@ function fillCities() {
   $('proj-city').value = project.city;
 }
 
+/** Cabecera y título de la app independiente de velas. */
+function applyAppMode() {
+  if (!APP) return;
+  document.body.classList.add('solo-' + APP);
+  document.querySelector('.brand').setAttribute('href', '#/velas');
+  document.querySelector('.brand .app b').firstChild.textContent = 'Shade Studio ';
+  document.querySelector('[data-i18n="tagline"]').dataset.i18n = 'tagline.velas';
+  document.title = 'Sauleda Shade Studio';
+}
+
 async function boot() {
+  applyAppMode();
   const urlLang = initMarket();
   if (urlLang) setLang(urlLang);
   const cfg = marketCfg();

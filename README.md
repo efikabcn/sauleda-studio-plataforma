@@ -28,6 +28,19 @@ de un CDN; Tejidos y Solar funcionan sin conexión.
 Estos enlaces son los que pondrán las fichas de producto de sauleda.com y de Sauleda USA
 (botón «Calcular con este tejido»).
 
+## App de velas independiente (Shade Studio)
+
+La app de velas que se regala a los confeccionadores sale del mismo código, sin los
+módulos Tejidos y Solar:
+
+- **Enlace:** `…/velas/` (por ejemplo `…/velas/?market=us` o `…/velas/#/velas?tejido=7915`),
+  equivalente a `?app=velas`.
+- **Fichero único para enviar:** `python3 tools/build_single.py --velas` →
+  `dist/Sauleda-Shade-Studio.html` (~0,3 MB). Necesita internet para el visor 3D (three.js).
+
+Cualquier mejora en el módulo Velas de Studio llega también a la app independiente. La versión
+antigua de `/Users/uge/velacad` queda solo como histórico.
+
 ## Mercados, idiomas y unidades
 
 Todo está en español e inglés. El **mercado** se elige en la URL, para que cada web

@@ -1,15 +1,17 @@
 """Genera dist/Sauleda-Studio.html: la aplicación entera en un único fichero (CSS,
 imágenes, módulos JS, catálogo y climas embebidos) para enviarla y abrirla con doble clic.
 
-Uso:  python3 tools/build_single.py
+Uso:  python3 tools/build_single.py              # plataforma completa
+      python3 tools/build_single.py --velas      # solo la app de velas → dist/Sauleda-Shade-Studio.html
 Los módulos se cargan con un import map de URLs data:, así que hace falta un navegador
 actual (Chrome/Edge 89+, Safari 16.4+, Firefox 108+). El módulo Velas necesita internet
 para descargar three.js; Tejidos y Solar funcionan sin conexión.
 """
-import base64, json, pathlib, posixpath, re
+import base64, json, pathlib, posixpath, re, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "dist" / "Sauleda-Studio.html"
+VELAS = "--velas" in sys.argv
+OUT = ROOT / "dist" / ("Sauleda-Shade-Studio.html" if VELAS else "Sauleda-Studio.html")
 IMPORT_RE = re.compile(r"""(from\s+|import\s*\(\s*)(['"])(\.{1,2}/[^'"]+)\2""")
 
 
@@ -37,14 +39,16 @@ for path, uri in images.items():
     html = html.replace(path, uri)
 
 embed = {"data/fabrics.json": json.loads((ROOT / "data" / "fabrics.json").read_text())}
-embed.update({f"data/clima/{f.name}": json.loads(f.read_text()) for f in sorted((ROOT / "data" / "clima").glob("*.json"))})
+# Velas solo necesita la lista de ciudades (ubicación del proyecto), no los climas horarios.
+climas = ["index.json"] if VELAS else [f.name for f in sorted((ROOT / "data" / "clima").glob("*.json"))]
+embed.update({f"data/clima/{n}": json.loads((ROOT / "data" / "clima" / n).read_text()) for n in climas})
 
 mods = sorted(str(p.relative_to(ROOT / "js")) for p in (ROOT / "js").rglob("*.js") if p.name != "app.js" or p.parent != ROOT / "js")
 imap = json.loads(re.search(r'<script type="importmap">(.*?)</script>', html, re.S).group(1))
 imap["imports"].update({f"@/{m}": "data:text/javascript;base64," + base64.b64encode(module_src(m).encode()).decode() for m in mods})
 html = re.sub(r'<script type="importmap">.*?</script>', lambda _: '<script type="importmap">' + json.dumps(imap) + "</script>", html, flags=re.S)
 
-head = "<script>window.__EMBED = " + json.dumps(embed, separators=(",", ":"), ensure_ascii=False) + ";</script>\n"
+head = ("<script>window.__APP = 'velas';</script>\n" if VELAS else "") + "<script>window.__EMBED = " + json.dumps(embed, separators=(",", ":"), ensure_ascii=False) + ";</script>\n"
 html = html.replace("</head>", head + "</head>")
 html = html.replace('<script type="module" src="js/app.js"></script>',
                     "<script type=\"module\">\n" + module_src("app.js").replace("</script", "<\\/script") + "</script>")

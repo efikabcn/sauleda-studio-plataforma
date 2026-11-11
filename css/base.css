@@ -67,6 +67,9 @@ h3{margin:0 0 10px; font:700 10.5px/1 var(--font); letter-spacing:.16em; text-tr
 .side{background:var(--panel); border-right:1px solid var(--line); overflow-y:auto}
 .side section{padding:13px 15px; border-bottom:1px solid var(--line2)}
 
+/* App independiente de velas (?app=velas): sin navegación entre módulos. */
+.solo-velas .modnav{display:none}
+
 /* ------------------------------------ vistas ---------------------------------- */
 .views{flex:1; min-height:0; position:relative}
 .view{display:none; height:100%}

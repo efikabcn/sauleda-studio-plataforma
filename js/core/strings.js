@@ -4,6 +4,7 @@ export const STRINGS = {
   es: {
     badge: 'prototipo',
     tagline: 'herramientas de proyecto · protección solar',
+    'tagline.velas': 'diseño, visualización y patronaje de velas',
     'nav.tejidos': 'Tejidos', 'nav.solar': 'Solar', 'nav.velas': 'Velas',
     'ph.project': 'Proyecto', 'ph.client': 'Cliente', 'title.city': 'Ubicación del proyecto',
     'banner.title': 'Datos solares estimados.',
@@ -264,6 +265,7 @@ export const STRINGS = {
   en: {
     badge: 'prototype',
     tagline: 'project tools · solar protection',
+    'tagline.velas': 'shade sail design, visualization and patterning',
     'nav.tejidos': 'Fabrics', 'nav.solar': 'Solar', 'nav.velas': 'Shade sails',
     'ph.project': 'Project', 'ph.client': 'Client', 'title.city': 'Project location',
     'banner.title': 'Estimated solar data.',
