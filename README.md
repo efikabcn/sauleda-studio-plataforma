@@ -75,12 +75,15 @@ Lo **común** a los tres módulos está en `js/core/`:
 Mientras quede algún color estimado, la aplicación muestra un aviso arriba y marca esos
 valores como «estimado».
 
-Para cargar los ensayos, el laboratorio rellena la plantilla de la «Ficha de datos solares
-por artículo», se exporta a CSV y:
+El laboratorio rellena el Excel `plantillas/Sauleda-Datos-Laboratorio.xlsx`: una fila por
+referencia de color en «Colores» y una por artículo en «Familias». Lleva instrucciones, normas,
+comprobaciones automáticas y las referencias del catálogo ya puestas. Si se añaden artículos,
+se regenera con `python3 tools/build_lab_template.py`. El Excel devuelto se carga tal cual
+(también acepta el CSV antiguo):
 
 ```bash
-python3 tools/import_lab.py ensayos.csv             # muestra los cambios, no escribe
-python3 tools/import_lab.py ensayos.csv --escribir  # actualiza data/fabrics.json
+python3 tools/import_lab.py Sauleda-Datos-Laboratorio.xlsx             # muestra los cambios, no escribe
+python3 tools/import_lab.py Sauleda-Datos-Laboratorio.xlsx --escribir  # actualiza data/fabrics.json
 ```
 
 Si se añaden artículos nuevos (por ejemplo los acrílicos reales de toldo), se dan de alta en
