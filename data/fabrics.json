@@ -1,5 +1,5 @@
 {
- "version": "2026-10-29",
+ "version": "2026-11-17",
  "note": "Datos solares ESTIMADOS (por luminancia del color o valores típicos de mercado). Sustituir por ensayos EN 14500 / EN 410 con tools/import_lab.py.",
  "families": [
   {
@@ -63,9 +63,13 @@
      "hex": "#E0DAC8",
      "solar": {
       "Ts": 0.23,
-      "Rs": 0.44,
+      "Rs": 0.555,
       "Tv": 0.2,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -74,9 +78,13 @@
      "hex": "#C1A072",
      "solar": {
       "Ts": 0.15,
-      "Rs": 0.26,
+      "Rs": 0.364,
       "Tv": 0.13,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -85,9 +93,13 @@
      "hex": "#E0B50F",
      "solar": {
       "Ts": 0.18,
-      "Rs": 0.32,
+      "Rs": 0.455,
       "Tv": 0.16,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -96,9 +108,13 @@
      "hex": "#5A2121",
      "solar": {
       "Ts": 0.07,
-      "Rs": 0.07,
+      "Rs": 0.104,
       "Tv": 0.06,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -142,9 +158,13 @@
      "hex": "#4B7792",
      "solar": {
       "Ts": 0.1,
-      "Rs": 0.14,
+      "Rs": 0.166,
       "Tv": 0.09,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -164,9 +184,13 @@
      "hex": "#0A336E",
      "solar": {
       "Ts": 0.07,
-      "Rs": 0.07,
+      "Rs": 0.17,
       "Tv": 0.06,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -175,9 +199,13 @@
      "hex": "#101829",
      "solar": {
       "Ts": 0.06,
-      "Rs": 0.06,
+      "Rs": 0.045,
       "Tv": 0.05,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -197,9 +225,13 @@
      "hex": "#A03D33",
      "solar": {
       "Ts": 0.09,
-      "Rs": 0.11,
+      "Rs": 0.31,
       "Tv": 0.07,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -208,9 +240,13 @@
      "hex": "#BB1420",
      "solar": {
       "Ts": 0.09,
-      "Rs": 0.11,
+      "Rs": 0.287,
       "Tv": 0.07,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -219,9 +255,13 @@
      "hex": "#063A58",
      "solar": {
       "Ts": 0.07,
-      "Rs": 0.07,
+      "Rs": 0.16,
       "Tv": 0.06,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -230,9 +270,13 @@
      "hex": "#96A281",
      "solar": {
       "Ts": 0.14,
-      "Rs": 0.24,
+      "Rs": 0.306,
       "Tv": 0.12,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -241,9 +285,13 @@
      "hex": "#1A2723",
      "solar": {
       "Ts": 0.06,
-      "Rs": 0.06,
+      "Rs": 0.049,
       "Tv": 0.05,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -276,9 +324,13 @@
      "hex": "#858482",
      "solar": {
       "Ts": 0.12,
-      "Rs": 0.18,
+      "Rs": 0.194,
       "Tv": 0.1,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -287,9 +339,13 @@
      "hex": "#565859",
      "solar": {
       "Ts": 0.08,
-      "Rs": 0.1,
+      "Rs": 0.099,
       "Tv": 0.07,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -298,9 +354,13 @@
      "hex": "#34312D",
      "solar": {
       "Ts": 0.07,
-      "Rs": 0.07,
+      "Rs": 0.047,
       "Tv": 0.06,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -309,9 +369,13 @@
      "hex": "#151312",
      "solar": {
       "Ts": 0.06,
-      "Rs": 0.05,
+      "Rs": 0.026,
       "Tv": 0.05,
-      "source": "estimado"
+      "source": "estimado",
+      "measured": [
+       "Rs"
+      ],
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     }
    ],
@@ -894,54 +958,1262 @@
    }
   },
   {
-   "id": "gen-screen",
-   "name": "Screen (genérico)",
-   "name_en": "Solar screen (generic)",
-   "range": "Genérico de referencia",
+   "id": "screen-30-5",
+   "labId": "Screen5%",
+   "name": "Sauleda Screen 30 5%",
+   "name_en": "Sauleda Screen 30 5%",
+   "range": "Sauleda Screen",
    "uses": [
-    "toldo",
     "screen"
    ],
-   "material": "Poliéster recubierto de PVC",
-   "generic": true,
+   "gsm": 440,
+   "thickness_mm": 0.63,
+   "warranty_y": 5,
+   "roll_mm": 3000,
+   "material": "30 % poliéster, 70 % PVC",
+   "fire": "Clase 1 EN 13773:2003 · M1 NF P92-507:2004",
+   "lightfast": "5/5",
+   "certs": [
+    "Greenguard UL 2818"
+   ],
    "colors": [
     {
-     "ref": "GEN-SCR-01",
-     "name": "Blanco · apertura 5 %",
-     "hex": "#ECECEA",
+     "ref": "77174",
+     "name": "Anthracite",
+     "hex": "#33353A",
      "solar": {
-      "Ts": 0.26,
-      "Rs": 0.62,
-      "Tv": 0.22,
-      "source": "estimado"
+      "Ts": 0.1671,
+      "Rs": 0.3064,
+      "Tv": 0.134,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.05
      }
     },
     {
-     "ref": "GEN-SCR-02",
-     "name": "Gris perla · apertura 3 %",
-     "hex": "#B9B8B3",
+     "ref": "77166",
+     "name": "Optik",
+     "hex": "#F2F1EC",
      "solar": {
-      "Ts": 0.12,
-      "Rs": 0.35,
-      "Tv": 0.1,
-      "source": "estimado"
+      "Ts": 0.1312,
+      "Rs": 0.6054,
+      "Tv": 0.105,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.05
      }
     },
     {
-     "ref": "GEN-SCR-03",
-     "name": "Carbón · apertura 3 %",
-     "hex": "#3A3B3D",
+     "ref": "77173",
+     "name": "Stone",
+     "hex": "#A9A196",
      "solar": {
-      "Ts": 0.05,
-      "Rs": 0.05,
-      "Tv": 0.05,
-      "source": "estimado"
+      "Ts": 0.1859,
+      "Rs": 0.4126,
+      "Tv": 0.149,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77167",
+     "name": "Silver",
+     "hex": "#B7B8B6",
+     "solar": {
+      "Ts": 0.1687,
+      "Rs": 0.5067,
+      "Tv": 0.135,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77168",
+     "name": "Coton",
+     "hex": "#ECE7DC",
+     "solar": {
+      "Ts": 0.136,
+      "Rs": 0.5417,
+      "Tv": 0.109,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77186",
+     "name": "Iron",
+     "hex": "#5E5F60",
+     "solar": {
+      "Ts": 0.1992,
+      "Rs": 0.3265,
+      "Tv": 0.159,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77172",
+     "name": "Pearl",
+     "hex": "#C9C4B8",
+     "solar": {
+      "Ts": 0.1463,
+      "Rs": 0.4919,
+      "Tv": 0.117,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77175",
+     "name": "Sand",
+     "hex": "#CDBB97",
+     "solar": {
+      "Ts": 0.1161,
+      "Rs": 0.5229,
+      "Tv": 0.093,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77179",
+     "name": "Black",
+     "hex": "#1E1E1F",
+     "solar": {
+      "Ts": 0.1301,
+      "Rs": 0.286,
+      "Tv": 0.104,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77180",
+     "name": "Bronze",
+     "hex": "#5B4A3A",
+     "solar": {
+      "Ts": 0.1793,
+      "Rs": 0.3123,
+      "Tv": 0.143,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77462",
+     "name": "Super White",
+     "hex": "#F7F7F5",
+     "solar": {
+      "Ts": 0.1933,
+      "Rs": 0.5743,
+      "Tv": 0.155,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.05
      }
     }
    ],
+   "useLabel": "Cortinas enrollables",
    "en": {
-    "material": "PVC-coated polyester"
+    "material": "30 % polyester, 70 % PVC",
+    "fire": "Clase 1 EN 13773:2003 · M1 NF P92-507:2004",
+    "useLabel": "Roller blinds"
+   },
+   "notes": "Datos tomados de la lámina Screen 30 V0925."
+  },
+  {
+   "id": "screen-30-1",
+   "labId": "Screen1%",
+   "name": "Sauleda Screen 30 1%",
+   "name_en": "Sauleda Screen 30 1%",
+   "range": "Sauleda Screen",
+   "uses": [
+    "screen"
+   ],
+   "gsm": 500,
+   "thickness_mm": 0.63,
+   "warranty_y": 5,
+   "roll_mm": 3000,
+   "material": "30 % poliéster, 70 % PVC",
+   "fire": "Clase 1 EN 13773:2003 · M1 NF P92-507:2004",
+   "lightfast": "5/5",
+   "certs": [
+    "Greenguard UL 2818"
+   ],
+   "colors": [
+    {
+     "ref": "77188",
+     "name": "Anthracite",
+     "hex": "#33353A",
+     "solar": {
+      "Ts": 0.146,
+      "Rs": 0.256,
+      "Tv": 0.117,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.01
+     }
+    },
+    {
+     "ref": "77169",
+     "name": "Optik",
+     "hex": "#F2F1EC",
+     "solar": {
+      "Ts": 0.1255,
+      "Rs": 0.5758,
+      "Tv": 0.1,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.01
+     }
+    },
+    {
+     "ref": "77177",
+     "name": "Stone",
+     "hex": "#A9A196",
+     "solar": {
+      "Ts": 0.1461,
+      "Rs": 0.4312,
+      "Tv": 0.117,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.01
+     }
+    },
+    {
+     "ref": "77170",
+     "name": "Silver",
+     "hex": "#B7B8B6",
+     "solar": {
+      "Ts": 0.0911,
+      "Rs": 0.5329,
+      "Tv": 0.073,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.01
+     }
+    },
+    {
+     "ref": "77171",
+     "name": "Coton",
+     "hex": "#ECE7DC",
+     "solar": {
+      "Ts": 0.1238,
+      "Rs": 0.5117,
+      "Tv": 0.099,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.01
+     }
+    },
+    {
+     "ref": "77187",
+     "name": "Iron",
+     "hex": "#5E5F60",
+     "solar": {
+      "Ts": 0.1864,
+      "Rs": 0.2897,
+      "Tv": 0.149,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.01
+     }
+    },
+    {
+     "ref": "77176",
+     "name": "Pearl",
+     "hex": "#C9C4B8",
+     "solar": {
+      "Ts": 0.0715,
+      "Rs": 0.5475,
+      "Tv": 0.057,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.01
+     }
+    },
+    {
+     "ref": "77178",
+     "name": "Sand",
+     "hex": "#CDBB97",
+     "solar": {
+      "Ts": 0.1175,
+      "Rs": 0.5008,
+      "Tv": 0.094,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.01
+     }
+    },
+    {
+     "ref": "77181",
+     "name": "Black",
+     "hex": "#1E1E1F",
+     "solar": {
+      "Ts": 0.131,
+      "Rs": 0.18,
+      "Tv": 0.105,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.01
+     }
+    },
+    {
+     "ref": "77182",
+     "name": "Bronze",
+     "hex": "#5B4A3A",
+     "solar": {
+      "Ts": 0.0651,
+      "Rs": 0.3473,
+      "Tv": 0.052,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.01
+     }
+    },
+    {
+     "ref": "77493",
+     "name": "Super White",
+     "hex": "#F7F7F5",
+     "solar": {
+      "Ts": 0.1917,
+      "Rs": 0.5551,
+      "Tv": 0.153,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.01
+     }
+    }
+   ],
+   "useLabel": "Cortinas enrollables",
+   "en": {
+    "material": "30 % polyester, 70 % PVC",
+    "fire": "Clase 1 EN 13773:2003 · M1 NF P92-507:2004",
+    "useLabel": "Roller blinds"
+   },
+   "notes": "Datos tomados de la lámina Screen 30 V0925."
+  },
+  {
+   "id": "screen-30-metal-2",
+   "labId": "MetalScreen",
+   "name": "Sauleda Screen 30 Metal 2%",
+   "name_en": "Sauleda Screen 30 Metal 2%",
+   "range": "Sauleda Screen",
+   "uses": [
+    "screen"
+   ],
+   "colors": [
+    {
+     "ref": "77183",
+     "name": "Metal White",
+     "hex": "#E4E4E0",
+     "solar": {
+      "Ts": 0.1509,
+      "Rs": 0.6128,
+      "Tv": 0.121,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.02
+     }
+    },
+    {
+     "ref": "77184",
+     "name": "Metal White Grey",
+     "hex": "#C9CACA",
+     "solar": {
+      "Ts": 0.0903,
+      "Rs": 0.6009,
+      "Tv": 0.072,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.02
+     }
+    },
+    {
+     "ref": "77185",
+     "name": "Metal White Linen",
+     "hex": "#DCD4C4",
+     "solar": {
+      "Ts": 0.1088,
+      "Rs": 0.5957,
+      "Tv": 0.087,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.02
+     }
+    }
+   ],
+   "useLabel": "Cortinas enrollables",
+   "en": {
+    "useLabel": "Roller blinds"
    }
+  },
+  {
+   "id": "screen-glass",
+   "labId": "Screenglass",
+   "name": "Sauleda Screen Glass",
+   "name_en": "Sauleda Screen Glass",
+   "range": "Sauleda Screen",
+   "uses": [
+    "screen"
+   ],
+   "gsm": 400,
+   "thickness_mm": 0.55,
+   "warranty_y": 5,
+   "roll_mm": 3200,
+   "material": "29 % fibra de vidrio, 71 % PVC",
+   "fire": "Clase 1 EN 13773:2003",
+   "lightfast": "Grado 8 (ISO 105 B02)",
+   "certs": [
+    "Greenguard Gold"
+   ],
+   "colors": [
+    {
+     "ref": "77221",
+     "name": "Black",
+     "hex": "#1E1E1F",
+     "solar": {
+      "Ts": 0.07,
+      "Rs": 0.04,
+      "Tv": 0.08,
+      "source": "ficha",
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77220",
+     "name": "Optik",
+     "hex": "#F2F1EC",
+     "solar": {
+      "Ts": 0.22,
+      "Rs": 0.67,
+      "Tv": 0.19,
+      "source": "ficha",
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77219",
+     "name": "White Black",
+     "hex": "#EFEFEC",
+     "solar": {
+      "Ts": 0.08,
+      "Rs": 0.11,
+      "Tv": 0.09,
+      "source": "ficha",
+      "openness": 0.05
+     },
+     "hex2": "#1E1E1F"
+    },
+    {
+     "ref": "77217",
+     "name": "White Pearl",
+     "hex": "#E6E3DA",
+     "solar": {
+      "Ts": 0.16,
+      "Rs": 0.43,
+      "Tv": 0.15,
+      "source": "ficha",
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77218",
+     "name": "White Sand",
+     "hex": "#E3DACA",
+     "solar": {
+      "Ts": 0.23,
+      "Rs": 0.54,
+      "Tv": 0.2,
+      "source": "ficha",
+      "openness": 0.05
+     }
+    }
+   ],
+   "useLabel": "Cortinas enrollables",
+   "en": {
+    "material": "29 % fibreglass, 71 % PVC",
+    "fire": "Clase 1 EN 13773:2003",
+    "useLabel": "Roller blinds"
+   },
+   "notes": "Datos tomados de la lámina Screen Glass V0425."
+  },
+  {
+   "id": "screen-50",
+   "labId": "Screen50",
+   "name": "Sauleda Screen 50",
+   "name_en": "Sauleda Screen 50",
+   "range": "Sauleda Screen",
+   "uses": [
+    "screen"
+   ],
+   "gsm": 500,
+   "thickness_mm": 0.69,
+   "warranty_y": 5,
+   "roll_mm": 2500,
+   "material": "81 % PVC, 19 % poliéster",
+   "fire": "M1 NF P92-503/507 · NFPA 701",
+   "lightfast": "5/5",
+   "certs": [
+    "Greenguard UL 2818"
+   ],
+   "colors": [
+    {
+     "ref": "7864",
+     "name": "Beige",
+     "hex": "#D8C7A6",
+     "solar": {
+      "Ts": 0.11,
+      "Rs": 0.31,
+      "Tv": 0.07,
+      "source": "ficha",
+      "Tuv": 0.05,
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "7871",
+     "name": "Black",
+     "hex": "#1E1E1F",
+     "solar": {
+      "Ts": 0.07,
+      "Rs": 0.03,
+      "Tv": 0.07,
+      "source": "ficha",
+      "Tuv": 0.07,
+      "openness": 0.05
+     },
+     "alt": [
+      "77608"
+     ]
+    },
+    {
+     "ref": "7865",
+     "name": "Chocolat",
+     "hex": "#4A3528",
+     "solar": {
+      "Ts": 0.04,
+      "Rs": 0.12,
+      "Tv": 0.04,
+      "source": "ficha",
+      "Tuv": 0.05,
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "7869",
+     "name": "Grafito",
+     "hex": "#3D3E40",
+     "solar": {
+      "Ts": 0.06,
+      "Rs": 0.07,
+      "Tv": 0.06,
+      "source": "ficha",
+      "Tuv": 0.05,
+      "openness": 0.05
+     },
+     "alt": [
+      "77728"
+     ]
+    },
+    {
+     "ref": "7863",
+     "name": "Marfil",
+     "hex": "#EAE0C8",
+     "solar": {
+      "Ts": 0.21,
+      "Rs": 0.54,
+      "Tv": 0.17,
+      "source": "ficha",
+      "Tuv": 0.07,
+      "openness": 0.05
+     },
+     "alt": [
+      "77606"
+     ]
+    },
+    {
+     "ref": "7868",
+     "name": "Mineral",
+     "hex": "#4B4D4F",
+     "solar": {
+      "Ts": 0.05,
+      "Rs": 0.12,
+      "Tv": 0.05,
+      "source": "ficha",
+      "Tuv": 0.05,
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "7861",
+     "name": "Optik",
+     "hex": "#F2F1EC",
+     "solar": {
+      "Ts": 0.19,
+      "Rs": 0.69,
+      "Tv": 0.15,
+      "source": "ficha",
+      "Tuv": 0.07,
+      "openness": 0.05
+     },
+     "alt": [
+      "77605"
+     ]
+    },
+    {
+     "ref": "7867",
+     "name": "Silver",
+     "hex": "#B7B8B6",
+     "solar": {
+      "Ts": 0.14,
+      "Rs": 0.43,
+      "Tv": 0.1,
+      "source": "ficha",
+      "Tuv": 0.1,
+      "openness": 0.05
+     },
+     "alt": [
+      "77727"
+     ]
+    },
+    {
+     "ref": "7866",
+     "name": "Stone",
+     "hex": "#A9A196",
+     "solar": {
+      "Ts": 0.16,
+      "Rs": 0.57,
+      "Tv": 0.12,
+      "source": "ficha",
+      "Tuv": 0.07,
+      "openness": 0.05
+     },
+     "alt": [
+      "77607"
+     ]
+    },
+    {
+     "ref": "7862",
+     "name": "White",
+     "hex": "#EFEFEC",
+     "solar": {
+      "Ts": 0.2,
+      "Rs": 0.63,
+      "Tv": 0.16,
+      "source": "ficha",
+      "Tuv": 0.07,
+      "openness": 0.05
+     }
+    }
+   ],
+   "useLabel": "Cortinas enrollables",
+   "en": {
+    "material": "81 % PVC, 19 % polyester",
+    "fire": "M1 NF P92-503/507 · NFPA 701",
+    "useLabel": "Roller blinds"
+   },
+   "notes": "Datos tomados de la lámina Sauleda Screen 50 V0123. La ficha indica ancho 250 cm, pero también hay referencias de 300 cm."
+  },
+  {
+   "id": "screen-60",
+   "labId": "Screen60",
+   "name": "Sauleda Screen 60",
+   "name_en": "Sauleda Screen 60",
+   "range": "Sauleda Screen",
+   "uses": [
+    "screen"
+   ],
+   "gsm": 600,
+   "thickness_mm": 0.8,
+   "warranty_y": 5,
+   "roll_mm": 2500,
+   "material": "83 % PVC, 17 % poliéster",
+   "fire": "M1 NF P92-503/507 · NFPA 701",
+   "lightfast": "5/5",
+   "certs": [
+    "Greenguard UL 2818"
+   ],
+   "colors": [
+    {
+     "ref": "7990",
+     "name": "Black",
+     "hex": "#1E1E1F",
+     "solar": {
+      "Ts": 0.04,
+      "Rs": 0.03,
+      "Tv": 0.035,
+      "source": "ficha",
+      "Tuv": 0.04,
+      "openness": 0.03
+     },
+     "alt": [
+      "77613"
+     ]
+    },
+    {
+     "ref": "7989",
+     "name": "Grafito",
+     "hex": "#3D3E40",
+     "solar": {
+      "Ts": 0.03,
+      "Rs": 0.09,
+      "Tv": 0.03,
+      "source": "ficha",
+      "Tuv": 0.03,
+      "openness": 0.03
+     }
+    },
+    {
+     "ref": "7986",
+     "name": "Grey",
+     "hex": "#9A9C9E",
+     "solar": {
+      "Ts": 0.07,
+      "Rs": 0.46,
+      "Tv": 0.06,
+      "source": "ficha",
+      "Tuv": 0.03,
+      "openness": 0.03
+     }
+    },
+    {
+     "ref": "7988",
+     "name": "Iron",
+     "hex": "#5E5F60",
+     "solar": {
+      "Ts": 0.04,
+      "Rs": 0.13,
+      "Tv": 0.04,
+      "source": "ficha",
+      "Tuv": 0.04,
+      "openness": 0.03
+     }
+    },
+    {
+     "ref": "7983",
+     "name": "Marfil",
+     "hex": "#EAE0C8",
+     "solar": {
+      "Ts": 0.16,
+      "Rs": 0.56,
+      "Tv": 0.11,
+      "source": "ficha",
+      "Tuv": 0.03,
+      "openness": 0.03
+     },
+     "alt": [
+      "77610"
+     ]
+    },
+    {
+     "ref": "7987",
+     "name": "Mineral",
+     "hex": "#4B4D4F",
+     "solar": {
+      "Ts": 0.04,
+      "Rs": 0.11,
+      "Tv": 0.04,
+      "source": "ficha",
+      "Tuv": 0.04,
+      "openness": 0.03
+     }
+    },
+    {
+     "ref": "7981",
+     "name": "Optik",
+     "hex": "#F2F1EC",
+     "solar": {
+      "Ts": 0.15,
+      "Rs": 0.72,
+      "Tv": 0.12,
+      "source": "ficha",
+      "Tuv": 0.03,
+      "openness": 0.03
+     },
+     "alt": [
+      "77609"
+     ]
+    },
+    {
+     "ref": "7984",
+     "name": "Sand",
+     "hex": "#CDBB97",
+     "solar": {
+      "Ts": 0.1,
+      "Rs": 0.39,
+      "Tv": 0.06,
+      "source": "ficha",
+      "Tuv": 0.04,
+      "openness": 0.03
+     },
+     "alt": [
+      "77612"
+     ]
+    },
+    {
+     "ref": "7985",
+     "name": "Stone",
+     "hex": "#A9A196",
+     "solar": {
+      "Ts": 0.12,
+      "Rs": 0.59,
+      "Tv": 0.09,
+      "source": "ficha",
+      "Tuv": 0.04,
+      "openness": 0.03
+     },
+     "alt": [
+      "77611"
+     ]
+    },
+    {
+     "ref": "7982",
+     "name": "White",
+     "hex": "#EFEFEC",
+     "solar": {
+      "Ts": 0.15,
+      "Rs": 0.66,
+      "Tv": 0.11,
+      "source": "ficha",
+      "Tuv": 0.03,
+      "openness": 0.03
+     },
+     "alt": [
+      "77731"
+     ]
+    }
+   ],
+   "useLabel": "Cortinas outdoor",
+   "en": {
+    "material": "83 % PVC, 17 % polyester",
+    "fire": "M1 NF P92-503/507 · NFPA 701",
+    "useLabel": "Outdoor blinds"
+   },
+   "notes": "Datos tomados de la lámina Sauleda Screen 60 V0123. La ficha indica ancho 250 cm, pero también hay referencias de 300 cm."
+  },
+  {
+   "id": "screen-fiberglass-60",
+   "labId": "Fiberglass60",
+   "name": "Sauleda Screen Fiberglass 60",
+   "name_en": "Sauleda Screen Fiberglass 60",
+   "range": "Sauleda Screen",
+   "uses": [
+    "screen"
+   ],
+   "gsm": 590,
+   "thickness_mm": 0.78,
+   "warranty_y": 10,
+   "roll_mm": 3000,
+   "material": "36 % fibra de vidrio, 64 % PVC",
+   "fire": "M1 NF P92-503 · FR NFPA 701",
+   "lightfast": "Grado 7-8 (ISO 105 B02)",
+   "certs": [
+    "Oeko-Tex Standard 100",
+    "Greenguard",
+    "antimicrobiano ASTM E2180-18",
+    "antifúngico ASTM G21-15"
+   ],
+   "colors": [
+    {
+     "ref": "77623",
+     "name": "Alu",
+     "hex": "#A8ABAD",
+     "solar": {
+      "Ts": 0.08,
+      "Rs": 0.3,
+      "Tv": 0.05,
+      "source": "ficha",
+      "Tuv": 0.05,
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77628",
+     "name": "Antracite",
+     "hex": "#33353A",
+     "solar": {
+      "Ts": 0.06,
+      "Rs": 0.09,
+      "Tv": 0.04,
+      "source": "ficha",
+      "Tuv": 0.05,
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77639",
+     "name": "Beige",
+     "hex": "#D8C7A6",
+     "solar": {
+      "Ts": 0.16,
+      "Rs": 0.52,
+      "Tv": 0.17,
+      "source": "ficha",
+      "Tuv": 0.06,
+      "openness": 0.06
+     }
+    },
+    {
+     "ref": "77629",
+     "name": "Black",
+     "hex": "#1E1E1F",
+     "solar": {
+      "Ts": 0.06,
+      "Rs": 0.04,
+      "Tv": 0.04,
+      "source": "ficha",
+      "Tuv": 0.04,
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77640",
+     "name": "Cream",
+     "hex": "#EDE3CC",
+     "solar": {
+      "Ts": 0.17,
+      "Rs": 0.56,
+      "Tv": 0.17,
+      "source": "ficha",
+      "Tuv": 0.06,
+      "openness": 0.06
+     }
+    },
+    {
+     "ref": "77625",
+     "name": "Iron",
+     "hex": "#5E5F60",
+     "solar": {
+      "Ts": 0.06,
+      "Rs": 0.15,
+      "Tv": 0.04,
+      "source": "ficha",
+      "Tuv": 0.05,
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77626",
+     "name": "Metal",
+     "hex": "#8E9093",
+     "solar": {
+      "Ts": 0.06,
+      "Rs": 0.11,
+      "Tv": 0.05,
+      "source": "ficha",
+      "Tuv": 0.05,
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77627",
+     "name": "Mineral",
+     "hex": "#4B4D4F",
+     "solar": {
+      "Ts": 0.06,
+      "Rs": 0.06,
+      "Tv": 0.04,
+      "source": "ficha",
+      "Tuv": 0.05,
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77620",
+     "name": "Optik",
+     "hex": "#F2F1EC",
+     "solar": {
+      "Ts": 0.19,
+      "Rs": 0.65,
+      "Tv": 0.16,
+      "source": "ficha",
+      "Tuv": 0.05,
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77622",
+     "name": "Pearl",
+     "hex": "#C9C4B8",
+     "solar": {
+      "Ts": 0.1,
+      "Rs": 0.35,
+      "Tv": 0.07,
+      "source": "ficha",
+      "Tuv": 0.06,
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77621",
+     "name": "Silver",
+     "hex": "#B7B8B6",
+     "solar": {
+      "Ts": 0.15,
+      "Rs": 0.56,
+      "Tv": 0.12,
+      "source": "ficha",
+      "Tuv": 0.05,
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "77624",
+     "name": "Stone",
+     "hex": "#A9A196",
+     "solar": {
+      "Ts": 0.08,
+      "Rs": 0.39,
+      "Tv": 0.05,
+      "source": "ficha",
+      "Tuv": 0.04,
+      "openness": 0.05
+     }
+    }
+   ],
+   "useLabel": "Zip",
+   "en": {
+    "material": "36 % fibreglass, 64 % PVC",
+    "fire": "M1 NF P92-503 · FR NFPA 701",
+    "useLabel": "Zip screens"
+   },
+   "notes": "Datos tomados de la lámina Screen Fiberglass 60 V0425. Garantía: «hasta 10 años»."
+  },
+  {
+   "id": "screen-40",
+   "labId": "Screen40",
+   "name": "Sauleda Screen 40",
+   "name_en": "Sauleda Screen 40",
+   "range": "Sauleda Screen",
+   "uses": [
+    "screen"
+   ],
+   "colors": [
+    {
+     "ref": "7949",
+     "name": "Alu",
+     "hex": "#A8ABAD",
+     "solar": {
+      "Ts": 0.13,
+      "Rs": 0.41,
+      "Tv": 0.1,
+      "source": "ficha",
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "7947",
+     "name": "Beige",
+     "hex": "#D8C7A6",
+     "solar": {
+      "Ts": 0.2,
+      "Rs": 0.52,
+      "Tv": 0.16,
+      "source": "ficha",
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "7944",
+     "name": "Black",
+     "hex": "#1E1E1F",
+     "solar": {
+      "Ts": 0.05,
+      "Rs": 0.04,
+      "Tv": 0.05,
+      "source": "ficha",
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "7948",
+     "name": "Bronze",
+     "hex": "#5B4A3A",
+     "solar": {
+      "Ts": 0.03,
+      "Rs": 0.07,
+      "Tv": 0.03,
+      "source": "ficha",
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "7945",
+     "name": "Iron",
+     "hex": "#5E5F60",
+     "solar": {
+      "Ts": 0.09,
+      "Rs": 0.33,
+      "Tv": 0.07,
+      "source": "ficha",
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "7943",
+     "name": "Metal",
+     "hex": "#8E9093",
+     "solar": {
+      "Ts": 0.06,
+      "Rs": 0.14,
+      "Tv": 0.06,
+      "source": "ficha",
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "7930",
+     "name": "Optik",
+     "hex": "#F2F1EC",
+     "solar": {
+      "Ts": 0.18,
+      "Rs": 0.7,
+      "Tv": 0.15,
+      "source": "ficha",
+      "openness": 0.05
+     }
+    },
+    {
+     "ref": "7940",
+     "name": "Pearl",
+     "hex": "#C9C4B8",
+     "solar": {
+      "Ts": 0.12,
+      "Rs": 0.49,
+      "Tv": 0.09,
+      "source": "ficha",
+      "openness": 0.05
+     },
+     "alt": [
+      "7941"
+     ]
+    },
+    {
+     "ref": "7937",
+     "name": "Sand",
+     "hex": "#CDBB97",
+     "solar": {
+      "Ts": 0.22,
+      "Rs": 0.57,
+      "Tv": 0.19,
+      "source": "ficha",
+      "openness": 0.05
+     },
+     "alt": [
+      "7938"
+     ]
+    },
+    {
+     "ref": "7926",
+     "name": "White",
+     "hex": "#EFEFEC",
+     "solar": {
+      "Ts": 0.17,
+      "Rs": 0.68,
+      "Tv": 0.13,
+      "source": "ficha",
+      "openness": 0.05
+     },
+     "alt": [
+      "7927"
+     ]
+    }
+   ],
+   "useLabel": "Cortinas Enrollables",
+   "en": {
+    "useLabel": "Cortinas Enrollables"
+   }
+  },
+  {
+   "id": "screen-30-clarity-10",
+   "labId": "Screen10%",
+   "name": "Sauleda Screen 30 Clarity 10%",
+   "name_en": "Sauleda Screen 30 Clarity 10%",
+   "range": "Sauleda Screen",
+   "uses": [
+    "screen"
+   ],
+   "colors": [
+    {
+     "ref": "77517",
+     "name": "Clarity Stone",
+     "hex": "#A9A196",
+     "solar": {
+      "Ts": 0.1859,
+      "Rs": 0.4317,
+      "Tv": 0.149,
+      "source": "ficha",
+      "est": [
+       "Tv"
+      ],
+      "openness": 0.1
+     }
+    }
+   ],
+   "useLabel": "Cortinas enrollables",
+   "en": {
+    "useLabel": "Roller blinds"
+   },
+   "notes": "Familia añadida para Clarity Stone 10 % (77517). Sin ficha técnica de familia todavía."
   }
  ]
 }

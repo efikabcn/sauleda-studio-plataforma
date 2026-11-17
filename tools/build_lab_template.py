@@ -185,7 +185,7 @@ wl["D4"] = "ID familia"; wl["E4"] = "Nombre"
 for c in (wl["D4"], wl["E4"]):
     c.font = font(bold=True)
 for i, f in enumerate(FAMILIES, 5):
-    wl.cell(i, 4, f["id"]).font = font()
+    wl.cell(i, 4, f.get("labId", f["id"])).font = font()
     wl.cell(i, 5, f["name"]).font = font()
 FAM_LIST = f"=Listas!$D$5:$D${4 + len(FAMILIES) + EXTRA_FAMILY_ROWS}"
 # Las familias nuevas que se añadan en «Familias» se reflejan aquí para el desplegable.
@@ -222,7 +222,7 @@ header(wf, HF, FCOLS)
 GIVEN_F = {1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12}
 for i, f in enumerate(FAMILIES):
     rr = HF + 1 + i
-    vals = [f["id"], f["name"], ", ".join(f.get("uses", [])), f.get("material"), f.get("construction"),
+    vals = [f.get("labId", f["id"]), f["name"], ", ".join(f.get("uses", [])), f.get("material"), f.get("construction"),
             f.get("gsm"), f.get("thickness_mm"), (f.get("roll_mm") or 0) / 10 or None, f.get("fire"),
             None, f.get("warranty_y"), ", ".join(f.get("certs", [])), None, None, None]
     for j, v in enumerate(vals, 1):
@@ -316,7 +316,7 @@ first_data = rr + 1
 for f in FAMILIES:
     for col in f["colors"]:
         rr += 1
-        color_row(rr, [f["id"], f["name"], col["ref"], col["name"]], True)
+        color_row(rr, [f.get("labId", f["id"]), f["name"], col["ref"], col["name"]], True)
 for k in range(EXTRA_COLOR_ROWS):
     rr += 1
     color_row(rr, [None, f'=IFERROR(INDEX(Listas!$E:$E,MATCH(A{rr},Listas!$D:$D,0)),"")'], False)

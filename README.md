@@ -68,9 +68,18 @@ Lo **común** a los tres módulos está en `js/core/`:
 
 `data/fabrics.json` es la **fuente de verdad**. Cada color lleva `solar.source`:
 
-- `"estimado"`: provisional. Hoy lo son **todos**: los Commercial se han estimado por la
-  luminancia del color, y los acrílicos y screens son genéricos de mercado.
+- `"estimado"`: provisional. Los Commercial (velas) se estimaron por la luminancia del color y
+  el acrílico de toldo es genérico de mercado. Si llega un valor suelto medido (p. ej. la Rs
+  ASTM C1549 de los Commercial 95), se guarda y se anota en `measured`, pero sigue estimado.
+- `"ficha"`: valores de la ficha técnica de Sauleda, sin informe de laboratorio. Si la ficha no
+  trae Tv, se estima como Ts × 0,8 y se anota en `est: ["Tv"]`.
 - `"ensayo"`: dato de laboratorio, con laboratorio, número de informe y fecha.
+
+Primera entrega del laboratorio (17-nov-2026): 9 familias de screen (73 colores, más 15
+referencias repetidas guardadas como `alt`) con datos de ficha, y la Rs de 16 colores de
+Commercial 95. Siguen pendientes Ts/Tv de todas las velas (Commercial 95, FR, Heavy 430,
+DualShade 350 y G325) y los acrílicos de toldo. Las familias nuevas guardan en `labId` el ID
+que usa el laboratorio en el Excel.
 
 Mientras quede algún color estimado, la aplicación muestra un aviso arriba y marca esos
 valores como «estimado».

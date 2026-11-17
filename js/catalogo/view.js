@@ -40,7 +40,7 @@ export function mount(params = {}) {
 
 export function show(params = {}) {
   const hit = params.ref && findColor(params.ref);
-  if (hit) { state.fam = hit.family.id; state.ref = params.ref; } else if (params.familia && family(params.familia)) selectFamily(params.familia, false);
+  if (hit) { state.fam = hit.family.id; state.ref = hit.color.ref; } else if (params.familia && family(params.familia)) selectFamily(params.familia, false);
   if (!state.fam) selectFamily(families()[0].id, false);
   renderAll();
 }
@@ -100,9 +100,10 @@ function renderFicha() {
   const q = (kind, v, d = 0) => `${fmt(toDisplay(kind, v), d)} ${unit(kind)}`;
   const pair = (kind, o) => `${fmt(toDisplay(kind, o.warp))} / ${q(kind, o.weft)}`;
   const roll = (f) => (imperial()
-    ? `${fmt(f.roll_mm / 25.4)} in / ${fmt(f.rollLength_m / 0.9144, 1)} yd`
-    : `${fmt(f.roll_mm / 1000, 1)} m / ${f.rollLength_m} m`);
+    ? `${fmt(f.roll_mm / 25.4)} in${f.rollLength_m ? ` / ${fmt(f.rollLength_m / 0.9144, 1)} yd` : ''}`
+    : `${fmt(f.roll_mm / 1000, 1)} m${f.rollLength_m ? ` / ${f.rollLength_m} m` : ''}`);
   const tech = [
+    ['c.use', familyText(f, 'useLabel', lang)],
     ['c.material', familyText(f, 'material', lang)], ['c.construction', familyText(f, 'construction', lang)],
     ['c.gsm', f.gsm && q('gsm', f.gsm, imperial() ? 1 : 0)],
     ['c.thickness', f.thickness_mm && q('mm', f.thickness_mm, imperial() ? 3 : 1)],
@@ -110,7 +111,7 @@ function renderFicha() {
     ['c.tensile', f.mech && pair('n5', f.mech.tensile)],
     ['c.tear', f.mech && pair('newton', f.mech.tear)],
     ['c.burst', f.mech && pair('newton', f.mech.burst)],
-    ['c.fire', familyText(f, 'fire', lang)], ['c.temp', familyText(f, 'tempRange', lang)],
+    ['c.fire', familyText(f, 'fire', lang)], ['c.lightfast', f.lightfast], ['c.temp', familyText(f, 'tempRange', lang)],
     ['c.warranty', f.warranty_y && t('c.years', { n: f.warranty_y })],
     ['c.certs', familyText(f, 'certs', lang)?.join(' · ')],
   ].filter(([, v]) => v);
@@ -139,9 +140,17 @@ function renderFicha() {
 
 function colorDetail(f, c) {
   const s = c.solar, As = 1 - s.Ts - s.Rs;
-  const src = isEstimated(c)
+  const extra = [
+    ...(s.est?.includes('Tv') ? [t('c.src.estTv')] : []),
+    ...(s.measured?.length ? [t('c.src.meas', { k: s.measured.join(', '), note: esc(s.measuredNote ?? '') })] : []),
+  ];
+  const src = (isEstimated(c)
     ? `<span class="est">${t('c.src.est')}</span>`
-    : `<span class="lab">${t('c.src.lab', { lab: esc(s.lab ?? ''), report: esc(s.report ?? ''), date: esc(s.date ?? '') })}</span>`;
+    : s.source === 'ficha'
+      ? `<span class="lab">${t('c.src.sheet')}</span>`
+      : `<span class="lab">${t('c.src.lab', { lab: esc(s.lab ?? ''), report: esc(s.report ?? ''), date: esc(s.date ?? '') })}</span>`)
+    + (extra.length ? ` <small class="hint">${extra.join(' · ')}</small>` : '')
+    + (c.alt?.length ? ` <small class="hint">${t('c.alt', { refs: c.alt.join(', ') })}</small>` : '');
   const rows = GLAZINGS.map((g) => {
     const ext = gtot({ g: g.g, U: g.U, Ts: s.Ts, Rs: s.Rs, position: 'external' });
     const int = gtot({ g: g.g, U: g.U, Ts: s.Ts, Rs: s.Rs, position: 'internal' });
