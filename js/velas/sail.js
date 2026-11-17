@@ -7,7 +7,25 @@ import { t } from '../core/i18n.js';
 
 export { FABRICS };
 
-export const PRETENSION = { low: 0.6, std: 1.0, high: 1.6 };
+/**
+ * Pretensado del tejido sobre la mesa o el suelo al marcar el patrón (% en el sentido
+ * del rollo). baja = tal como sale del rollo, sin fijar; estándar = clavado por los
+ * extremos para que quede plano (1-2 %); alta = estirado con más fuerza (2-3 %).
+ */
+export const PRETENSION = { low: 0, std: 1.5, high: 2.5 };
+
+/** Compensación por defecto (urdimbre/trama, %): valor de referencia del sector (Mpanel). */
+export const DEFAULT_COMP = { warp: 4, weft: 2 };
+
+/**
+ * Curvatura de borde recomendada (flecha en % de la cuerda) según la longitud del lado:
+ * 3 % hasta 2 m, 5 % a 5 m y 8 % a partir de 11 m. Valores orientativos de taller.
+ */
+export function recommendedCurve(L_mm) {
+  const L = L_mm / 1000;
+  const c = L <= 2 ? 3 : L <= 5 ? 3 + ((L - 2) * 2) / 3 : Math.min(8, 5 + (L - 5) * 0.5);
+  return Math.round(c * 2) / 2;
+}
 
 /** Ángulo (rad) de la dirección de las costuras según la estrategia elegida. */
 function seamAngle(layout, corners) {
@@ -55,13 +73,12 @@ export function computeSail(spec) {
 
   const fabric = FABRICS.find((f) => f.id === spec.fabricId) || FABRICS[0];
   const rollWidth = spec.rollWidth || fabric.roll;
-  const pre = PRETENSION[spec.pretension] ?? 1;
-  const warpPct = spec.warpPct != null ? spec.warpPct : fabric.warp * pre;
-  const weftPct = spec.weftPct != null ? spec.weftPct : fabric.weft * pre;
+  const prePct = PRETENSION[spec.pretension] ?? 0;
+  const warpPct = Number.isFinite(spec.warpPct) ? spec.warpPct : DEFAULT_COMP.warp;
+  const weftPct = Number.isFinite(spec.weftPct) ? spec.weftPct : DEFAULT_COMP.weft;
   const usable = rollWidth - 2 * spec.seam;
   if (usable <= 200) throw new Error(t('vj.errUsable'));
   const curveFactor = Math.sqrt(areaSurf / Math.max(areaPlan, 1));
-  const tolDist = spec.maxDistortion ?? 0.015;   // 1,5 % de error de desarrollo admisible
   // escala característica = separación entre puntos del contorno (la parte más fina
   // de la malla). Marca las tolerancias de soldadura y recorte de la malla.
   const edgeScale = boundary.edgeLengths.reduce((a, b) => a + b, 0) / boundary.loop.length;
@@ -75,17 +92,16 @@ export function computeSail(spec) {
     let panels = null, cuts = null, best = null;
     const gap = spec.nestGap ?? 30, room = rollWidth - 2 * gap;
     const maxCount = Math.ceil((span * curveFactor * 2) / usable) + 2;
+    // El número de paños lo marca solo el ancho del rollo: el punto de HDPE absorbe la
+    // doble curvatura estirando, así que no se añaden paños para «aplanar» el patrón.
     for (let attempt = 0; attempt < 5; attempt++) {
       cuts = [];
       for (let k = 1; k < count; k++) cuts.push(uMin + (span * k) / count);
-      panels = buildPanels(mesh, ax, cuts, { ...spec, quality: quick ? 'fast' : spec.quality }, { warpPct, weftPct, h: edgeScale });
+      panels = buildPanels(mesh, ax, cuts, { ...spec, quality: quick ? 'fast' : spec.quality }, { warpPct, weftPct, prePct, h: edgeScale });
       const widest = Math.max(...panels.map((p) => p.cutWidth));
-      const worst = Math.max(...panels.map((p) => p.maxErr));
-      if (widest <= room && (!best || worst < best.worst)) best = { panels, cuts, worst };
-      if (widest <= room && worst <= tolDist) { best = { panels, cuts, worst }; break; }
+      if (widest <= room) { best = { panels, cuts }; break; }
       if (count >= maxCount) break;
-      count = widest <= room ? count + 1
-        : Math.min(maxCount, Math.max(count + 1, Math.ceil(count * (widest / room))));
+      count = Math.min(maxCount, Math.max(count + 1, Math.ceil(count * (widest / room))));
     }
     if (best) { panels = best.panels; cuts = best.cuts; }
     const nested = nest(panels, rollWidth, spec.nestGap ?? 30, quick ? { xstep: 80, col: 40 } : {});
@@ -99,19 +115,11 @@ export function computeSail(spec) {
       try {
         const cand = layoutFor((deg * Math.PI) / 180, true);
         if (cand.nested.warnings.length) continue;          // no cabe en el rollo
-        const worst = Math.max(...cand.panels.map((p) => p.maxErr));
-        cands.push({ deg, cost: cand.nested.rollLength, worst });
+        cands.push({ deg, cost: cand.nested.rollLength });
       } catch (e) { /* dirección inviable */ }
     }
     if (!cands.length) throw new Error(t('vj.errNoDir'));
-    const ok = cands.filter((c) => c.worst <= tolDist * 2);
-    let pool = ok;
-    if (!pool.length) {           // ninguna dirección da un patrón plano: se avisa y se usa la mejor
-      pool = cands.slice().sort((a, b) => a.worst - b.worst).slice(0, 3);
-      notes.push(t('vj.noFlat'));
-    }
-    pool.sort((a, b) => a.cost - b.cost);
-    cands.length = 0; cands.push(...pool);
+    cands.sort((a, b) => a.cost - b.cost);
     // los mejores candidatos se reevalúan a calidad completa: la malla fina
     // puede cambiar el número de paños y, con él, el consumo real.
     let best = null;
@@ -154,20 +162,24 @@ export function computeSail(spec) {
     netArea_m2: panelArea,
     waste_pct: fabricArea > 0 ? (1 - panelArea / fabricArea) * 100 : 0,
     weight_kg: (panelArea * fabric.gsm) / 1000,
-    warpPct, weftPct,
-    maxDistortion_pct: Math.max(...panels.map((p) => p.maxErr)) * 100,
-    avgDistortion_pct: (panels.reduce((a, p) => a + p.avgErr, 0) / panels.length) * 100,
+    warpPct, weftPct, prePct,
+    drawWarpPct: ((1 + warpPct / 100) / (1 + prePct / 100) - 1) * 100,
     seamAngle: th,
     seamAngleDeg: ((th * 180) / Math.PI + 360) % 180,
   };
 
-  return { spec, site, fixings, corners, boundary, mesh, panels, nested, cuts, seamAxis: ax, metrics, fabric, notes: notes.concat(advisories(fixings, corners, metrics, spec, fabric)) };
+  // Patrón válido para cortar solo si las diagonales de comprobación cuadran.
+  const checks = site.checks;
+  const verified = checks.every((c) => c.ok);
+  return { spec, site, checks, verified, fixings, corners, boundary, mesh, panels, nested, cuts, seamAxis: ax, metrics, fabric, notes: notes.concat(advisories(fixings, corners, metrics, spec, fabric)) };
 }
 
-function buildPanels(mesh, ax, cuts, spec, { warpPct, weftPct, h }) {
+function buildPanels(mesh, ax, cuts, spec, { warpPct, weftPct, prePct = 0, h }) {
   const bands = sliceIntoPanels(mesh, ax, cuts, h * 0.12);
   return bands.map((band, i) => {
-    const sub = weld(band.tris, h * 0.3, h * h * 0.02);
+    // Soldadura casi exacta: los vértices del recorte coinciden salvo error de redondeo.
+    // Con tolerancias de centímetros se fundían puntos distintos y el contorno se rompía.
+    const sub = weld(band.tris, 0.5, 1);
     const flat = flattenPatch(sub, { iters: spec.quality === 'fast' ? 250 : 700 });
     const loop = flat.loop;
     if (loop.length < 3) throw new Error(t('vj.errLoop', { n: i + 1 }));
@@ -186,8 +198,10 @@ function buildPanels(mesh, ax, cuts, spec, { warpPct, weftPct, h }) {
       return [d[0] * axes.cross[0] + d[1] * axes.cross[1], d[0] * axes.long[0] + d[1] * axes.long[1]];
     };
     const local = raw.map(toLocal);
-    // compensación biaxial: se corta más pequeño para que al tensar llegue a medida
-    const net = local.map(([x, y]) => [x / (1 + weftPct / 100), y / (1 + warpPct / 100)]);
+    // compensación biaxial: se corta más pequeño para que al tensar llegue a medida.
+    // Si al marcar el tejido ya está estirado un prePct en el sentido del rollo, al
+    // soltarlo encoge: se dibuja (1 + pre) / (1 + comp) de la medida final.
+    const net = local.map(([x, y]) => [x / (1 + weftPct / 100), (y * (1 + prePct / 100)) / (1 + warpPct / 100)]);
     const cut = offsetPolygon(net, margins);
 
     const nb = bbox(net), cb = bbox(cut);
@@ -215,26 +229,21 @@ function minWidth(pts) {
 
 /* ------------------------- avisos estructurales ---------------------------- */
 
-export function windAdvisory({ speed_ms, area_m2, projected_m2, corners, height_m = 2.5, cf = 1.3 }) {
-  const q = 0.613 * speed_ms * speed_ms;                 // presión dinámica, Pa (EN 1991-1-4 simplificado)
-  const kz = Math.max(0.8, Math.min(1.4, 0.7 + 0.15 * Math.log(Math.max(height_m, 2) / 2 + 1)));
-  const F = (q * kz * cf * projected_m2) / 1000;         // kN
-  const perCorner = (F / corners) * 1.6;                 // reparto no uniforme, coef. de mayoración
-  return { q_kPa: (q * kz) / 1000, total_kN: F, corner_kN: perCorner };
-}
-
 function advisories(fixings, corners, m, spec, fabric) {
   const out = [];
   const n = corners.length;
   const zs = corners.map((p) => p[2]);
   const drop = Math.max(...zs) - Math.min(...zs);
-  const span = Math.max(...m.edgeChords);
-  const slope = (drop / span) * 100;
+  // desnivel recomendado: 1/6 del lado más largo, medido entre anclajes
+  const fz = fixings.map((p) => p[2]);
+  const span = Math.max(...m.fixingSpans);
+  const slope = ((Math.max(...fz) - Math.min(...fz)) / span) * 100;
   if (slope < 15) out.push(t('vj.lowSlope', { s: slope.toFixed(0) }));
   if (n === 4 && drop < 1) out.push(t('vj.levelAnchors'));
-  const minCurve = Math.min(...(spec.curves || [0.08]));
-  if (minCurve < 0.06) out.push(t('vj.lowCurve', { c: (minCurve * 100).toFixed(0) }));
-  if (m.maxDistortion_pct > 1.5) out.push(t('vj.distortion', { d: m.maxDistortion_pct.toFixed(1) }));
+  (spec.curves || []).forEach((c, i) => {
+    const rec = recommendedCurve(m.fixingSpans[i]);
+    if (Math.abs(c * 100 - rec) > 2) out.push(t('vj.curveOff', { e: `${LETTERS[i]}${LETTERS[(i + 1) % n]}`, c: (c * 100).toFixed(1), r: rec }));
+  });
   const piece = (COMMON.rollLength_m || 40) * 1000;
   if (m.rollLength_mm > piece) {
     const piezas = Math.ceil(m.rollLength_mm / piece);

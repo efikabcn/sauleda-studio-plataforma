@@ -170,4 +170,13 @@ export function drawCutPlan(canvas, result, opts = {}) {
 
   label(ctx, T([W / 2, L])[0], T([0, L])[1] - 16, `rollo ${W} mm × ${(L / 1000).toFixed(2)} m · merma ${metrics.waste_pct.toFixed(0)} %`, { size: 12, color: '#96a0ae' });
   scaleBar(ctx, s, w, h);
+  // Sin diagonales de comprobación que cuadren, el patrón no se puede usar para cortar.
+  if (result.verified === false && opts.watermark) {
+    ctx.save();
+    ctx.translate(w / 2, h / 2); ctx.rotate(-0.35);
+    ctx.font = '700 30px Helvetica, Arial, sans-serif'; ctx.textAlign = 'center';
+    ctx.fillStyle = 'rgba(225,31,28,.55)';
+    opts.watermark.split('\n').forEach((ln, i) => ctx.fillText(ln, 0, i * 38));
+    ctx.restore();
+  }
 }

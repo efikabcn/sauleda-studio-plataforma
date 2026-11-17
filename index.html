@@ -198,13 +198,17 @@
           <option value="slope" selected data-i18n="v.modeSlope">distancia real entre anclajes (3D)</option>
         </select>
       </label>
+      <div id="dims-diagram" class="dims-diagram" aria-hidden="true"></div>
       <div id="dims" class="dims"></div>
       <p class="hint" id="dims-hint"></p>
+      <div id="dims-check"></div>
+      <button id="btn-sheet" class="chip"><span data-i18n="v.measureSheet">🖨 Hoja de medidas para el instalador</span></button>
     </section>
 
     <section>
       <h3><span data-i18n="v.sec2">2 · Alturas y forma</span></h3>
       <div id="heights" class="dims"></div>
+      <p class="hint"><span data-i18n="v.heightsHint"></span></p>
       <div class="row">
         <button id="wiz-hypar" class="chip"><span data-i18n="v.hypar">Torsión hypar</span></button>
         <button id="wiz-slope" class="chip"><span data-i18n="v.slope">Pendiente 20 %</span></button>
@@ -217,9 +221,10 @@
       <label><span data-i18n="v.material">Material</span><select id="fabric"></select></label>
       <div class="grid2">
         <label><span data-i18n="v.rollw">Ancho de rollo (mm)</span><input id="rollw" type="number" step="10"></label>
-        <label><span data-i18n="v.pretension">Pretensión</span><select id="pretension"><option value="low" data-i18n="v.low">baja</option><option value="std" selected data-i18n="v.std">estándar</option><option value="high" data-i18n="v.high">alta</option></select>
-        </label>
-      </div>
+        </div>
+      <label><span data-i18n="v.pretension">Pretensado al marcar el patrón</span><select id="pretension"><option value="low" data-i18n="v.low">baja</option><option value="std" selected data-i18n="v.std">estándar</option><option value="high" data-i18n="v.high">alta</option></select>
+      </label>
+      <p class="hint" id="pre-hint"></p>
       <p class="hint" id="fabric-hint"></p>
     </section>
 
@@ -235,29 +240,22 @@
       </div>
       <p class="hint" id="comp-hint"></p>
       <label><span data-i18n="v.layout">Estrategia de costuras</span><select id="layout">
-          <option value="optimo" selected data-i18n="v.lOpt">Óptima (mínimo consumo)</option>
-          <option value="auto" data-i18n="v.lAuto">Perpendicular al lado mayor</option>
+          <option value="auto" selected data-i18n="v.lAuto">Perpendicular al lado más largo</option>
+          <option value="optimo" data-i18n="v.lOpt">Mínimo consumo de tela</option>
           <option value="cross" data-i18n="v.lCross">Paralela al lado AB (corte transversal)</option>
-          <option value="longest" data-i18n="v.lLongest">Perpendicular al lado más largo</option>
           <option value="hypar" data-i18n="v.lHypar">Siguiendo la torsión hypar</option>
           <option value="manual" data-i18n="v.lManual">Ángulo manual…</option>
         </select>
       </label>
+      <p class="hint"><span data-i18n="v.layoutHint"></span></p>
       <label id="angle-wrap" hidden><span data-i18n="v.seamAngle">Ángulo de costura (°)</span><input id="seam-angle" type="number" value="0" step="5"></label>
-      <label><span data-i18n="v.curve">Curvatura de borde (%)</span><input id="curve" type="number" value="8" step="0.5" min="0" max="25"></label>
+      <label class="check"><input id="curve-auto" type="checkbox" checked> <span data-i18n="v.curve">Curvatura de borde automática según el tamaño</span></label>
       <div id="curves" class="dims small"></div>
+      <p class="hint"><span data-i18n="v.curveHint"></span></p>
       <label><span data-i18n="v.hardware">Deducción de herrajes en esquina (mm)</span><input id="hardware" type="number" value="250" step="10"></label>
       <div id="hardwares" class="dims small"></div>
     </section>
 
-    <section>
-      <h3><span data-i18n="v.sec5">5 · Viento (orientativo)</span></h3>
-      <div class="grid2">
-        <label><span data-i18n="v.speed">Velocidad</span><input id="wind-v" type="number" value="100" step="5"></label>
-        <label><span data-i18n="v.unit">Unidad</span><select id="wind-u"><option value="kmh" selected>km/h</option><option value="ms">m/s</option><option value="mph">mph</option></select></label>
-      </div>
-      <label><span data-i18n="v.windH">Altura media de instalación (m)</span><input id="wind-h" type="number" value="2.5" step="0.1"></label>
-    </section>
   </aside>
 
   <!-- ============ ZONA CENTRAL ============ -->
@@ -277,6 +275,8 @@
           <label class="ov"><span data-i18n="v.poles">Postes</span><select id="pole-color">
             <option value="#8d949c" data-i18n="v.galv">galvanizado</option><option value="#1b1d20" data-i18n="v.black">negro</option>
             <option value="#e8e8e8" data-i18n="v.white">blanco</option><option value="#5a5f66" data-i18n="v.anthracite">antracita</option></select></label>
+          <label class="ov"><span data-i18n="v.tilt">Inclinación</span><select id="pole-tilt">
+            <option value="10" selected data-i18n="v.tiltO">10° hacia fuera</option><option value="0" data-i18n="v.tiltV">verticales</option></select></label>
           <label class="ov"><span data-i18n="v.seams">Costuras</span><input id="show-seams" type="checkbox" checked></label>
           <label class="ov"><span data-i18n="v.shadow">Sombra</span><input id="show-shadow" type="checkbox" checked></label>
           <span class="sep"></span>
@@ -313,7 +313,9 @@
     <section>
       <h3><span data-i18n="v.results">Resultados</span></h3>
       <div id="kpis" class="kpis"></div>
+      <p class="hint" id="solar-note"></p>
       <div id="alerts"></div>
+      <p class="hint"><span data-i18n="vj.fixNote"></span></p>
     </section>
     <section>
       <h3><span data-i18n="v.edges">Bordes de tela</span></h3>

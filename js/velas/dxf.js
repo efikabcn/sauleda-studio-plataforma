@@ -133,12 +133,14 @@ export function csvReport(result, meta = {}) {
     [t('vx.cWeight'), m.weight_kg.toFixed(2)],
     [t('vx.cWarp'), m.warpPct.toFixed(2)],
     [t('vx.cWeft'), m.weftPct.toFixed(2)],
+    [t('vx.cPre'), m.prePct.toFixed(1)],
+    [t('vx.cVerified'), result.verified ? t('vx.yes') : t('vx.no')],
     [t('vx.cSeam'), m.seamAngleDeg.toFixed(1)],
     [],
     [t('vj.side'), t('vj.rPlanMm'), t('vj.rRealMm'), t('vj.rChordMm'), t('vj.rEdgeMm')],
   ];
   m.edgeLengths.forEach((L, i) => rows.push([`${LET[i]}${LET[(i + 1) % m.edgeLengths.length]}`, Math.round(m.fixingSpansPlan[i]), Math.round(m.fixingSpans[i]), Math.round(m.edgeChords[i]), Math.round(L)]));
-  rows.push([], [t('vj.panel'), t('vx.cFinW'), t('vx.cFinL'), t('vx.cCutW'), t('vx.cCutL'), t('vx.cPArea'), t('vx.cDist')]);
-  panels.forEach((p) => rows.push([p.label, Math.round(p.netWidth), Math.round(p.netLength), Math.round(p.cutWidth), Math.round(p.cutLength), p.area_m2.toFixed(2), (p.maxErr * 100).toFixed(2)]));
+  rows.push([], [t('vj.panel'), t('vx.cFinW'), t('vx.cFinL'), t('vx.cCutW'), t('vx.cCutL'), t('vx.cPArea')]);
+  panels.forEach((p) => rows.push([p.label, Math.round(p.netWidth), Math.round(p.netLength), Math.round(p.cutWidth), Math.round(p.cutLength), p.area_m2.toFixed(2)]));
   return rows.map((r) => r.join(';')).join('\n');
 }

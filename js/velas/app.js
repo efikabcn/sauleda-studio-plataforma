@@ -1,5 +1,5 @@
 // app.js — interfaz: entradas de obra, cálculo, vistas y exportación.
-import { computeSail, FABRICS, windAdvisory } from './sail.js';
+import { computeSail, FABRICS, PRETENSION, recommendedCurve } from './sail.js';
 import { colorsFor, BRAND, COMMON } from './fabrics.js';
 import { createViewer } from './viewer.js';
 import { drawPlan, drawCutPlan } from './draw2d.js';
@@ -21,8 +21,10 @@ const state = {
   mode: 'plan',
   edges: [5000, 4000, 5000, 4000],
   diagonals: [6400],
+  checks: [6406],          // diagonales de comprobación desde B (BD, BE…)
   heights: [2500, 3300, 2500, 3300],
-  curves: [8, 8, 8, 8],
+  curves: [5, 4.5, 5, 4.5],
+  curveAuto: true,
   hardware: [250, 250, 250, 250],
   result: null,
   north: 0,
@@ -40,7 +42,7 @@ const fmt = (v, d = 0) => fromMM(v).toFixed(d);
 /* ----------------------------- entradas dinámicas ---------------------------- */
 
 function defaults(n) {
-  const R = 2600, out = { edges: [], diagonals: [], heights: [], curves: [], hardware: [] };
+  const R = 2600, out = { edges: [], diagonals: [], checks: [], heights: [], curves: [], hardware: [] };
   const pts = [];
   for (let i = 0; i < n; i++) {
     const a = (Math.PI * 2 * i) / n - Math.PI / 2;
@@ -54,6 +56,9 @@ function defaults(n) {
     out.hardware.push(250);
   }
   for (let k = 2; k <= n - 2; k++) out.diagonals.push(Math.round(Math.hypot(pts[k][0] - pts[0][0], pts[k][1] - pts[0][1])));
+  for (let k = 3; k < n; k++) out.checks.push(Math.round(Math.hypot(pts[k][0] - pts[1][0], pts[k][1] - pts[1][1])));
+  out.curves = out.edges.map(recommendedCurve);
+  out.curveAuto = true;
   return out;
 }
 
@@ -68,9 +73,17 @@ function buildInputs() {
     dims.insertAdjacentHTML('beforeend',
       `<label class="diag">A${LET[k + 2]} <input data-k="diagonals" data-i="${k}" type="number" step="10" value="${fmt(state.diagonals[k], state.unit === 'in' ? 2 : 0)}"></label>`);
   }
+  for (let k = 0; k < Math.max(0, n - 3); k++) {
+    const v = state.checks[k];
+    dims.insertAdjacentHTML('beforeend',
+      `<label class="chk">B${LET[k + 3]} <input data-k="checks" data-i="${k}" type="number" step="10" value="${v > 0 ? fmt(v, state.unit === 'in' ? 2 : 0) : ''}"></label>`);
+  }
   $('#dims-hint').textContent = n === 3
     ? t('vj.dims3')
     : t('vj.dimsN', { n, d: n - 3 });
+  $('#dims-diagram').innerHTML = diagramSVG(n);
+  if (state.curveAuto) state.curves = state.edges.slice(0, n).map(recommendedCurve);
+  $('#curve-auto').checked = state.curveAuto;
 
   const hs = $('#heights'); hs.innerHTML = '';
   for (let i = 0; i < n; i++) {
@@ -86,9 +99,93 @@ function buildInputs() {
   $$('#dims input,#heights input,#curves input,#hardwares input').forEach((el) => {
     el.addEventListener('change', () => {
       const k = el.dataset.k, i = +el.dataset.i, v = parseFloat(el.value) || 0;
+      if (k === 'checks') { state.checks[i] = el.value.trim() === '' ? null : toMM(v); return; }
       state[k][i] = (k === 'curves') ? v : toMM(v);
+      if (k === 'curves') { state.curveAuto = false; $('#curve-auto').checked = false; }
+      if (k === 'edges' && state.curveAuto) {
+        state.curves[i] = recommendedCurve(state.edges[i]);
+        const c = $(`#curves input[data-i="${i}"]`); if (c) c.value = state.curves[i];
+      }
     });
   });
+}
+
+/** Esquema de la vela con los puntos A, B, C…: lados, diagonales de forma (desde A)
+ *  y de comprobación (desde B). Es el dibujo que se manda al instalador. */
+function diagramSVG(n, { big = false } = {}) {
+  const W = big ? 520 : 300, H = big ? 400 : 190, R = big ? 150 : 72, cx = W / 2, cy = H / 2 + (big ? 0 : 4);
+  const P = Array.from({ length: n }, (_, i) => {
+    const a = ((-90 - 180 / n + (360 * i) / n) * Math.PI) / 180;
+    return [cx + R * 1.25 * Math.cos(a), cy - R * Math.sin(a)];
+  });
+  const line = (a, b, st) => `<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" ${st}/>`;
+  const fs = big ? 15 : 10.5;
+  const txt = (x, y, s, col, w = 600) => `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" font-size="${fs}" font-weight="${w}" fill="${col}" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica,Arial,sans-serif">${s}</text>`;
+  let g = '';
+  for (let k = 2; k <= n - 2; k++) g += line(P[0], P[k], 'stroke="#055e94" stroke-width="1.4" stroke-dasharray="6 4"');
+  for (let k = 3; k < n; k++) g += line(P[1], P[k], 'stroke="#e67e22" stroke-width="1.4" stroke-dasharray="2 4"');
+  for (let i = 0; i < n; i++) g += line(P[i], P[(i + 1) % n], 'stroke="#2c2c2c" stroke-width="2"');
+  // nombres de diagonales cerca de su centro (desplazados para que no se pisen)
+  for (let k = 2; k <= n - 2; k++) {
+    const m = [(P[0][0] * 0.72 + P[k][0] * 0.28), (P[0][1] * 0.72 + P[k][1] * 0.28)];
+    g += txt(m[0] + (big ? 14 : 10), m[1] + (big ? 4 : 3), `A${LET[k]}`, '#055e94');
+  }
+  for (let k = 3; k < n; k++) {
+    const m = [(P[1][0] * 0.72 + P[k][0] * 0.28), (P[1][1] * 0.72 + P[k][1] * 0.28)];
+    g += txt(m[0] - (big ? 14 : 10), m[1] + (big ? 4 : 3), `B${LET[k]}`, '#c0640a');
+  }
+  for (let i = 0; i < n; i++) {
+    const a = P[i], b = P[(i + 1) % n], mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
+    const ox = mx - cx, oy = my - cy, l = Math.hypot(ox, oy) || 1, d = big ? 16 : 11;
+    g += txt(mx + (ox / l) * d, my + (oy / l) * d, `${LET[i]}${LET[(i + 1) % n]}`, '#555', 500);
+  }
+  P.forEach((p, i) => {
+    g += `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${big ? 13 : 9}" fill="#E11F1C"/>`;
+    g += txt(p[0], p[1] + 0.5, LET[i], '#fff', 700);
+  });
+  const ly = H - (big ? 14 : 9), lx = big ? 20 : 8, ls = big ? 12 : 9.5;
+  const leg = (x, st, label) => `${line([x, ly], [x + 18, ly], st)}<text x="${x + 22}" y="${ly}" font-size="${ls}" fill="#666" dominant-baseline="middle" font-family="Helvetica,Arial,sans-serif">${label}</text>`;
+  const items = [['stroke="#2c2c2c" stroke-width="2"', t('ms.legSide')]];
+  if (n > 3) items.push(['stroke="#055e94" stroke-width="1.4" stroke-dasharray="6 4"', t('ms.legA')],
+    ['stroke="#e67e22" stroke-width="1.4" stroke-dasharray="2 4"', t('ms.legB')]);
+  let x = lx;
+  for (const [st, label] of items) { g += leg(x, st, label); x += 22 + label.length * ls * 0.56 + (big ? 22 : 12); }
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">${g}</svg>`;
+}
+
+/** Hoja imprimible para pedir las medidas al instalador. */
+function printSheet() {
+  const n = state.n;
+  const rows = (names) => names.map((nm) => `<tr><td>${nm}</td><td></td></tr>`).join('');
+  const sides = Array.from({ length: n }, (_, i) => `${LET[i]}${LET[(i + 1) % n]}`);
+  const dA = Array.from({ length: Math.max(0, n - 3) }, (_, k) => `A${LET[k + 2]}`);
+  const dB = Array.from({ length: Math.max(0, n - 3) }, (_, k) => `B${LET[k + 3]}`);
+  const hs = Array.from({ length: n }, (_, i) => LET[i]);
+  const tbl = (title, names) => names.length ? `<table><thead><tr><th>${title}</th><th>${t('ms.measure')}</th></tr></thead><tbody>${rows(names)}</tbody></table>` : '';
+  const html = `<!doctype html><html lang="${getLang()}"><head><meta charset="utf-8"><title>${t('ms.title', { n })}</title>
+  <style>
+    body{font:13px/1.45 Helvetica,Arial,sans-serif; color:#2c2c2c; margin:18mm}
+    h1{font-size:20px; margin:0 0 4px; color:#E11F1C} .meta{display:flex; gap:24px; margin:10px 0 14px}
+    .meta span{flex:1; border-bottom:1px solid #999; padding-bottom:14px}
+    .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    table{border-collapse:collapse; width:100%; margin-bottom:10px} th,td{border:1px solid #bbb; padding:7px 8px; text-align:left}
+    th{background:#f0f0f0} td:first-child{width:34%; font-weight:600} ol{padding-left:18px; margin:6px 0 12px}
+    svg{width:100%; max-width:520px; display:block; margin:0 auto 10px}
+    button{font:inherit; padding:6px 14px; margin-bottom:12px} @media print{button{display:none} body{margin:10mm}}
+  </style></head><body>
+  <button onclick="print()">${t('ms.print')}</button>
+  <h1>${t('ms.title', { n })}</h1>
+  <div class="meta"><span>${t('ms.job')}: ${$('#proj-name').value || ''}</span><span>${t('ms.date')}:</span><span>${t('ms.by')}:</span></div>
+  ${diagramSVG(n, { big: true })}
+  <b>${t('ms.how')}</b>
+  <ol><li>${t('ms.i1')}</li><li>${t('ms.i2')}</li><li>${t('ms.i3')}</li><li>${t('ms.i4')}</li><li>${t('ms.i5')}</li></ol>
+  <p>${t('ms.taken')}</p>
+  <div class="grid"><div>${tbl(t('ms.sides'), sides)}${tbl(t('ms.heights'), hs)}</div><div>${tbl(t('ms.diagA'), dA)}${tbl(t('ms.diagB'), dB)}</div></div>
+  </body></html>`;
+  const w = window.open('', '_blank');
+  if (w) { w.document.write(html); w.document.close(); return; }
+  // ventanas emergentes bloqueadas: se descarga la hoja para abrirla e imprimirla
+  download(`${slug()}_hoja_medidas.html`, html, 'text/html');
 }
 
 /* --------------------------------- cálculo --------------------------------- */
@@ -99,6 +196,7 @@ function readSpec() {
     n: state.n,
     edges: state.edges.slice(0, state.n),
     diagonals: state.diagonals.slice(0, Math.max(0, state.n - 3)),
+    checks: Array.from({ length: Math.max(0, state.n - 3) }, (_, k) => state.checks[k] ?? null),
     heights: state.heights.slice(0, state.n),
     mode: $('#mode').value,
     hardware: state.hardware.slice(0, state.n),
@@ -120,12 +218,25 @@ async function calculate() {
   $('#busy').hidden = false;
   await new Promise((r) => setTimeout(r, 30));
   try {
-    state.result = computeSail(readSpec());
+    const r = computeSail(readSpec());
+    const bad = r.checks.filter((c) => c.measured != null && !c.ok);
+    if (bad.length) {
+      // Las medidas no cuadran entre sí: no se deja seguir con un patrón que no encaja en obra.
+      const u = (v) => `${fmt(v, state.unit === 'in' ? 2 : 0)} ${state.unit}`;
+      const sgn = (v) => (v > 0 ? '+' : '') + u(v);
+      const list = bad.map((c) => t('vj.chkItem', { d: c.name, m: u(c.measured), e: u(c.expected), x: sgn(c.diff), t: u(Math.max(25, c.expected * 0.005)) })).join('. ');
+      throw new Error(t('vj.chkBad', { list }));
+    }
+    state.result = r;
     render();
   } catch (e) {
     state.result = null;
+    $('#dims-check').innerHTML = '';
     $('#alerts').innerHTML = `<div class="alert bad">${e.message}</div>`;
     $('#kpis').innerHTML = '';
+    $('#solar-note').textContent = '';
+    if (viewer) viewer.update(null);
+    ['#c-plan', '#c-cut'].forEach((c) => { const el = $(c); el.getContext('2d').clearRect(0, 0, el.width, el.height); });
     console.error(e);
   } finally {
     $('#busy').hidden = true;
@@ -148,24 +259,21 @@ function render() {
     [t('vj.kFabric'), `${m.fabricArea_m2.toFixed(1)} m²`],
     [t('vj.kWaste'), `${m.waste_pct.toFixed(0)} %`],
     [t('vj.kWeight'), `${m.weight_kg.toFixed(1)} kg`],
-    [t('vj.kSeam'), `${m.seamAngleDeg.toFixed(0)}°`],
-    [t('vj.kDist'), `${m.maxDistortion_pct.toFixed(2)} %`],
     ...solarKpi(),
   ].map(([k, v]) => `<div class="kpi"><b>${v}</b><span>${k}</span></div>`).join('');
 
-  // viento
-  const wv = parseFloat($('#wind-v').value) || 0;
-  const u = $('#wind-u').value;
-  const ms = u === 'kmh' ? wv / 3.6 : u === 'mph' ? wv * 0.44704 : wv;
-  const wind = windAdvisory({
-    speed_ms: ms, area_m2: m.areaSurface_m2, projected_m2: m.areaPlan_m2,
-    corners: state.n, height_m: parseFloat($('#wind-h').value) || 2.5,
-  });
+  const hit = findColor(state.colorRef);
+  $('#solar-note').textContent = hit?.color.solar
+    ? t('vj.solarNote') + (isEstimated(hit.color) ? ' ' + t('vj.estNote') : '') : '';
 
-  const alerts = r.notes.map((t) => `<div class="alert warn">${t}</div>`).join('');
-  $('#alerts').innerHTML =
-    `<div class="alert ok">${t('vj.wind', { v: wv, u, q: wind.q_kPa.toFixed(2), F: wind.total_kN.toFixed(1), c: wind.corner_kN.toFixed(1) })}
-     <br><small>${t('vj.windNote')}</small></div>` + alerts;
+  // estado de las diagonales de comprobación
+  const u = (v) => `${fmt(v, state.unit === 'in' ? 2 : 0)} ${state.unit}`;
+  const missing = r.checks.filter((c) => c.measured == null);
+  let chk = '';
+  if (missing.length) chk = `<div class="alert bad">${t('vj.chkMissing', { list: missing.map((c) => c.name).join(', ') })}</div>`;
+  else if (r.checks.length) chk = `<div class="alert ok">${t('vj.chkOk', { list: r.checks.map((c) => t('vj.chkOkItem', { d: c.name, x: (Math.round(c.diff) > 0 ? '+' : Math.round(c.diff) < 0 ? '' : '±') + u(Math.round(c.diff) || 0) })).join(', ') })}</div>`;
+  $('#dims-check').innerHTML = chk;
+  $('#alerts').innerHTML = chk + r.notes.map((n) => `<div class="alert warn">${n}</div>`).join('');
 
   $('#edges-table').innerHTML = table(
     [t('vj.side'), t('vj.plan'), t('vj.real'), t('vj.edge')],
@@ -177,7 +285,7 @@ function render() {
   );
 
   viewer.setSailColor(state.color, state.color2);
-  viewer.update(r, { seams: $('#show-seams').checked, poleColor: $('#pole-color').value, keepCamera: !!viewer._seen });
+  viewer.update(r, { seams: $('#show-seams').checked, poleColor: $('#pole-color').value, poleRake: +$('#pole-tilt').value, keepCamera: !!viewer._seen });
   viewer._seen = true;
   updateSun();
   drawAll();
@@ -198,7 +306,7 @@ function drawAll() {
     ? r.boundary.loop.map((p) => projectShadow(p, sv)).filter(Boolean)
     : [];
   drawPlan($('#c-plan'), r, { north: state.north, color: state.color, shadow });
-  drawCutPlan($('#c-cut'), r);
+  drawCutPlan($('#c-cut'), r, { watermark: t('vj.wmark') });
   $('#cut-info').textContent =
     t('vj.cutInfo', { n: r.metrics.panels, w: r.metrics.rollWidth, m: (r.metrics.rollLength_mm / 1000).toFixed(2) });
 }
@@ -290,8 +398,12 @@ function buildReport() {
       [t('vj.kRoll'), t('vj.rRollUse', { m: (m.rollLength_mm / 1000).toFixed(2), a: m.fabricArea_m2.toFixed(1) })],
       [t('vj.rYield'), `${(100 - m.waste_pct).toFixed(0)} %`],
       [t('vj.rComp'), `${m.warpPct.toFixed(2)} % / ${m.weftPct.toFixed(2)} %`],
+      [t('vj.rPre'), `${m.prePct.toFixed(1)} %`],
+      [t('vj.rDraw'), `${m.drawWarpPct.toFixed(2)} %`],
       [t('vj.rSeamDir'), `${m.seamAngleDeg.toFixed(0)}°`],
-      [t('vj.rMaxDist'), `${m.maxDistortion_pct.toFixed(2)} %`],
+      [t('vj.rChecks'), r.checks.length
+        ? (r.verified ? r.checks.map((c) => `${c.name} ${Math.round(c.measured)} mm ✓`).join(' · ') : `<b style="color:#c8102e">${t('vj.rNotChecked')}</b>`)
+        : '—'],
     ])}
     <img class="plate" src="${cut}">
     ${table([t('vj.panel'), t('vj.rFinW'), t('vj.rFinL'), t('vj.rCutW'), t('vj.rCutL'), 'm²'],
@@ -365,15 +477,24 @@ function initFabrics() {
   };
   const syncCompensation = () => {
     const f = FABRICS.find((x) => x.id === $('#fabric').value);
-    const pre = { low: 0.6, std: 1.0, high: 1.6 }[$('#pretension').value] ?? 1;
-    $('#warp-pct').value = (f.warp * pre).toFixed(2);
-    $('#weft-pct').value = (f.weft * pre).toFixed(2);
+    $('#warp-pct').value = f.warp;
+    $('#weft-pct').value = f.weft;
     $('#comp-hint').className = 'hint prov';
     $('#comp-hint').textContent = t('vj.compHint');
+    preHint();
   };
   $('#fabric').addEventListener('change', syncFabric);
-  $('#pretension').addEventListener('change', syncCompensation);
+  ['#pretension', '#warp-pct'].forEach((s) => $(s).addEventListener('change', preHint));
   syncFabric();
+}
+
+/** Explica qué compensación se dibuja en urdimbre con el pretensado elegido. */
+const nf = (v) => v.toLocaleString(locale(), { maximumFractionDigits: 1 });
+function preHint() {
+  const p = PRETENSION[$('#pretension').value] ?? 0;
+  const c = parseFloat($('#warp-pct').value) || 0;
+  const w = ((1 + c / 100) / (1 + p / 100) - 1) * 100;
+  $('#pre-hint').textContent = p ? t('vj.preHint', { p: nf(p), w: nf(w), c: nf(c) }) : t('vj.preHint0');
 }
 
 function wizard(kind) {
@@ -382,7 +503,8 @@ function wizard(kind) {
   const base = Math.min(...state.heights.slice(0, n));
   if (kind === 'flat') state.heights = Array(n).fill(base);
   if (kind === 'hypar') {
-    const t = Math.round(avg * 0.18 / 50) * 50;
+    // diferencia de altura recomendada: 1/6 del lado más largo
+    const t = Math.round(Math.max(...state.edges.slice(0, n)) / 6 / 50) * 50;
     state.heights = Array.from({ length: n }, (_, i) => base + (i % 2 ? t : 0));
   }
   if (kind === 'slope') {
@@ -396,7 +518,7 @@ function wizard(kind) {
 function init() {
   const container = $('#viewer');
   viewer = createViewer(container);
-  window.__shade = { viewer, state };   // acceso para depuración desde la consola
+  window.__shade = { viewer, state, printSheet };   // acceso para depuración desde la consola
   initFabrics();
   buildInputs();
   $('#mode').value = 'plan';
@@ -416,6 +538,8 @@ function init() {
   $('#units').addEventListener('change', (e) => { state.unit = e.target.value; buildInputs(); });
   $('#layout').addEventListener('change', (e) => { $('#angle-wrap').hidden = e.target.value !== 'manual'; });
   $('#btn-calc').addEventListener('click', calculate);
+  $('#btn-sheet').addEventListener('click', printSheet);
+  $('#curve-auto').addEventListener('change', (e) => { state.curveAuto = e.target.checked; buildInputs(); });
   $$('#wiz-hypar,#wiz-slope,#wiz-flat').forEach((b) => b.addEventListener('click', () => wizard(b.id.replace('wiz-', ''))));
 
   $$(VQ + '.tabs button').forEach((b) => b.addEventListener('click', () => {
@@ -443,6 +567,7 @@ function init() {
     a.click();
   });
   $('#pole-color').addEventListener('change', () => render());
+  $('#pole-tilt').addEventListener('change', () => render());
   $('#show-seams').addEventListener('change', () => render());
   $('#show-shadow').addEventListener('change', (e) => viewer.setShadows(e.target.checked));
   $('#bg-photo').addEventListener('change', (e) => {
@@ -458,11 +583,17 @@ function init() {
   $('#sun-time').addEventListener('change', drawAll);
   $('#north').addEventListener('input', (e) => { state.north = +e.target.value; updateSun(); drawAll(); });
   $('#sun-play').addEventListener('click', togglePlay);
-  ['#wind-v', '#wind-u', '#wind-h'].forEach((s) => $(s).addEventListener('change', () => state.result && render()));
 
-  $('#x-dxf-cut').addEventListener('click', () => state.result && download(`${slug()}_corte.dxf`, cutPlanDXF(state.result, { project: $('#proj-name').value })));
+  // El plano de corte y el CSV de fabricación solo salen con las medidas comprobadas.
+  const canCut = () => {
+    if (!state.result) return false;
+    if (state.result.verified) return true;
+    alert(t('vj.blocked'));
+    return false;
+  };
+  $('#x-dxf-cut').addEventListener('click', () => canCut() && download(`${slug()}_corte.dxf`, cutPlanDXF(state.result, { project: $('#proj-name').value })));
   $('#x-dxf-plan').addEventListener('click', () => state.result && download(`${slug()}_planta.dxf`, planDXF(state.result, { project: $('#proj-name').value })));
-  $('#x-csv').addEventListener('click', () => state.result && download(`${slug()}_fabricacion.csv`, csvReport(state.result, { project: $('#proj-name').value }), 'text/csv'));
+  $('#x-csv').addEventListener('click', () => canCut() && download(`${slug()}_fabricacion.csv`, csvReport(state.result, { project: $('#proj-name').value }), 'text/csv'));
   $('#x-print').addEventListener('click', () => {
     $$(VQ + '.tabs button').forEach((x) => x.classList.toggle('active', x.dataset.tab === 'report'));
     $$(VQ + '.pane').forEach((p) => p.classList.toggle('active', p.id === 'pane-report'));
@@ -479,6 +610,8 @@ function init() {
     const f = e.target.files[0]; if (!f) return;
     const d = JSON.parse(await f.text());
     Object.assign(state, d.state);
+    if (!Array.isArray(state.checks)) state.checks = [];      // ficheros anteriores a la comprobación
+    if (state.curveAuto == null) state.curveAuto = false;
     $('#proj-name').value = d.project || '';
     $('#npoints').value = state.n;
     for (const [k, v] of Object.entries(d.ui || {})) { const el = $('#' + k); if (el) el.value = v; }
@@ -490,12 +623,25 @@ function init() {
 
 /* ------------------------- integración en Sauleda Studio ------------------------ */
 
-/** Radiación que el tejido deja pasar bajo la vela, según el catálogo único. */
+/**
+ * Bloqueo UV y sombra del color elegido, como máximos («hasta»): al tensar, la malla
+ * se abre y bajan. UV: dato de ficha (uvBlock) o de ensayo (Tuv). Sombra: dato de ficha
+ * (shade) o 100 − Tv; luz visible que pasa = 100 − sombra.
+ */
 function solarKpi() {
   const hit = findColor(state.colorRef);
-  if (!hit?.color.solar) return [];
-  const s = hit.color.solar, mark = isEstimated(hit.color) ? ' *' : '';
-  return [[t('vj.kBlocked') + mark, `${Math.round((1 - s.Ts) * 100)} %`], [t('vj.kLight') + mark, `${Math.round(s.Tv * 100)} %`]];
+  const s = hit?.color.solar;
+  if (!s) return [];
+  const est = isEstimated(hit.color) ? ' *' : '';
+  const uv = s.uvBlock ?? (s.Tuv != null ? 1 - s.Tuv : null);
+  const shade = s.shade ?? (s.Tv != null ? 1 - s.Tv : null);
+  const pct = (v) => t('vj.upTo', { v: Math.round(v * 100) });
+  const out = [[uv != null ? t('vj.kBlocked') : `${t('vj.kBlocked')} (${t('vj.pending')})`, uv != null ? pct(uv) : '—']];
+  if (shade != null) {
+    out.push([t('vj.kLight') + (s.shade != null ? '' : est), pct(shade)]);
+    out.push([t('vj.kVisible') + (s.shade != null ? '' : est), `${Math.round((1 - shade) * 100)} %`]);
+  }
+  return out;
 }
 
 /** ?tejido=REF: selecciona la calidad que tiene ese color y el color. */
@@ -518,8 +664,6 @@ function applyParams(params = {}) {
 function syncUnitSystem() {
   state.unit = imperial() ? 'in' : 'mm';
   $('#units').value = state.unit;
-  $('#wind-u').value = imperial() ? 'mph' : 'kmh';
-  $('#wind-v').value = imperial() ? 60 : 100;
   buildInputs();
 }
 
@@ -529,7 +673,7 @@ export function mount(params) {
   applyParams(params);
   window.addEventListener('unitschange', () => { syncUnitSystem(); if (state.result) render(); });
   window.addEventListener('langchange', () => {
-    buildInputs(); fabricHint();
+    buildInputs(); fabricHint(); preHint();
     if ($('#comp-hint').textContent) $('#comp-hint').textContent = t('vj.compHint');
     updateSun();
     if (state.result) calculate();   // los avisos se generan en el idioma activo

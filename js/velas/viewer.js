@@ -107,13 +107,13 @@ export function createViewer(container) {
       group.add(seamLines);
     }
 
-    // postes inclinados hacia fuera y herrajes de esquina
+    // postes verticales o con la cabeza inclinada hacia fuera (90° o 100°), y herrajes
     const poleMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(opts.poleColor || '#8d949c'), roughness: 0.45, metalness: 0.75 });
     const steel = new THREE.MeshStandardMaterial({ color: 0xb9bec4, roughness: 0.3, metalness: 0.9 });
     const up = new THREE.Vector3(0, 1, 0);
     const cx = fixings.reduce((a, f) => a + f[0], 0) / fixings.length;
     const cy = fixings.reduce((a, f) => a + f[1], 0) / fixings.length;
-    const rake = Math.tan((opts.poleRake ?? 8) * Math.PI / 180);
+    const rake = Math.tan((opts.poleRake ?? 10) * Math.PI / 180);
 
     /** Cilindro entre dos puntos de la escena. */
     const tube = (a, b, r, mat) => {
@@ -130,11 +130,12 @@ export function createViewer(container) {
       const top = toScene(f);
       const h = f[2] * S;
       if (h >= 0.3) {
-        // el pie se separa del eje: el poste se inclina alejándose de la vela
+        // el pie queda más cerca de la vela que la cabeza: el poste se inclina en
+        // sentido contrario al tiro del tejido, nunca hacia la vela
         const out = new THREE.Vector2(f[0] - cx, f[1] - cy);
         if (out.lengthSq() < 1) out.set(1, 0);
         out.normalize().multiplyScalar(h * rake);
-        const base = new THREE.Vector3(top.x + out.x, 0, top.z - out.y);
+        const base = new THREE.Vector3(top.x - out.x, 0, top.z + out.y);
         const pole = tube(base, top, 0.055, poleMat);
         if (pole) { pole.castShadow = true; pole.receiveShadow = true; group.add(pole); }
         const plate = new THREE.Mesh(new THREE.CylinderGeometry(0.17, 0.19, 0.05, 20), poleMat);

@@ -40,9 +40,9 @@
     "burstPressure": 1937
    },
    "patterning": {
-    "warp": 2.5,
-    "weft": 0.7,
-    "estimated": true
+    "warp": 4,
+    "weft": 2,
+    "source": "Valor de referencia del sector (Mpanel); depende de forma y tamaño, calibrar con ensayo biaxial"
    },
    "bicolor": false,
    "colors": [
@@ -366,9 +366,9 @@
     "burstPressure": 1944
    },
    "patterning": {
-    "warp": 2.89,
-    "weft": 0.84,
-    "estimated": true
+    "warp": 4,
+    "weft": 2,
+    "source": "Valor de referencia del sector (Mpanel); depende de forma y tamaño, calibrar con ensayo biaxial"
    },
    "bicolor": false,
    "colors": [
@@ -556,9 +556,9 @@
     "burstPressure": 2349
    },
    "patterning": {
-    "warp": 1.05,
-    "weft": 1.2,
-    "estimated": true
+    "warp": 4,
+    "weft": 2,
+    "source": "Valor de referencia del sector (Mpanel); depende de forma y tamaño, calibrar con ensayo biaxial"
    },
    "bicolor": false,
    "colors": [
@@ -658,9 +658,9 @@
     "burstPressure": 1959
    },
    "patterning": {
-    "warp": 1.74,
-    "weft": 1.52,
-    "estimated": true
+    "warp": 4,
+    "weft": 2,
+    "source": "Valor de referencia del sector (Mpanel); depende de forma y tamaño, calibrar con ensayo biaxial"
    },
    "bicolor": true,
    "colors": [

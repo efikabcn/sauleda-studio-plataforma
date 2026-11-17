@@ -99,3 +99,14 @@
   .v-velas .rep-head{-webkit-print-color-adjust:exact; print-color-adjust:exact}
   .v-velas th{background:var(--ink)!important; color:#fff!important; -webkit-print-color-adjust:exact; print-color-adjust:exact}
 }
+
+/* Esquema de medidas (A, B, C… lados, diagonales de forma y de comprobación) */
+.v-velas .dims-diagram{margin:2px 0 8px; background:#fafafa; border:1px solid var(--line2); border-radius:8px}
+.v-velas .dims-diagram svg{display:block; width:100%; height:auto}
+.v-velas .dims label.chk{color:#b35c00}
+.v-velas .dims label.chk input{border-color:#f0b67a; background:#fffaf3}
+.v-velas label.check{display:flex; align-items:center; gap:6px; color:var(--ink)}
+.v-velas label.check input{margin:0}
+.v-velas #dims-check .alert{margin-top:6px}
+.v-velas #btn-sheet{margin-top:6px}
+.v-velas #solar-note{margin-top:4px}

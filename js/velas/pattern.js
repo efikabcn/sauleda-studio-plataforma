@@ -94,51 +94,28 @@ export function meanEdge(mesh) {
 
 /* ---------------------------- desarrollo 3D -> 2D --------------------------- */
 
-function trilaterate2D(a, b, ra, rb, sign) {
-  const dx = b[0] - a[0], dy = b[1] - a[1];
-  const d = Math.hypot(dx, dy) || 1e-9;
-  const x = (d * d + ra * ra - rb * rb) / (2 * d);
-  const y = Math.sqrt(Math.max(0, ra * ra - x * x));
-  const ux = dx / d, uy = dy / d;
-  return [a[0] + ux * x - uy * y * sign, a[1] + uy * x + ux * y * sign];
-}
-
 /**
  * Aplana un parche triangulado minimizando la distorsión de longitudes:
- * despliegue BFS como semilla + relajación de mínimos cuadrados sobre las aristas.
+ * proyección sobre el plano medio como semilla + relajación de mínimos cuadrados sobre las aristas.
  */
 export function flattenPatch(sub, { iters = 400 } = {}) {
   const { verts, tris } = sub;
   const N = verts.length;
   const pos = new Array(N).fill(null);
 
-  // semilla: primer triángulo, orientación positiva
-  const seed = tris[0];
-  pos[seed[0]] = [0, 0];
-  pos[seed[1]] = [V.dist(verts[seed[0]], verts[seed[1]]), 0];
-  pos[seed[2]] = trilaterate2D(pos[seed[0]], pos[seed[1]], V.dist(verts[seed[0]], verts[seed[2]]), V.dist(verts[seed[1]], verts[seed[2]]), 1);
-
-  // barridos hasta que no se pueda colocar nada más: cada triángulo con dos
-  // vértices ya situados fija el tercero por trilateración conservando el giro.
-  const done = new Array(tris.length).fill(false);
-  done[0] = true;
-  let progress = true, guard = 0;
-  while (progress && guard++ < 200) {
-    progress = false;
-    for (let ti = 0; ti < tris.length; ti++) {
-      if (done[ti]) continue;
-      const t = tris[ti];
-      const missing = t.map((v, k) => (pos[v] ? -1 : k)).filter((k) => k >= 0);
-      if (missing.length === 0) { done[ti] = true; progress = true; continue; }
-      if (missing.length > 1) continue;
-      const m = missing[0];
-      const a = t[(m + 1) % 3], b = t[(m + 2) % 3], c = t[m];
-      pos[c] = trilaterate2D(pos[a], pos[b], V.dist(verts[a], verts[c]), V.dist(verts[b], verts[c]), 1);
-      done[ti] = true; progress = true;
-    }
-  }
-  // se descartan los triángulos que hayan quedado sueltos (islas)
-  const live = tris.filter((t, i) => done[i] && t.every((v) => pos[v]));
+  // Semilla: proyección del parche sobre su plano medio (normal media ponderada por
+  // área). En velas tensadas cada paño es una gráfica sobre ese plano, así que la
+  // proyección no tiene pliegues; el despliegue triángulo a triángulo que había antes
+  // se doblaba con las astillas del recorte y daba paños imposibles.
+  let nrm = [0, 0, 0];
+  for (const [a, b, c] of tris) nrm = V.add(nrm, V.cross(V.sub(verts[b], verts[a]), V.sub(verts[c], verts[a])));
+  nrm = V.norm(nrm);
+  const ref = Math.abs(nrm[2]) < 0.9 ? [0, 0, 1] : [1, 0, 0];
+  const e1 = V.norm(V.cross(ref, nrm)), e2 = V.cross(nrm, e1);
+  const c0 = verts[tris[0][0]];
+  const used = new Set(tris.flat());
+  for (const v of used) { const d = V.sub(verts[v], c0); pos[v] = [V.dot(d, e1), V.dot(d, e2)]; }
+  const live = tris;
 
   // aristas y contorno sobre la parte efectivamente desplegada
   const edgeMap = new Map();
@@ -261,15 +238,23 @@ export function offsetPolygon(pts, margins) {
     const L = Math.hypot(d[0], d[1]) || 1e-9;
     const nrm = [(d[1] / L) * s, (-d[0] / L) * s]; // normal exterior
     const m = margins[i] ?? 0;
-    lines.push({ p: [a[0] + nrm[0] * m, a[1] + nrm[1] * m], d: [d[0] / L, d[1] / L] });
+    lines.push({ p: [a[0] + nrm[0] * m, a[1] + nrm[1] * m], d: [d[0] / L, d[1] / L], n: nrm, m });
   }
   const out = [];
   for (let i = 0; i < n; i++) {
-    const l1 = lines[(i - 1 + n) % n], l2 = lines[i];
+    const l1 = lines[(i - 1 + n) % n], l2 = lines[i], v = pts[i];
+    // extremos desplazados de cada lado en el vértice (para el bisel)
+    const e1 = [v[0] + l1.n[0] * l1.m, v[1] + l1.n[1] * l1.m];
     const den = l1.d[0] * l2.d[1] - l1.d[1] * l2.d[0];
-    if (Math.abs(den) < 1e-7) { out.push(l2.p); continue; }
+    if (Math.abs(den) < 1e-7) { out.push(e1, l2.p); continue; }
     const t = ((l2.p[0] - l1.p[0]) * l2.d[1] - (l2.p[1] - l1.p[1]) * l2.d[0]) / den;
-    out.push([l1.p[0] + l1.d[0] * t, l1.p[1] + l1.d[1] * t]);
+    const q = [l1.p[0] + l1.d[0] * t, l1.p[1] + l1.d[1] * t];
+    // Límite de inglete: si dos lados casi alineados llevan márgenes distintos (costura
+    // que llega al dobladillo) o forman un pico, la intersección se va muy lejos.
+    // Entonces se bisela: se unen directamente los dos extremos desplazados.
+    const lim = 3 * Math.max(l1.m, l2.m, 1);
+    if (Math.hypot(q[0] - v[0], q[1] - v[1]) > lim) out.push(e1, l2.p);
+    else out.push(q);
   }
   return out;
 }

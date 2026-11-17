@@ -39,8 +39,13 @@ export function circleIntersect(c0, r0, c1, r1) {
  *  heights[i]   = altura de cada anclaje sobre el punto más bajo
  *  mode 'plan'  = las medidas son proyecciones horizontales
  *  mode 'slope' = las medidas son distancias reales 3D entre anclajes
+ *  checks[k]    = diagonales de comprobación desde B (BD, BE…), n-3 valores o null.
+ *                 No intervienen en la forma: se comparan con lo que sale de las demás
+ *                 medidas para detectar errores de toma de datos.
  */
-export function solveSite({ n, edges, diagonals, heights, mode = 'plan' }) {
+export const CHECK_TOL = (L) => Math.max(25, L * 0.005);   // mm: 25 mm o 0,5 %
+
+export function solveSite({ n, edges, diagonals, heights, mode = 'plan', checks = [] }) {
   const warnings = [];
   const dz = (i, j) => (heights[j] ?? 0) - (heights[i] ?? 0);
   const flat = (L, i, j) => {
@@ -74,6 +79,20 @@ export function solveSite({ n, edges, diagonals, heights, mode = 'plan' }) {
 
   const pts = P.map((p, i) => [p[0], p[1], heights[i] ?? 0]);
 
+  // diagonales de comprobación B→k: lo medido frente a lo que dan las demás medidas
+  const checkResults = [];
+  for (let k = 0; k < Math.max(0, n - 3); k++) {
+    const j = k + 3, a = pts[1], b = pts[j];
+    const plan = Math.hypot(b[0] - a[0], b[1] - a[1]);
+    const expected = mode === 'slope' ? Math.hypot(plan, b[2] - a[2]) : plan;
+    const measured = checks[k] > 0 ? checks[k] : null;
+    const diff = measured == null ? null : measured - expected;
+    checkResults.push({
+      name: `B${LETTERS[j]}`, measured, expected, diff,
+      ok: measured != null && Math.abs(diff) <= CHECK_TOL(expected),
+    });
+  }
+
   // control de calidad: convexidad y ángulos muy cerrados
   for (let i = 0; i < n; i++) {
     const a = pts[(i - 1 + n) % n], b = pts[i], c = pts[(i + 1) % n];
@@ -82,7 +101,7 @@ export function solveSite({ n, edges, diagonals, heights, mode = 'plan' }) {
     const ang = Math.abs(Math.atan2(u[0] * v[1] - u[1] * v[0], u[0] * v[0] + u[1] * v[1]));
     if (Math.PI - ang < 0.17) warnings.push(t('vj.flatVertex', { p: LETTERS[i] }));
   }
-  return { points: pts, planEdges: E, planDiagonals: D, warnings };
+  return { points: pts, planEdges: E, planDiagonals: D, warnings, checks: checkResults };
 }
 
 /** Centroide 3D de una lista de puntos. */

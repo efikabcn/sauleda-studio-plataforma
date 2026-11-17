@@ -97,6 +97,21 @@ generar la primera versión a partir de Shade Studio.
 python3 tools/build_single.py   # → dist/Sauleda-Studio.html (~3,5 MB)
 ```
 
+## Velas: criterios de taller (revisión de experta, nov-2026)
+
+- **Medidas comprobadas**: además de los lados y las diagonales desde A, se piden las diagonales
+  desde B. Si no cuadran (tolerancia 25 mm o 0,5 %), no se calcula; si faltan, se ve la vela pero
+  el plano de corte sale marcado «no válido» y no se exportan DXF de corte ni CSV.
+  Botón «Hoja de medidas para el instalador» con el esquema A, B, C…
+- **Compensación** por defecto urdimbre 4 % / trama 2 % (referencia del sector); **pretensado al
+  marcar** 0 / 1,5 / 2,5 % en el sentido del rollo, que reduce la compensación dibujada.
+- **Curvatura de borde** automática según la longitud del lado (3–5 % hasta 5 m, 8 % a 10–12 m).
+- **Paños** según el ancho del rollo solamente (el punto de HDPE absorbe la doble curvatura).
+- Sin cálculo de viento; postes verticales o con la cabeza 10° hacia fuera.
+- Resultados: bloqueo UV y sombra «hasta X %» por color (faltan los datos de ficha por color).
+- **Antes de comercializarlo** hay que validar los patrones con un patronista o un despacho de
+  arquitectura textil, contra velas reales.
+
 ## Pendiente
 
 - **Datos reales de laboratorio**. Hasta entonces no se publica ninguna cifra.
