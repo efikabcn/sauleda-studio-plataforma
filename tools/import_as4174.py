@@ -137,7 +137,7 @@ SHEETS = {
 }
 # Colores de Sauleda que faltaban en el catálogo (aparecen en el Excel del laboratorio).
 NEW_COLORS = {
-    "comercial95": [{"ref": "7917", "name": "Cedar", "hex": "#7A5A44"}],
+    # Cedar (7917) ya no se fabrica (GALE, 19-nov-2026): no se da de alta.
     "comercial95fr": [{"ref": "FR77224", "name": "Driftwood", "hex": None}],
 }
 FAMILY_UPDATES = {

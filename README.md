@@ -129,6 +129,9 @@ python3 tools/build_single.py   # → dist/Sauleda-Studio.html (~3,5 MB)
   colores de Commercial 95, 95 FR, Heavy 430 y DualShade 350 (Royal Purple, Cayenne y Cedar del 95,
   de la ficha de 2019). «Green» = Brunswick Green y «Metal» = Gun Metal, confirmado por GALE. Heavy 430:
   Sauleda solo tiene en stock White, Natural, Desert Sand y Steel Grey.
+- **Color de muestra real**: sacado de las fotos de GALE con `python3 tools/colors_from_photos.py <carpeta>`
+  (Commercial 95, 95 FR, Heavy 430 y la cara A de DualShade). Faltan la foto de Aquatic y la cara B
+  de DualShade. Cedar (7917) ya no se fabrica.
 - **Antes de comercializarlo** hay que validar los patrones con un patronista o un despacho de
   arquitectura textil, contra velas reales.
 

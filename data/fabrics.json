@@ -49,7 +49,7 @@
     {
      "ref": "7168",
      "name": "White",
-     "hex": "#E2E2E2",
+     "hex": "#E3EBE9",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -63,12 +63,13 @@
       "uvBlock": 0.929,
       "uve": 0.92,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7916",
      "name": "Natural",
-     "hex": "#E0DAC8",
+     "hex": "#D7CCB2",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -87,12 +88,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7901",
      "name": "Sand",
-     "hex": "#C1A072",
+     "hex": "#AB8455",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -111,12 +113,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7907",
      "name": "Yellow",
-     "hex": "#E0B50F",
+     "hex": "#D8A407",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -135,12 +138,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7906",
      "name": "Ochre",
-     "hex": "#5A2121",
+     "hex": "#481515",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -159,12 +163,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7836",
      "name": "Bright Green",
-     "hex": "#329616",
+     "hex": "#2C9115",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -178,12 +183,13 @@
       "uvBlock": 0.925,
       "uve": 0.91,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "77107",
      "name": "Bluebird",
-     "hex": "#01BEF8",
+     "hex": "#16A4BF",
      "nuevo": true,
      "solar": {
       "source": "ficha",
@@ -198,12 +204,13 @@
       "uvBlock": 0.953,
       "uve": 0.95,
       "category": "Most Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "77223",
      "name": "Aquamarine",
-     "hex": "#17CCE3",
+     "hex": "#32C0B9",
      "nuevo": true,
      "solar": {
       "source": "ficha",
@@ -218,12 +225,13 @@
       "uvBlock": 0.951,
       "uve": 0.95,
       "category": "Most Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7904",
      "name": "Sky",
-     "hex": "#4B7792",
+     "hex": "#375D77",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -242,12 +250,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7897",
      "name": "Royal Purple",
-     "hex": "#3D225E",
+     "hex": "#381E5A",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -261,7 +270,8 @@
       "uvBlock": 0.911,
       "uve": 0.91,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7910",
@@ -290,7 +300,7 @@
     {
      "ref": "7905",
      "name": "Navy",
-     "hex": "#101829",
+     "hex": "#0B111F",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -309,12 +319,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7900",
      "name": "Orange",
-     "hex": "#F86506",
+     "hex": "#FA6407",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -328,12 +339,13 @@
       "uvBlock": 0.94,
       "uve": 0.93,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7914",
      "name": "Cayenne",
-     "hex": "#A03D33",
+     "hex": "#882C25",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -352,12 +364,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7903",
      "name": "Red",
-     "hex": "#BB1420",
+     "hex": "#AC0915",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -376,12 +389,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7912",
      "name": "Turquoise",
-     "hex": "#063A58",
+     "hex": "#032E4D",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -400,12 +414,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7902",
      "name": "Rivergum",
-     "hex": "#96A281",
+     "hex": "#6C7D5A",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -424,12 +439,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7908",
      "name": "Green",
-     "hex": "#1A2723",
+     "hex": "#0E1B18",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -448,12 +464,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "77224",
      "name": "Driftwood",
-     "hex": "#B4B0AB",
+     "hex": "#A39185",
      "nuevo": true,
      "solar": {
       "source": "ficha",
@@ -468,12 +485,13 @@
       "uvBlock": 0.949,
       "uve": 0.94,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "77516",
      "name": "Stone",
-     "hex": "#ACA9A6",
+     "hex": "#A19F9C",
      "nuevo": true,
      "solar": {
       "source": "ficha",
@@ -488,12 +506,13 @@
       "uvBlock": 0.943,
       "uve": 0.94,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7909",
      "name": "Steel",
-     "hex": "#858482",
+     "hex": "#696A69",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -512,12 +531,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7913",
      "name": "Metal",
-     "hex": "#565859",
+     "hex": "#3E4041",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -536,12 +556,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7915",
      "name": "Charcoal",
-     "hex": "#34312D",
+     "hex": "#2A2926",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -560,12 +581,13 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7911",
      "name": "Black",
-     "hex": "#151312",
+     "hex": "#080808",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -584,26 +606,8 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
-    },
-    {
-     "ref": "7917",
-     "name": "Cedar",
-     "hex": "#7A5A44",
-     "solar": {
-      "source": "ficha",
-      "std": "AS 4174:2018",
-      "doc": "GALE Pacific · Commercial 95 · product profile Rev.16 (05/2019)",
-      "sheetName": "Cedar",
-      "cover": 0.93,
-      "openness": 0.07,
-      "shade": 0.873,
-      "uvVisTrans": 0.127,
-      "uvTrans": 0.064,
-      "uvBlock": 0.936,
-      "uve": 0.93,
-      "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     }
    ],
    "en": {
@@ -666,7 +670,7 @@
     {
      "ref": "FR7168",
      "name": "White",
-     "hex": "#E2E2E2",
+     "hex": "#E3EBE9",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -680,12 +684,13 @@
       "uvBlock": 0.946,
       "uve": 0.94,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "FR7916",
      "name": "Natural",
-     "hex": "#E0DAC8",
+     "hex": "#D7CCB2",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -699,12 +704,13 @@
       "uvBlock": 0.935,
       "uve": 0.92,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "FR7901",
      "name": "Sand",
-     "hex": "#C1A072",
+     "hex": "#AB8455",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -718,12 +724,13 @@
       "uvBlock": 0.934,
       "uve": 0.92,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "FR7907",
      "name": "Yellow",
-     "hex": "#E0B50F",
+     "hex": "#D8A407",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -737,12 +744,13 @@
       "uvBlock": 0.932,
       "uve": 0.92,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "FR7906",
      "name": "Ochre",
-     "hex": "#5A2121",
+     "hex": "#481515",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -756,12 +764,13 @@
       "uvBlock": 0.917,
       "uve": 0.9,
       "category": "Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "FR7904",
      "name": "Sky",
-     "hex": "#4B7792",
+     "hex": "#375D77",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -775,7 +784,8 @@
       "uvBlock": 0.94,
       "uve": 0.93,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "FR7910",
@@ -799,7 +809,7 @@
     {
      "ref": "FR7914",
      "name": "Cayenne",
-     "hex": "#A03D33",
+     "hex": "#882C25",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -813,12 +823,13 @@
       "uvBlock": 0.933,
       "uve": 0.92,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "FR7903",
      "name": "Red",
-     "hex": "#BB1420",
+     "hex": "#AC0915",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -832,12 +843,13 @@
       "uvBlock": 0.9,
       "uve": 0.9,
       "category": "Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "FR7902",
      "name": "Rivergum",
-     "hex": "#96A281",
+     "hex": "#6C7D5A",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -851,12 +863,13 @@
       "uvBlock": 0.94,
       "uve": 0.93,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "FR7909",
      "name": "Steel",
-     "hex": "#858482",
+     "hex": "#696A69",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -870,12 +883,13 @@
       "uvBlock": 0.924,
       "uve": 0.91,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "FR7913",
      "name": "Metal",
-     "hex": "#565859",
+     "hex": "#3E4041",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -889,12 +903,13 @@
       "uvBlock": 0.965,
       "uve": 0.96,
       "category": "Most Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "FR77224",
      "name": "Driftwood",
-     "hex": "#B4B0AB",
+     "hex": "#A39185",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -908,7 +923,8 @@
       "uvBlock": 0.946,
       "uve": 0.94,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     }
    ],
    "en": {
@@ -971,7 +987,7 @@
     {
      "ref": "7932",
      "name": "White",
-     "hex": "#DAD7D0",
+     "hex": "#D2D1C9",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -985,12 +1001,13 @@
       "uvBlock": 0.866,
       "uve": 0.86,
       "category": "Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7933",
      "name": "Natural",
-     "hex": "#D9CBA8",
+     "hex": "#D3C49D",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -1004,12 +1021,13 @@
       "uvBlock": 0.879,
       "uve": 0.87,
       "category": "Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7931",
      "name": "Desert Sand",
-     "hex": "#C6A470",
+     "hex": "#AB834E",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -1023,12 +1041,13 @@
       "uvBlock": 0.859,
       "uve": 0.85,
       "category": "Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7934",
      "name": "Steel Grey",
-     "hex": "#545455",
+     "hex": "#424445",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -1042,7 +1061,8 @@
       "uvBlock": 0.865,
       "uve": 0.86,
       "category": "Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     }
    ],
    "en": {
@@ -1105,7 +1125,7 @@
     {
      "ref": "7683",
      "name": "Citrus",
-     "hex": "#AF613A",
+     "hex": "#ED9D43",
      "hex2": "#608B3F",
      "solar": {
       "source": "ficha",
@@ -1120,12 +1140,13 @@
       "uvBlock": 0.919,
       "uve": 0.91,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7688",
      "name": "Sunburst",
-     "hex": "#DF4F31",
+     "hex": "#F07653",
      "hex2": "#EF972A",
      "solar": {
       "source": "ficha",
@@ -1140,12 +1161,13 @@
       "uvBlock": 0.906,
       "uve": 0.91,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7684",
      "name": "Macaw",
-     "hex": "#506B63",
+     "hex": "#6E8ABD",
      "hex2": "#CFA13B",
      "solar": {
       "source": "ficha",
@@ -1160,12 +1182,13 @@
       "uvBlock": 0.907,
       "uve": 0.9,
       "category": "Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7680",
      "name": "Chamaleon",
-     "hex": "#575362",
+     "hex": "#6D69AA",
      "hex2": "#368B4B",
      "solar": {
       "source": "ficha",
@@ -1180,12 +1203,13 @@
       "uvBlock": 0.903,
       "uve": 0.91,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7690",
      "name": "Topaz",
-     "hex": "#1E716A",
+     "hex": "#2F97C3",
      "hex2": "#278F55",
      "solar": {
       "source": "ficha",
@@ -1200,12 +1224,13 @@
       "uvBlock": 0.906,
       "uve": 0.9,
       "category": "Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7681",
      "name": "Amazonia",
-     "hex": "#36553D",
+     "hex": "#2A7051",
      "hex2": "#2B8C44",
      "solar": {
       "source": "ficha",
@@ -1220,12 +1245,13 @@
       "uvBlock": 0.924,
       "uve": 0.91,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7691",
      "name": "Savanna",
-     "hex": "#D89A74",
+     "hex": "#F9B65D",
      "hex2": "#E5D6C7",
      "solar": {
       "source": "ficha",
@@ -1240,12 +1266,13 @@
       "uvBlock": 0.923,
       "uve": 0.91,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7686",
      "name": "Cobblestone",
-     "hex": "#7B756F",
+     "hex": "#A29898",
      "hex2": "#A39488",
      "solar": {
       "source": "ficha",
@@ -1260,12 +1287,13 @@
       "uvBlock": 0.936,
       "uve": 0.93,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7685",
      "name": "Gold Rush",
-     "hex": "#7F614E",
+     "hex": "#976441",
      "hex2": "#BA9672",
      "solar": {
       "source": "ficha",
@@ -1280,12 +1308,13 @@
       "uvBlock": 0.915,
       "uve": 0.9,
       "category": "Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7687",
      "name": "Capri",
-     "hex": "#8C9FA5",
+     "hex": "#98B8D6",
      "hex2": "#D0D3CF",
      "solar": {
       "source": "ficha",
@@ -1300,12 +1329,13 @@
       "uvBlock": 0.921,
       "uve": 0.91,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7689",
      "name": "Santorini",
-     "hex": "#4D91B9",
+     "hex": "#2E97DF",
      "hex2": "#CFD7D9",
      "solar": {
       "source": "ficha",
@@ -1320,12 +1350,13 @@
       "uvBlock": 0.922,
       "uve": 0.92,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7682",
      "name": "Maldives",
-     "hex": "#2A827C",
+     "hex": "#29BFA5",
      "hex2": "#556966",
      "solar": {
       "source": "ficha",
@@ -1340,7 +1371,8 @@
       "uvBlock": 0.909,
       "uve": 0.9,
       "category": "Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     }
    ],
    "en": {
