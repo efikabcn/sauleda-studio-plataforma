@@ -24,7 +24,7 @@ export const family = (id) => data.families.find((f) => f.id === id);
 /** { family, color } del color con esa referencia, o undefined. */
 export const findColor = (ref) => byRef.get(ref);
 /** Ts y Rs provisionales (no vienen de ficha técnica ni de ensayo). */
-export const isEstimated = (color) => !color.solar || !['ensayo', 'ficha'].includes(color.solar.source);
+export const isEstimated = (color) => !color.solar || color.solar.source === 'estimado';
 export const hasEstimates = () => [...byRef.values()].some(({ color }) => isEstimated(color));
 
 /** Campo de texto de una familia en el idioma pedido (bloque "en" del catálogo, si existe). */

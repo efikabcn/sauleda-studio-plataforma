@@ -222,7 +222,7 @@
       <div class="grid2">
         <label><span data-i18n="v.rollw">Ancho de rollo (mm)</span><input id="rollw" type="number" step="10"></label>
         </div>
-      <label><span data-i18n="v.pretension">Pretensado al marcar el patrón</span><select id="pretension"><option value="low" data-i18n="v.low">baja</option><option value="std" selected data-i18n="v.std">estándar</option><option value="high" data-i18n="v.high">alta</option></select>
+      <label><span data-i18n="v.pretension">Pretensado al marcar el patrón</span><select id="pretension"><option value="low" data-i18n="v.low">baja</option><option value="std" selected data-i18n="v.std">pretensado</option></select>
       </label>
       <p class="hint" id="pre-hint"></p>
       <p class="hint" id="fabric-hint"></p>
@@ -239,16 +239,7 @@
         <label><span data-i18n="v.weft">Compensación trama (%)</span><input id="weft-pct" type="number" step="0.05"></label>
       </div>
       <p class="hint" id="comp-hint"></p>
-      <label><span data-i18n="v.layout">Estrategia de costuras</span><select id="layout">
-          <option value="auto" selected data-i18n="v.lAuto">Perpendicular al lado más largo</option>
-          <option value="optimo" data-i18n="v.lOpt">Mínimo consumo de tela</option>
-          <option value="cross" data-i18n="v.lCross">Paralela al lado AB (corte transversal)</option>
-          <option value="hypar" data-i18n="v.lHypar">Siguiendo la torsión hypar</option>
-          <option value="manual" data-i18n="v.lManual">Ángulo manual…</option>
-        </select>
-      </label>
-      <p class="hint"><span data-i18n="v.layoutHint"></span></p>
-      <label id="angle-wrap" hidden><span data-i18n="v.seamAngle">Ángulo de costura (°)</span><input id="seam-angle" type="number" value="0" step="5"></label>
+      <p class="hint"><span data-i18n="v.seamRule">Costuras: centradas y perpendiculares al lado más largo; en velas hypar, siguiendo la torsión. La costura hace de refuerzo y el tejido trabaja a favor del rollo.</span></p>
       <label class="check"><input id="curve-auto" type="checkbox" checked> <span data-i18n="v.curve">Curvatura de borde automática según el tamaño</span></label>
       <div id="curves" class="dims small"></div>
       <p class="hint"><span data-i18n="v.curveHint"></span></p>

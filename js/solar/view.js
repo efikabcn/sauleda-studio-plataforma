@@ -17,7 +17,7 @@ const COLORS = { base: '#9AA0A6', A: '#E11F1C', B: '#1F3A5F' };
 
 const DEFAULTS = {
   orient: '225', wallAz: 225, glass: 'B', use: 'oficina', inertia: 'media', type: 'brazos',
-  fabA: '7168', fabB: '7915',
+  fabA: '7861', fabB: '7871',   // Screen 50 Optik / Black (las velas no van en Solar: AS 4174, no EN 410)
 };
 /** Campos con magnitud física: se muestran en la unidad elegida y se guardan en SI. */
 const FIELD_UNITS = {
@@ -40,7 +40,7 @@ const opts = (sel, items) => {
 };
 
 function solarFabrics() {
-  return families().filter((f) => f.uses.some((u) => u === 'toldo' || u === 'screen' || u === 'velas'));
+  return families().filter((f) => f.uses.some((u) => u === 'toldo' || u === 'screen'));
 }
 function fabricOptions(sel) {
   const v = sel.value, lang = getLang();
@@ -68,6 +68,10 @@ export async function mount(params = {}) {
   if (!saved.g) applyGlass();
   if (!saved.TsA) applyFabric('A');
   if (!saved.TsB) applyFabric('B');
+  // Un estado guardado puede traer un tejido que ya no está en la lista (p. ej. de velas).
+  for (const o of ['A', 'B']) {
+    if (!$('fab' + o).value) { $('fab' + o).value = DEFAULTS['fab' + o]; applyFabric(o); }
+  }
 
   $('orient').addEventListener('change', () => {
     if ($('orient').value !== 'custom') $('wallAz').value = $('orient').value;
@@ -98,7 +102,8 @@ export async function mount(params = {}) {
 export function show(params = {}) {
   let changed = false;
   for (const [key, o] of [['tejido', 'A'], ['b', 'B']]) {
-    if (params[key] && findColor(params[key])) { $('fab' + o).value = params[key]; applyFabric(o); changed = true; }
+    const hit = params[key] && findColor(params[key]);
+    if (hit && !hit.family.uses.includes('velas')) { $('fab' + o).value = hit.color.ref; applyFabric(o); changed = true; }
   }
   if (changed) save();
   syncUi();

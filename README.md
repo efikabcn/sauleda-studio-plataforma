@@ -110,14 +110,24 @@ python3 tools/build_single.py   # → dist/Sauleda-Studio.html (~3,5 MB)
 
 - **Medidas comprobadas**: además de los lados y las diagonales desde A, se piden las diagonales
   desde B. Si no cuadran (tolerancia 25 mm o 0,5 %), no se calcula; si faltan, se ve la vela pero
-  el plano de corte sale marcado «no válido» y no se exportan DXF de corte ni CSV.
+  el plano de corte sale marcado «no válido» y no se exportan DXF de corte ni CSV. Cada cambio de
+  medida recalcula solo. En cuadriláteros el aviso es simétrico: «si AC es correcta, BD debería medir X;
+  si BD es correcta, AC debería medir Y».
   Botón «Hoja de medidas para el instalador» con el esquema A, B, C…
 - **Compensación** por defecto urdimbre 4 % / trama 2 % (referencia del sector); **pretensado al
-  marcar** 0 / 1,5 / 2,5 % en el sentido del rollo, que reduce la compensación dibujada.
+  marcar**: sin pretensar o pretensado (clavado), que dibuja la urdimbre a ~3 % (como Sombrasail). La
+  trama no se descuenta. Ante la duda, mejor quedarse corto (revisión de Gemma, 18-nov-2026).
 - **Curvatura de borde** automática según la longitud del lado (3–5 % hasta 5 m, 8 % a 10–12 m).
 - **Paños** según el ancho del rollo solamente (el punto de HDPE absorbe la doble curvatura).
+- **Costuras: estrategia única**, no la elige el taller: centradas y perpendiculares al lado más largo;
+  en hypar (desnivel ≥ 10 % del lado más largo), siguiendo la torsión. «Mínimo consumo» se quitó
+  porque deja costuras en diagonal que estiran.
 - Sin cálculo de viento; postes verticales o con la cabeza 10° hacia fuera.
-- Resultados: bloqueo UV y sombra «hasta X %» por color (faltan los datos de ficha por color).
+- Resultados y ficha de color: **AS 4174:2018** de las fichas de GALE Pacific (factor de sombra,
+  bloqueo UVR, cobertura, UVE), cargados con `python3 tools/import_as4174.py --escribir`. Ts/Rs/Tv
+  (EN 410/14500) no se aplican a velas, así que las velas ya no aparecen en Solar. Hay datos de
+  Commercial 95 y 95 FR; faltan Heavy 430, DualShade 350, Royal Purple y Cayenne. «Green» = Brunswick
+  Green y «Metal» = Gun Metal están supuestos por el nombre.
 - **Antes de comercializarlo** hay que validar los patrones con un patronista o un despacho de
   arquitectura textil, contra velas reales.
 

@@ -61,7 +61,8 @@ function initHeader() {
   $('lang').addEventListener('change', (e) => setLang(e.target.value));
   $('unit-sys').value = getUnits();
   $('unit-sys').addEventListener('change', (e) => { setUnits(e.target.value); applyUnits(); });
-  $('est-banner').hidden = !hasEstimates();
+  // La app de velas solo usa los tejidos de velas, que ya no llevan datos estimados.
+  $('est-banner').hidden = APP === 'velas' || !hasEstimates();
 }
 
 /** Ciudades agrupadas por país; las del mercado de la web, primero. */

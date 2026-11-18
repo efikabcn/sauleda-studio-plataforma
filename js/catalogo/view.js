@@ -19,7 +19,7 @@ const state = { use: '', q: '', fam: null, ref: null, cmp: [] };
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
 export function mount(params = {}) {
-  try { state.cmp = (JSON.parse(localStorage.getItem(STORE)) || []).filter((r) => findColor(r)); } catch { /* sin almacenamiento */ }
+  try { state.cmp = (JSON.parse(localStorage.getItem(STORE)) || []).filter((r) => findColor(r) && !findColor(r).family.uses.includes('velas')); } catch { /* sin almacenamiento */ }
   $('c-search').addEventListener('input', (e) => { state.q = e.target.value.trim().toLowerCase(); renderList(); });
   $('c-uses').addEventListener('click', (e) => {
     const b = e.target.closest('[data-use]');
@@ -138,7 +138,41 @@ function renderFicha() {
     </div>`;
 }
 
+/** Velas: datos de sombra y UV de la ficha (AS 4174), no los de ventana (EN 410/14500). */
+function shadeDetail(f, c) {
+  const s = c.solar || {};
+  const pct = (v) => `${fmt(v * 100, 1)} %`;
+  const head = `
+    <div class="chead">
+      <i class="big" style="background:${c.hex2 ? `linear-gradient(135deg,${c.hex} 50%,${c.hex2} 50%)` : c.hex}"></i>
+      <div><h3>${esc(c.name)}</h3><span>ref. ${c.ref}</span> ${s.source === 'ficha'
+        ? `<span class="lab">${t('c.src.as', { doc: esc(s.doc ?? '') })}</span>`
+        : `<span class="est">${t('c.src.asPending')}</span>`}
+        ${s.nameAssumed ? `<small class="hint">${t('c.src.asName', { n: esc(s.sheetName) })}</small>` : ''}</div>
+    </div>`;
+  const body = s.source === 'ficha' ? `
+    <h4>${t('c.asTitle')}</h4>
+    <div class="solar4">
+      <div><b>${pct(s.shade)}</b><span>${t('c.as.shade')}</span></div>
+      <div><b>${pct(s.uvBlock)}</b><span>${t('c.as.uvBlock')}</span></div>
+      <div><b>${pct(s.cover)}</b><span>${t('c.as.cover')}</span></div>
+      <div><b>${pct(s.uvVisTrans)}</b><span>${t('c.as.light')}</span></div>
+    </div>
+    <table class="kv">
+      <tr><td>${t('c.as.uvTrans')}</td><td>${pct(s.uvTrans)}</td></tr>
+      <tr><td>UVE</td><td>${pct(s.uve)} · ${esc(s.category)}</td></tr>
+      ${s.Rs != null ? `<tr><td>${t('c.as.rs')}</td><td>${pct(s.Rs)}${s.measuredNote ? ` <small>(${esc(s.measuredNote)})</small>` : ''}</td></tr>` : ''}
+    </table>
+    <p class="hint">${t('c.asNote')}</p>` : `<p class="hint">${t('c.asNone')}</p>`;
+  return head + body + `
+    <div class="actions">
+      <a class="btn primary" href="#/velas?tejido=${encodeURIComponent(c.ref)}">${t('c.btnVelas')}</a>
+      <button data-act="print">${t('c.btnPrint')}</button>
+    </div>`;
+}
+
 function colorDetail(f, c) {
+  if (f.uses.includes('velas')) return shadeDetail(f, c);
   const s = c.solar, As = 1 - s.Ts - s.Rs;
   const extra = [
     ...(s.est?.includes('Tv') ? [t('c.src.estTv')] : []),

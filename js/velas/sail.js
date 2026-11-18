@@ -12,7 +12,10 @@ export { FABRICS };
  * del rollo). baja = tal como sale del rollo, sin fijar; estándar = clavado por los
  * extremos para que quede plano (1-2 %); alta = estirado con más fuerza (2-3 %).
  */
-export const PRETENSION = { low: 0, std: 1.5, high: 2.5 };
+// Pretensado al marcar (solo urdimbre; en trama apenas hay recorrido y no se descuenta).
+// Con el tejido clavado al marcar, la urdimbre se dibuja ~3 % (4 % − 1 %), como hace el sector.
+// 'high' queda solo para abrir proyectos antiguos.
+export const PRETENSION = { low: 0, std: 1, high: 1 };
 
 /** Compensación por defecto (urdimbre/trama, %): valor de referencia del sector (Mpanel). */
 export const DEFAULT_COMP = { warp: 4, weft: 2 };
@@ -49,6 +52,12 @@ function seamAngle(layout, corners) {
       corners.forEach((p, i) => { if (p[2] > corners[hi][2]) hi = i; if (p[2] < corners[lo][2]) lo = i; });
       const d = V.sub(corners[hi], corners[lo]);
       return Math.atan2(d[1], d[0]) + Math.PI / 2;
+    }
+    case 'recommended': {   // criterio de taller: hypar → torsión; si no, perpendicular al lado más largo
+      const zs = corners.map((p) => p[2] ?? 0);
+      let longest = 0;
+      for (let i = 0; i < n; i++) longest = Math.max(longest, edgeLen(i));
+      return seamAngle((Math.max(...zs) - Math.min(...zs)) / longest >= 0.1 ? 'hypar' : 'auto', corners);
     }
     default: {        // auto: minimiza el número de paños => perpendicular al lado más largo
       let best = 0;
@@ -109,7 +118,7 @@ export function computeSail(spec) {
   };
 
   let layout;
-  if (spec.panelLayout === 'optimo' || spec.panelLayout == null) {
+  if (spec.panelLayout === 'optimo') {          // solo por código: la app ya no lo ofrece
     const cands = [];
     for (let deg = 0; deg < 180; deg += 15) {
       try {

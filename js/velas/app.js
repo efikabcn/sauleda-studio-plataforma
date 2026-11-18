@@ -1,5 +1,6 @@
 // app.js — interfaz: entradas de obra, cálculo, vistas y exportación.
 import { computeSail, FABRICS, PRETENSION, recommendedCurve } from './sail.js';
+import { solveSite } from './geom.js';
 import { colorsFor, BRAND, COMMON } from './fabrics.js';
 import { createViewer } from './viewer.js';
 import { drawPlan, drawCutPlan } from './draw2d.js';
@@ -99,13 +100,14 @@ function buildInputs() {
   $$('#dims input,#heights input,#curves input,#hardwares input').forEach((el) => {
     el.addEventListener('change', () => {
       const k = el.dataset.k, i = +el.dataset.i, v = parseFloat(el.value) || 0;
-      if (k === 'checks') { state.checks[i] = el.value.trim() === '' ? null : toMM(v); return; }
+      if (k === 'checks') { state.checks[i] = el.value.trim() === '' ? null : toMM(v); autoCalc(); return; }
       state[k][i] = (k === 'curves') ? v : toMM(v);
       if (k === 'curves') { state.curveAuto = false; $('#curve-auto').checked = false; }
       if (k === 'edges' && state.curveAuto) {
         state.curves[i] = recommendedCurve(state.edges[i]);
         const c = $(`#curves input[data-i="${i}"]`); if (c) c.value = state.curves[i];
       }
+      autoCalc();
     });
   });
 }
@@ -191,7 +193,6 @@ function printSheet() {
 /* --------------------------------- cálculo --------------------------------- */
 
 function readSpec() {
-  const layout = $('#layout').value;
   return {
     n: state.n,
     edges: state.edges.slice(0, state.n),
@@ -208,10 +209,29 @@ function readSpec() {
     warpPct: parseFloat($('#warp-pct').value),
     weftPct: parseFloat($('#weft-pct').value),
     seam: parseFloat($('#seam').value) || 0,
-    panelLayout: layout === 'manual' ? 'fijo' : layout,
-    seamAngle: layout === 'manual' ? (parseFloat($('#seam-angle').value) * Math.PI) / 180 : undefined,
+    panelLayout: 'recommended',   // estrategia única (criterio de taller): no la elige el usuario
     quality: 'full',
   };
+}
+
+/** Cada cambio de medida recalcula (con una pequeña espera): así el estado de la
+ *  comprobación nunca se queda con el resultado de las medidas anteriores. */
+let calcTimer = null;
+function autoCalc() {
+  clearTimeout(calcTimer);
+  $('#dims-check').innerHTML = `<div class="alert warn">${t('vj.chkPending')}</div>`;
+  calcTimer = setTimeout(calculate, 450);
+}
+
+/** Cuadrilátero: valor de AC que haría cuadrar la BD medida (se resuelve empezando por B). */
+function altFirstDiagonal(spec) {
+  if (spec.n !== 4 || spec.checks[0] == null) return null;
+  const rot = (a) => [...a.slice(1), a[0]];
+  try {
+    const r = solveSite({ n: 4, edges: rot(spec.edges), heights: rot(spec.heights), mode: spec.mode,
+      diagonals: [spec.checks[0]], checks: [spec.diagonals[0]] });
+    return r.checks[0].expected;
+  } catch { return null; }
 }
 
 async function calculate() {
@@ -224,7 +244,11 @@ async function calculate() {
       // Las medidas no cuadran entre sí: no se deja seguir con un patrón que no encaja en obra.
       const u = (v) => `${fmt(v, state.unit === 'in' ? 2 : 0)} ${state.unit}`;
       const sgn = (v) => (v > 0 ? '+' : '') + u(v);
-      const list = bad.map((c) => t('vj.chkItem', { d: c.name, m: u(c.measured), e: u(c.expected), x: sgn(c.diff), t: u(Math.max(25, c.expected * 0.005)) })).join('. ');
+      const spec = readSpec();
+      const alt = altFirstDiagonal(spec);
+      const list = alt != null
+        ? t('vj.chkQuad', { ac: u(spec.diagonals[0]), bd: u(spec.checks[0]), bdE: u(bad[0].expected), acE: u(alt) })
+        : bad.map((c) => t('vj.chkItem', { d: c.name, m: u(c.measured), e: u(c.expected), x: sgn(c.diff), t: u(Math.max(25, c.expected * 0.005)) })).join('. ');
       throw new Error(t('vj.chkBad', { list }));
     }
     state.result = r;
@@ -536,7 +560,6 @@ function init() {
     buildInputs(); calculate();
   });
   $('#units').addEventListener('change', (e) => { state.unit = e.target.value; buildInputs(); });
-  $('#layout').addEventListener('change', (e) => { $('#angle-wrap').hidden = e.target.value !== 'manual'; });
   $('#btn-calc').addEventListener('click', calculate);
   $('#btn-sheet').addEventListener('click', printSheet);
   $('#curve-auto').addEventListener('change', (e) => { state.curveAuto = e.target.checked; buildInputs(); });
@@ -603,7 +626,7 @@ function init() {
 
   $('#btn-save').addEventListener('click', () => download(`${slug()}.json`, JSON.stringify({
     project: $('#proj-name').value, state: { ...state, result: null },
-    ui: { fabric: $('#fabric').value, hem: $('#hem').value, seam: $('#seam').value, layout: $('#layout').value, pretension: $('#pretension').value, lat: $('#lat').value, lon: $('#lon').value },
+    ui: { fabric: $('#fabric').value, hem: $('#hem').value, seam: $('#seam').value, pretension: $('#pretension').value, lat: $('#lat').value, lon: $('#lon').value },
   }, null, 2), 'application/json'));
 
   $('#file-open').addEventListener('change', async (e) => {
@@ -614,7 +637,10 @@ function init() {
     if (state.curveAuto == null) state.curveAuto = false;
     $('#proj-name').value = d.project || '';
     $('#npoints').value = state.n;
-    for (const [k, v] of Object.entries(d.ui || {})) { const el = $('#' + k); if (el) el.value = v; }
+    const ui = { ...(d.ui || {}) };
+    delete ui.layout;                                          // ya no se elige la estrategia de costura
+    if (ui.pretension === 'high') ui.pretension = 'std';       // el nivel «alta» desapareció (nov-2026)
+    for (const [k, v] of Object.entries(ui)) { const el = $('#' + k); if (el) el.value = v; }
     buildInputs(); calculate();
   });
 
@@ -639,7 +665,8 @@ function solarKpi() {
   const out = [[uv != null ? t('vj.kBlocked') : `${t('vj.kBlocked')} (${t('vj.pending')})`, uv != null ? pct(uv) : '—']];
   if (shade != null) {
     out.push([t('vj.kLight') + (s.shade != null ? '' : est), pct(shade)]);
-    out.push([t('vj.kVisible') + (s.shade != null ? '' : est), `${Math.round((1 - shade) * 100)} %`]);
+    const vis = s.uvVisTrans ?? 1 - shade;
+    out.push([t('vj.kVisible') + (s.shade != null ? '' : est), `${Math.round(vis * 100)} %`]);
   }
   return out;
 }
