@@ -57,7 +57,7 @@
       "sheetName": "White",
       "cover": 0.93,
       "openness": 0.07,
-      "shade": 0.7390000000000001,
+      "shade": 0.739,
       "uvVisTrans": 0.261,
       "uvTrans": 0.071,
       "uvBlock": 0.929,
@@ -77,9 +77,9 @@
       "cover": 0.93,
       "openness": 0.07,
       "shade": 0.762,
-      "uvVisTrans": 0.23800000000000002,
+      "uvVisTrans": 0.238,
       "uvTrans": 0.069,
-      "uvBlock": 0.9309999999999999,
+      "uvBlock": 0.931,
       "uve": 0.92,
       "category": "Very Effective",
       "Rs": 0.555,
@@ -124,8 +124,8 @@
       "sheetName": "Yellow",
       "cover": 0.95,
       "openness": 0.05,
-      "shade": 0.7759999999999999,
-      "uvVisTrans": 0.22399999999999998,
+      "shade": 0.776,
+      "uvVisTrans": 0.224,
       "uvTrans": 0.045,
       "uvBlock": 0.955,
       "uve": 0.94,
@@ -148,9 +148,9 @@
       "sheetName": "Deep Ochre",
       "cover": 0.94,
       "openness": 0.06,
-      "shade": 0.9279999999999999,
-      "uvVisTrans": 0.07200000000000001,
-      "uvTrans": 0.054000000000000006,
+      "shade": 0.928,
+      "uvVisTrans": 0.072,
+      "uvTrans": 0.054,
       "uvBlock": 0.946,
       "uve": 0.93,
       "category": "Very Effective",
@@ -172,7 +172,7 @@
       "sheetName": "Bright Green",
       "cover": 0.92,
       "openness": 0.08,
-      "shade": 0.8859999999999999,
+      "shade": 0.886,
       "uvVisTrans": 0.114,
       "uvTrans": 0.075,
       "uvBlock": 0.925,
@@ -193,7 +193,7 @@
       "cover": 0.95,
       "openness": 0.05,
       "shade": 0.912,
-      "uvVisTrans": 0.08800000000000001,
+      "uvVisTrans": 0.088,
       "uvTrans": 0.047,
       "uvBlock": 0.953,
       "uve": 0.95,
@@ -249,7 +249,18 @@
      "name": "Royal Purple",
      "hex": "#3D225E",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial 95 · product profile Rev.16 (05/2019)",
+      "sheetName": "Royal Purple",
+      "cover": 0.91,
+      "openness": 0.09,
+      "shade": 0.877,
+      "uvVisTrans": 0.123,
+      "uvTrans": 0.089,
+      "uvBlock": 0.911,
+      "uve": 0.91,
+      "category": "Very Effective"
      }
     },
     {
@@ -264,9 +275,9 @@
       "cover": 0.92,
       "openness": 0.08,
       "shade": 0.856,
-      "uvVisTrans": 0.14400000000000002,
-      "uvTrans": 0.08900000000000001,
-      "uvBlock": 0.9109999999999999,
+      "uvVisTrans": 0.144,
+      "uvTrans": 0.089,
+      "uvBlock": 0.911,
       "uve": 0.91,
       "category": "Very Effective",
       "Rs": 0.17,
@@ -287,10 +298,10 @@
       "sheetName": "Navy Blue",
       "cover": 0.94,
       "openness": 0.06,
-      "shade": 0.9359999999999999,
+      "shade": 0.936,
       "uvVisTrans": 0.064,
-      "uvTrans": 0.055999999999999994,
-      "uvBlock": 0.9440000000000001,
+      "uvTrans": 0.056,
+      "uvBlock": 0.944,
       "uve": 0.93,
       "category": "Very Effective",
       "Rs": 0.045,
@@ -311,8 +322,8 @@
       "sheetName": "Orange",
       "cover": 0.93,
       "openness": 0.07,
-      "shade": 0.8059999999999999,
-      "uvVisTrans": 0.19399999999999998,
+      "shade": 0.806,
+      "uvVisTrans": 0.194,
       "uvTrans": 0.06,
       "uvBlock": 0.94,
       "uve": 0.93,
@@ -324,7 +335,18 @@
      "name": "Cayenne",
      "hex": "#A03D33",
      "solar": {
-      "source": "pendiente",
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial 95 · product profile Rev.16 (05/2019)",
+      "sheetName": "Cayenne",
+      "cover": 0.92,
+      "openness": 0.08,
+      "shade": 0.853,
+      "uvVisTrans": 0.147,
+      "uvTrans": 0.076,
+      "uvBlock": 0.924,
+      "uve": 0.91,
+      "category": "Very Effective",
       "Rs": 0.31,
       "measured": [
        "Rs"
@@ -344,8 +366,8 @@
       "cover": 0.91,
       "openness": 0.09,
       "shade": 0.784,
-      "uvVisTrans": 0.21600000000000003,
-      "uvTrans": 0.08800000000000001,
+      "uvVisTrans": 0.216,
+      "uvTrans": 0.088,
       "uvBlock": 0.912,
       "uve": 0.91,
       "category": "Very Effective",
@@ -418,15 +440,14 @@
       "shade": 0.938,
       "uvVisTrans": 0.062,
       "uvTrans": 0.053,
-      "uvBlock": 0.9470000000000001,
+      "uvBlock": 0.947,
       "uve": 0.93,
       "category": "Very Effective",
       "Rs": 0.049,
       "measured": [
        "Rs"
       ],
-      "measuredNote": "Norma ASTM C 1549-16",
-      "nameAssumed": true
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -444,7 +465,7 @@
       "shade": 0.9,
       "uvVisTrans": 0.1,
       "uvTrans": 0.051,
-      "uvBlock": 0.9490000000000001,
+      "uvBlock": 0.949,
       "uve": 0.94,
       "category": "Very Effective"
      }
@@ -514,8 +535,7 @@
       "measured": [
        "Rs"
       ],
-      "measuredNote": "Norma ASTM C 1549-16",
-      "nameAssumed": true
+      "measuredNote": "Norma ASTM C 1549-16"
      }
     },
     {
@@ -529,7 +549,7 @@
       "sheetName": "Charcoal",
       "cover": 0.93,
       "openness": 0.07,
-      "shade": 0.9309999999999999,
+      "shade": 0.931,
       "uvVisTrans": 0.069,
       "uvTrans": 0.066,
       "uvBlock": 0.934,
@@ -554,8 +574,8 @@
       "cover": 0.94,
       "openness": 0.06,
       "shade": 0.946,
-      "uvVisTrans": 0.054000000000000006,
-      "uvTrans": 0.052000000000000005,
+      "uvVisTrans": 0.054,
+      "uvTrans": 0.052,
       "uvBlock": 0.948,
       "uve": 0.93,
       "category": "Very Effective",
@@ -564,6 +584,25 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
+     }
+    },
+    {
+     "ref": "7917",
+     "name": "Cedar",
+     "hex": "#7A5A44",
+     "solar": {
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial 95 · product profile Rev.16 (05/2019)",
+      "sheetName": "Cedar",
+      "cover": 0.93,
+      "openness": 0.07,
+      "shade": 0.873,
+      "uvVisTrans": 0.127,
+      "uvTrans": 0.064,
+      "uvBlock": 0.936,
+      "uve": 0.93,
+      "category": "Very Effective"
      }
     }
    ],
@@ -594,7 +633,7 @@
    "roll_mm": 3000,
    "rollLength_m": 40,
    "warranty_y": 12,
-   "fire": "Ignífugo · NFPA 701 (partes 1 y 2), CSFM 1237.1 · Euroclase EN 13501-1 B-s1,d0 · UNE-EN 15619 T2",
+   "fire": "Ignífugo · Euroclase EN 13501-1 B-s1,d0 · DIN 4102-1 B1 · NFPA 701 (métodos 1 y 2) · CSFM 1237.1 · ASTM E84 clase A · NF P92-507 M1 · UNE-EN 15619 T2",
    "certs": [
     "Greenguard",
     "Oeko-Tex",
@@ -604,18 +643,18 @@
    "tempRange": "-30 °C a +70 °C",
    "mech": {
     "tensile": {
-     "warp": 580,
+     "warp": 590,
      "weft": 2000
     },
     "tear": {
-     "warp": 194,
-     "weft": 282
+     "warp": 189,
+     "weft": 295
     },
     "burst": {
-     "warp": 930,
-     "weft": 2000
+     "warp": 940,
+     "weft": 2100
     },
-    "burstPressure": 1944
+    "burstPressure": 1994
    },
    "patterning": {
     "warp": 4,
@@ -631,13 +670,13 @@
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
-      "doc": "GALE Pacific · Commercial NinetyFive 340 FR · ficha técnica Rev.4 (11/2025)",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
       "sheetName": "White",
       "cover": 0.95,
       "openness": 0.05,
       "shade": 0.765,
       "uvVisTrans": 0.235,
-      "uvTrans": 0.054000000000000006,
+      "uvTrans": 0.054,
       "uvBlock": 0.946,
       "uve": 0.94,
       "category": "Very Effective"
@@ -650,11 +689,11 @@
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
-      "doc": "GALE Pacific · Commercial NinetyFive 340 FR · ficha técnica Rev.4 (11/2025)",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
       "sheetName": "Natural",
       "cover": 0.94,
       "openness": 0.06,
-      "shade": 0.7829999999999999,
+      "shade": 0.783,
       "uvVisTrans": 0.217,
       "uvTrans": 0.065,
       "uvBlock": 0.935,
@@ -669,7 +708,7 @@
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
-      "doc": "GALE Pacific · Commercial NinetyFive 340 FR · ficha técnica Rev.4 (11/2025)",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
       "sheetName": "Desert Sand",
       "cover": 0.93,
       "openness": 0.07,
@@ -688,7 +727,7 @@
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
-      "doc": "GALE Pacific · Commercial NinetyFive 340 FR · ficha técnica Rev.4 (11/2025)",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
       "sheetName": "Yellow",
       "cover": 0.93,
       "openness": 0.07,
@@ -707,7 +746,7 @@
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
-      "doc": "GALE Pacific · Commercial NinetyFive 340 FR · ficha técnica Rev.4 (11/2025)",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
       "sheetName": "Deep Ochre",
       "cover": 0.91,
       "openness": 0.09,
@@ -726,11 +765,11 @@
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
-      "doc": "GALE Pacific · Commercial NinetyFive 340 FR · ficha técnica Rev.4 (11/2025)",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
       "sheetName": "Sky Blue",
       "cover": 0.94,
       "openness": 0.06,
-      "shade": 0.9129999999999999,
+      "shade": 0.913,
       "uvVisTrans": 0.087,
       "uvTrans": 0.06,
       "uvBlock": 0.94,
@@ -745,12 +784,12 @@
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
-      "doc": "GALE Pacific · Commercial NinetyFive 340 FR · ficha técnica Rev.4 (11/2025)",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
       "sheetName": "Aquatic Blue",
       "cover": 0.92,
       "openness": 0.08,
-      "shade": 0.8809999999999999,
-      "uvVisTrans": 0.11900000000000001,
+      "shade": 0.881,
+      "uvVisTrans": 0.119,
       "uvTrans": 0.085,
       "uvBlock": 0.915,
       "uve": 0.91,
@@ -762,7 +801,18 @@
      "name": "Cayenne",
      "hex": "#A03D33",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
+      "sheetName": "Cayenne",
+      "cover": 0.93,
+      "openness": 0.07,
+      "shade": 0.873,
+      "uvVisTrans": 0.127,
+      "uvTrans": 0.067,
+      "uvBlock": 0.933,
+      "uve": 0.92,
+      "category": "Very Effective"
      }
     },
     {
@@ -772,7 +822,7 @@
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
-      "doc": "GALE Pacific · Commercial NinetyFive 340 FR · ficha técnica Rev.4 (11/2025)",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
       "sheetName": "Cherry Red",
       "cover": 0.9,
       "openness": 0.1,
@@ -791,12 +841,12 @@
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
-      "doc": "GALE Pacific · Commercial NinetyFive 340 FR · ficha técnica Rev.4 (11/2025)",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
       "sheetName": "Rivergum Green",
       "cover": 0.94,
       "openness": 0.06,
       "shade": 0.897,
-      "uvVisTrans": 0.10300000000000001,
+      "uvVisTrans": 0.103,
       "uvTrans": 0.06,
       "uvBlock": 0.94,
       "uve": 0.93,
@@ -810,12 +860,12 @@
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
-      "doc": "GALE Pacific · Commercial NinetyFive 340 FR · ficha técnica Rev.4 (11/2025)",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
       "sheetName": "Steel Grey",
       "cover": 0.92,
       "openness": 0.08,
       "shade": 0.897,
-      "uvVisTrans": 0.10300000000000001,
+      "uvVisTrans": 0.103,
       "uvTrans": 0.076,
       "uvBlock": 0.924,
       "uve": 0.91,
@@ -829,7 +879,7 @@
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
-      "doc": "GALE Pacific · Commercial NinetyFive 340 FR · ficha técnica Rev.4 (11/2025)",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
       "sheetName": "Gun Metal",
       "cover": 0.96,
       "openness": 0.04,
@@ -838,15 +888,33 @@
       "uvTrans": 0.035,
       "uvBlock": 0.965,
       "uve": 0.96,
-      "category": "Most Effective",
-      "nameAssumed": true
+      "category": "Most Effective"
+     }
+    },
+    {
+     "ref": "FR77224",
+     "name": "Driftwood",
+     "hex": "#B4B0AB",
+     "solar": {
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial NinetyFive FR · product profile 2026",
+      "sheetName": "Driftwood",
+      "cover": 0.95,
+      "openness": 0.05,
+      "shade": 0.89,
+      "uvVisTrans": 0.11,
+      "uvTrans": 0.054,
+      "uvBlock": 0.946,
+      "uve": 0.94,
+      "category": "Very Effective"
      }
     }
    ],
    "en": {
     "material": "UV-stabilized knitted HDPE",
     "construction": "Monofilament / tape",
-    "fire": "Flame retardant · NFPA 701 (parts 1 and 2), CSFM 1237.1 · Euroclass EN 13501-1 B-s1,d0 · UNE-EN 15619 T2",
+    "fire": "Flame retardant · Euroclass EN 13501-1 B-s1,d0 · DIN 4102-1 B1 · NFPA 701 (methods 1 and 2) · CSFM 1237.1 · ASTM E84 class A · NF P92-507 M1 · UNE-EN 15619 T2",
     "tempRange": "-22 °F to +158 °F (-30 °C to +70 °C)",
     "certs": [
      "Greenguard",
@@ -905,7 +973,18 @@
      "name": "White",
      "hex": "#DAD7D0",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial Heavy 430 · ficha técnica Rev.3 (11/2024)",
+      "sheetName": "White",
+      "cover": 0.86,
+      "openness": 0.14,
+      "shade": 0.69,
+      "uvVisTrans": 0.31,
+      "uvTrans": 0.134,
+      "uvBlock": 0.866,
+      "uve": 0.86,
+      "category": "Effective"
      }
     },
     {
@@ -913,7 +992,18 @@
      "name": "Natural",
      "hex": "#D9CBA8",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial Heavy 430 · ficha técnica Rev.3 (11/2024)",
+      "sheetName": "Natural",
+      "cover": 0.88,
+      "openness": 0.12,
+      "shade": 0.739,
+      "uvVisTrans": 0.261,
+      "uvTrans": 0.121,
+      "uvBlock": 0.879,
+      "uve": 0.87,
+      "category": "Effective"
      }
     },
     {
@@ -921,7 +1011,18 @@
      "name": "Desert Sand",
      "hex": "#C6A470",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial Heavy 430 · ficha técnica Rev.3 (11/2024)",
+      "sheetName": "Desert Sand",
+      "cover": 0.85,
+      "openness": 0.15,
+      "shade": 0.79,
+      "uvVisTrans": 0.21,
+      "uvTrans": 0.141,
+      "uvBlock": 0.859,
+      "uve": 0.85,
+      "category": "Effective"
      }
     },
     {
@@ -929,7 +1030,18 @@
      "name": "Steel Grey",
      "hex": "#545455",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial Heavy 430 · ficha técnica Rev.3 (11/2024)",
+      "sheetName": "Steel Grey",
+      "cover": 0.86,
+      "openness": 0.14,
+      "shade": 0.855,
+      "uvVisTrans": 0.145,
+      "uvTrans": 0.135,
+      "uvBlock": 0.865,
+      "uve": 0.86,
+      "category": "Effective"
      }
     }
    ],
@@ -996,7 +1108,18 @@
      "hex": "#AF613A",
      "hex2": "#608B3F",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial DualShade 350 · ficha técnica Rev.1 (11/2024)",
+      "sheetName": "Citrus",
+      "cover": 0.91,
+      "openness": 0.09,
+      "shade": 0.87,
+      "uvVisTrans": 0.13,
+      "uvTrans": 0.081,
+      "uvBlock": 0.919,
+      "uve": 0.91,
+      "category": "Very Effective"
      }
     },
     {
@@ -1005,7 +1128,18 @@
      "hex": "#DF4F31",
      "hex2": "#EF972A",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial DualShade 350 · ficha técnica Rev.1 (11/2024)",
+      "sheetName": "Sunburst",
+      "cover": 0.91,
+      "openness": 0.09,
+      "shade": 0.752,
+      "uvVisTrans": 0.248,
+      "uvTrans": 0.094,
+      "uvBlock": 0.906,
+      "uve": 0.91,
+      "category": "Very Effective"
      }
     },
     {
@@ -1014,7 +1148,18 @@
      "hex": "#506B63",
      "hex2": "#CFA13B",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial DualShade 350 · ficha técnica Rev.1 (11/2024)",
+      "sheetName": "Macaw",
+      "cover": 0.92,
+      "openness": 0.08,
+      "shade": 0.833,
+      "uvVisTrans": 0.167,
+      "uvTrans": 0.093,
+      "uvBlock": 0.907,
+      "uve": 0.9,
+      "category": "Effective"
      }
     },
     {
@@ -1023,7 +1168,18 @@
      "hex": "#575362",
      "hex2": "#368B4B",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial DualShade 350 · ficha técnica Rev.1 (11/2024)",
+      "sheetName": "Chameleon",
+      "cover": 0.9,
+      "openness": 0.1,
+      "shade": 0.864,
+      "uvVisTrans": 0.136,
+      "uvTrans": 0.097,
+      "uvBlock": 0.903,
+      "uve": 0.91,
+      "category": "Very Effective"
      }
     },
     {
@@ -1032,7 +1188,18 @@
      "hex": "#1E716A",
      "hex2": "#278F55",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial DualShade 350 · ficha técnica Rev.1 (11/2024)",
+      "sheetName": "Topaz",
+      "cover": 0.92,
+      "openness": 0.08,
+      "shade": 0.858,
+      "uvVisTrans": 0.142,
+      "uvTrans": 0.094,
+      "uvBlock": 0.906,
+      "uve": 0.9,
+      "category": "Effective"
      }
     },
     {
@@ -1041,7 +1208,18 @@
      "hex": "#36553D",
      "hex2": "#2B8C44",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial DualShade 350 · ficha técnica Rev.1 (11/2024)",
+      "sheetName": "Amazonia",
+      "cover": 0.92,
+      "openness": 0.08,
+      "shade": 0.911,
+      "uvVisTrans": 0.089,
+      "uvTrans": 0.076,
+      "uvBlock": 0.924,
+      "uve": 0.91,
+      "category": "Very Effective"
      }
     },
     {
@@ -1050,7 +1228,18 @@
      "hex": "#D89A74",
      "hex2": "#E5D6C7",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial DualShade 350 · ficha técnica Rev.1 (11/2024)",
+      "sheetName": "Savanna",
+      "cover": 0.92,
+      "openness": 0.08,
+      "shade": 0.801,
+      "uvVisTrans": 0.199,
+      "uvTrans": 0.077,
+      "uvBlock": 0.923,
+      "uve": 0.91,
+      "category": "Very Effective"
      }
     },
     {
@@ -1059,7 +1248,18 @@
      "hex": "#7B756F",
      "hex2": "#A39488",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial DualShade 350 · ficha técnica Rev.1 (11/2024)",
+      "sheetName": "Cobblestone",
+      "cover": 0.93,
+      "openness": 0.07,
+      "shade": 0.903,
+      "uvVisTrans": 0.097,
+      "uvTrans": 0.064,
+      "uvBlock": 0.936,
+      "uve": 0.93,
+      "category": "Very Effective"
      }
     },
     {
@@ -1068,7 +1268,18 @@
      "hex": "#7F614E",
      "hex2": "#BA9672",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial DualShade 350 · ficha técnica Rev.1 (11/2024)",
+      "sheetName": "Gold Rush",
+      "cover": 0.91,
+      "openness": 0.09,
+      "shade": 0.883,
+      "uvVisTrans": 0.117,
+      "uvTrans": 0.085,
+      "uvBlock": 0.915,
+      "uve": 0.9,
+      "category": "Effective"
      }
     },
     {
@@ -1077,7 +1288,18 @@
      "hex": "#8C9FA5",
      "hex2": "#D0D3CF",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial DualShade 350 · ficha técnica Rev.1 (11/2024)",
+      "sheetName": "Capri",
+      "cover": 0.92,
+      "openness": 0.08,
+      "shade": 0.839,
+      "uvVisTrans": 0.161,
+      "uvTrans": 0.079,
+      "uvBlock": 0.921,
+      "uve": 0.91,
+      "category": "Very Effective"
      }
     },
     {
@@ -1086,7 +1308,18 @@
      "hex": "#4D91B9",
      "hex2": "#CFD7D9",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial DualShade 350 · ficha técnica Rev.1 (11/2024)",
+      "sheetName": "Santorini",
+      "cover": 0.93,
+      "openness": 0.07,
+      "shade": 0.833,
+      "uvVisTrans": 0.167,
+      "uvTrans": 0.078,
+      "uvBlock": 0.922,
+      "uve": 0.92,
+      "category": "Very Effective"
      }
     },
     {
@@ -1095,7 +1328,18 @@
      "hex": "#2A827C",
      "hex2": "#556966",
      "solar": {
-      "source": "pendiente"
+      "source": "ficha",
+      "std": "AS 4174:2018",
+      "doc": "GALE Pacific · Commercial DualShade 350 · ficha técnica Rev.1 (11/2024)",
+      "sheetName": "Maldives",
+      "cover": 0.91,
+      "openness": 0.09,
+      "shade": 0.884,
+      "uvVisTrans": 0.116,
+      "uvTrans": 0.091,
+      "uvBlock": 0.909,
+      "uve": 0.9,
+      "category": "Effective"
      }
     }
    ],

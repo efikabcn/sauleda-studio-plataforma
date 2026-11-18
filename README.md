@@ -125,9 +125,10 @@ python3 tools/build_single.py   # → dist/Sauleda-Studio.html (~3,5 MB)
 - Sin cálculo de viento; postes verticales o con la cabeza 10° hacia fuera.
 - Resultados y ficha de color: **AS 4174:2018** de las fichas de GALE Pacific (factor de sombra,
   bloqueo UVR, cobertura, UVE), cargados con `python3 tools/import_as4174.py --escribir`. Ts/Rs/Tv
-  (EN 410/14500) no se aplican a velas, así que las velas ya no aparecen en Solar. Hay datos de
-  Commercial 95 y 95 FR; faltan Heavy 430, DualShade 350, Royal Purple y Cayenne. «Green» = Brunswick
-  Green y «Metal» = Gun Metal están supuestos por el nombre.
+  (EN 410/14500) no se aplican a velas, así que las velas ya no aparecen en Solar. Están los 54
+  colores de Commercial 95, 95 FR, Heavy 430 y DualShade 350 (Royal Purple, Cayenne y Cedar del 95,
+  de la ficha de 2019). «Green» = Brunswick Green y «Metal» = Gun Metal, confirmado por GALE. Heavy 430:
+  Sauleda solo tiene en stock White, Natural, Desert Sand y Steel Grey.
 - **Antes de comercializarlo** hay que validar los patrones con un patronista o un despacho de
   arquitectura textil, contra velas reales.
 
