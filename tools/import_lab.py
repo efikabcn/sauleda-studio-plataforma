@@ -326,11 +326,24 @@ def main():
         f = by_fam.get(fid)
         if not f or any(s.startswith(fid + " ") for s in new_fams):
             continue
+        # En las familias originales (con textos en inglés revisados a mano) los textos no se tocan;
+        # en las que dio de alta el laboratorio (labId), sí.
+        texts = ("material", "construction", "lightfast")
         upd = {k: v for k, v in fam_values(fr).items()
-               if k not in ("material", "construction", "lightfast") and v != f.get(k)}
+               if (f.get("labId") or k not in texts) and v != f.get(k)}
+        if f.get("labId"):
+            note = as_text(fr.get("notes"))
+            if note != f.get("notes", ""):
+                upd["notes"] = note
         if upd:
             fam_changes.append(f"{fid}: " + " · ".join(f"{k} {f.get(k)}→{v}" for k, v in upd.items()))
             f.update(upd)
+            if not f.get("notes"):
+                f.pop("notes", None)
+            if f.get("labId"):
+                f.setdefault("en", {}).update({k: to_en(f[k]) for k in ("material", "fire") if f.get(k)})
+                if f.get("construction"):
+                    f["en"]["construction"] = f["construction"].replace("Monofilamento", "Monofilament")
     empty = [fid for fid in fam_rows if fid not in by_fam]
 
     # 4) Los genéricos se retiran cuando hay artículos reales del mismo uso

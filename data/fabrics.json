@@ -1,5 +1,5 @@
 {
- "version": "2026-11-17",
+ "version": "2026-11-18",
  "note": "Datos solares ESTIMADOS (por luminancia del color o valores típicos de mercado). Sustituir por ensayos EN 14500 / EN 410 con tools/import_lab.py.",
  "families": [
   {
@@ -1147,9 +1147,10 @@
    "en": {
     "material": "30 % polyester, 70 % PVC",
     "fire": "Clase 1 EN 13773:2003 · M1 NF P92-507:2004",
-    "useLabel": "Roller blinds"
+    "useLabel": "Roller blinds",
+    "construction": "Monofilament 2x2"
    },
-   "notes": "Datos tomados de la lámina Screen 30 V0925."
+   "construction": "Monofilamento 2x2"
   },
   {
    "id": "screen-30-1",
@@ -1341,9 +1342,10 @@
    "en": {
     "material": "30 % polyester, 70 % PVC",
     "fire": "Clase 1 EN 13773:2003 · M1 NF P92-507:2004",
-    "useLabel": "Roller blinds"
+    "useLabel": "Roller blinds",
+    "construction": "Monofilament 2x2"
    },
-   "notes": "Datos tomados de la lámina Screen 30 V0925."
+   "construction": "Monofilamento 2x2"
   },
   {
    "id": "screen-30-metal-2",
@@ -1403,8 +1405,16 @@
    ],
    "useLabel": "Cortinas enrollables",
    "en": {
-    "useLabel": "Roller blinds"
-   }
+    "useLabel": "Roller blinds",
+    "material": "30 % polyester, 70 % PVC",
+    "fire": "Clase 1 EN 13773:2003",
+    "construction": "Monofilament 2x2"
+   },
+   "warranty_y": 5,
+   "material": "30 % poliéster, 70 % PVC",
+   "construction": "Monofilamento 2x2",
+   "fire": "Clase 1 EN 13773:2003",
+   "lightfast": "5/5"
   },
   {
    "id": "screen-glass",
@@ -1492,9 +1502,10 @@
    "en": {
     "material": "29 % fibreglass, 71 % PVC",
     "fire": "Clase 1 EN 13773:2003",
-    "useLabel": "Roller blinds"
+    "useLabel": "Roller blinds",
+    "construction": "Monofilament 2x2"
    },
-   "notes": "Datos tomados de la lámina Screen Glass V0425."
+   "construction": "Monofilamento 2x2"
   },
   {
    "id": "screen-50",
@@ -1669,9 +1680,10 @@
    "en": {
     "material": "81 % PVC, 19 % polyester",
     "fire": "M1 NF P92-503/507 · NFPA 701",
-    "useLabel": "Roller blinds"
+    "useLabel": "Roller blinds",
+    "construction": "Monofilament 2x2"
    },
-   "notes": "Datos tomados de la lámina Sauleda Screen 50 V0123. La ficha indica ancho 250 cm, pero también hay referencias de 300 cm."
+   "construction": "Monofilamento 2x2"
   },
   {
    "id": "screen-60",
@@ -1846,9 +1858,10 @@
    "en": {
     "material": "83 % PVC, 17 % polyester",
     "fire": "M1 NF P92-503/507 · NFPA 701",
-    "useLabel": "Outdoor blinds"
+    "useLabel": "Outdoor blinds",
+    "construction": "Monofilament"
    },
-   "notes": "Datos tomados de la lámina Sauleda Screen 60 V0123. La ficha indica ancho 250 cm, pero también hay referencias de 300 cm."
+   "construction": "Monofilamento"
   },
   {
    "id": "screen-fiberglass-60",
@@ -2034,9 +2047,10 @@
    "en": {
     "material": "36 % fibreglass, 64 % PVC",
     "fire": "M1 NF P92-503 · FR NFPA 701",
-    "useLabel": "Zip screens"
+    "useLabel": "Zip screens",
+    "construction": "Monofilament"
    },
-   "notes": "Datos tomados de la lámina Screen Fiberglass 60 V0425. Garantía: «hasta 10 años»."
+   "construction": "Monofilamento"
   },
   {
    "id": "screen-40",
@@ -2180,8 +2194,19 @@
    ],
    "useLabel": "Cortinas Enrollables",
    "en": {
-    "useLabel": "Cortinas Enrollables"
-   }
+    "useLabel": "Cortinas Enrollables",
+    "material": "30 % polyester, 70 % PVC",
+    "fire": "Clase 1 EN 13773:2003",
+    "construction": "Monofilament 2x2"
+   },
+   "gsm": 423,
+   "thickness_mm": 0.57,
+   "warranty_y": 5,
+   "roll_mm": 3000,
+   "material": "30 % poliéster, 70 % PVC",
+   "construction": "Monofilamento 2x2",
+   "fire": "Clase 1 EN 13773:2003",
+   "lightfast": "8"
   },
   {
    "id": "screen-30-clarity-10",
@@ -2211,9 +2236,19 @@
    ],
    "useLabel": "Cortinas enrollables",
    "en": {
-    "useLabel": "Roller blinds"
+    "useLabel": "Roller blinds",
+    "material": "30 % polyester, 70 % PVC",
+    "fire": "Clase 1 EN 13773:2003",
+    "construction": "Monofilament 2x2"
    },
-   "notes": "Familia añadida para Clarity Stone 10 % (77517). Sin ficha técnica de familia todavía."
+   "gsm": 410,
+   "thickness_mm": 0.54,
+   "warranty_y": 5,
+   "roll_mm": 3000,
+   "material": "30 % poliéster, 70 % PVC",
+   "construction": "Monofilamento 2x2",
+   "fire": "Clase 1 EN 13773:2003",
+   "lightfast": "5/5"
   }
  ]
 }

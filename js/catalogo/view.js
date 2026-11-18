@@ -106,7 +106,7 @@ function renderFicha() {
     ['c.use', familyText(f, 'useLabel', lang)],
     ['c.material', familyText(f, 'material', lang)], ['c.construction', familyText(f, 'construction', lang)],
     ['c.gsm', f.gsm && q('gsm', f.gsm, imperial() ? 1 : 0)],
-    ['c.thickness', f.thickness_mm && q('mm', f.thickness_mm, imperial() ? 3 : 1)],
+    ['c.thickness', f.thickness_mm && q('mm', f.thickness_mm, imperial() ? 3 : f.thickness_mm < 1 ? 2 : 1)],
     ['c.roll', f.roll_mm && roll(f)],
     ['c.tensile', f.mech && pair('n5', f.mech.tensile)],
     ['c.tear', f.mech && pair('newton', f.mech.tear)],
