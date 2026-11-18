@@ -21,7 +21,7 @@ CATALOG = ROOT / "data" / "fabrics.json"
 C95_NAMES = {
     "orange": "Orange", "royal purple": "Royal Purple", "bluebird": "Bluebird", "driftwood": "Driftwood",
     "aquamarine": "Aquamarine", "stone": "Stone", "yellow": "Yellow", "white": "White",
-    "turquoise": "Turquoise", "steel grey": "Steel", "sky blue": "Sky", "rivergum": "Rivergum",
+    "turquoise": "Turquoise", "aquatic blue": "Aquatic", "steel grey": "Steel", "sky blue": "Sky", "rivergum": "Rivergum",
     "navy blue": "Navy", "natural": "Natural", "gun metal": "Metal", "desert sand": "Sand",
     "deep ochre": "Ochre", "cherry red": "Red", "charcoal": "Charcoal", "cayenne": "Cayenne",
     "brunswick green": "Green", "black": "Black", "bright green": "Bright Green",

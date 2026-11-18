@@ -276,7 +276,7 @@
     {
      "ref": "7910",
      "name": "Aquatic",
-     "hex": "#0A336E",
+     "hex": "#04265F",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -295,7 +295,8 @@
        "Rs"
       ],
       "measuredNote": "Norma ASTM C 1549-16"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "7905",
@@ -790,7 +791,7 @@
     {
      "ref": "FR7910",
      "name": "Aquatic",
-     "hex": "#0A336E",
+     "hex": "#04265F",
      "solar": {
       "source": "ficha",
       "std": "AS 4174:2018",
@@ -804,7 +805,8 @@
       "uvBlock": 0.915,
       "uve": 0.91,
       "category": "Very Effective"
-     }
+     },
+     "hexSource": "foto GALE Pacific (nov-2026)"
     },
     {
      "ref": "FR7914",
